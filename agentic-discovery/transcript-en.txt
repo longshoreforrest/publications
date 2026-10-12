@@ -1,0 +1,761 @@
+# Agentic Search & Agentic Discovery — the combined deck, narrated
+
+The English version of the combined deck, explained slide by slide. 59:30. Synthetic narration (Kokoro af_heart).
+
+## 0:00 · Agentic Search and Agentic Discovery
+
+Welcome to Agentic Search and Agentic Discovery. How is agentic search defined, and how does the same agency reshape the upstream of product development?
+
+We go from vision to spec, across about two hundred and twenty sources, with the human in the loop.
+
+## 0:17 · Six layers where agents act
+
+Here is the map. Agents now act on six layers above the code: vision and ideation, market and customer, strategy, roadmap, design, and finally requirements and spec. Each already has its own agentic literature.
+
+Two things run through every layer. A human validation gate decides what is accepted. And at the bottom sits the probe from the Agentic Discovery paper, a stakeholder-runnable candidate solution. The layers themselves extend the paper's vision-to-features hierarchy with market, design and spec.
+
+## 0:51 · A joint search
+
+The paper gives us a formal frame for all of this. On one side is the problem space, where we discover and define. On the other is the solution space, where we develop and deliver. Between them runs a seam, and a probe crosses it to bring back observations.
+
+In symbols, a fit function φ scores each problem and solution pair. We maximise fit weighted by our belief π(p), and each observation updates that belief by Bayes' rule. Building now costs about as much as understanding. The deck asks which agents produce these pieces on each layer.
+
+## 1:25 · Every layer is a decision process
+
+To compare layers, the deck uses one common model, our own synthesis. Each layer is its own decision process, and the agent's policy is conditioned on the artefact from the layer above. An artefact counts as accepted only when a human validation gate says so.
+
+The state is the layer's context: its goal, its constraints and the upstream artefact. The actions are search, simulate, generate, evaluate, and ask the human. The output is an artefact, such as a persona, a need list, a strategy, a roadmap, a mockup or a spec.
+
+## 1:58 · Part zero: the paper
+
+Part zero is the paper itself. Agentic Discovery and Engineering, by Tapio Pitkäranta and Leena Pitkäranta at Aalto.
+
+It brings a two-phase lifecycle, the probe, twelve formal frames, thirty-three traditions and a field corpus of sixty-nine probes. Every other part of this deck maps onto its frame.
+
+## 2:19 · Two phases
+
+The core thesis is simple. The six classic phases of the software lifecycle collapse into two. Agentic Discovery is an expedition with probes. Agentic Engineering builds, verifies and runs. Between them there is exactly one handover: what the probes found, written down as a spec.
+
+The two phases want different things. Discovery optimises learning velocity, and its output is a throwaway-grade probe, in cycles of minutes to hours. Engineering optimises production reliability, takes the spec as an input, and works in days to sprints.
+
+## 2:53 · Six phases, two sides
+
+The six phases come from the AI SDLC Impact taxonomy, which the paper adopts. Discovery, design and spec fall on the Agentic Discovery side. Development, testing and release fall on the engineering side.
+
+This deck stays on the discovery side, phases one to three, and on the vision, strategy and roadmap layers that sit above them.
+
+## 3:15 · The hidden premise
+
+Why did we work in stage-gated handoffs, each step with its own specialists and documents? Every visualisation of that process shares one hidden premise: the problem can be substantially understood before any working artefact exists.
+
+The chart on the right breaks that premise. Hand-coding the same hundred and forty thousand lines would take about two thousand three hundred and seventy person-days. Writing the prompts for all sixty-nine probes took about thirty-three hours. Generating one probe took under two minutes.
+
+That is formal frame four: with agents, the cost of building falls to the cost of understanding.
+
+## 3:52 · The Probe
+
+Now the central instrument. Picture a ship, costly to steer. Before it commits to a course, a small, disposable probe goes down into the problem domain, and what echoes back is operational feedback.
+
+The paper defines a probe as a stakeholder-runnable instance of a candidate solution to a stated pain. It is throwaway-grade by design. Its job is to validate or falsify the pain, not to be production-ready.
+
+A prototype reveals fit, a simulation reveals today's process and its pain, and a possible future reveals the value of a change.
+
+## 4:28 · Is software a function?
+
+Now a short formal detour, which is the deck's framing, not the paper's. Is any software a function? Program text is a string, and its meaning is a function whose shape depends on state, interaction and randomness.
+
+Yes, once the input includes everything the output depends on, including state, clock and random seed. The only contested point is whether the human is inside the function or outside it.
+
+So saying a probe is a function does not set it apart from any app. What sets a probe apart is the choice to put the human inside the function.
+
+## 5:02 · Run, not read
+
+The next link, again the deck's own, is Rice's theorem. Many different programs describe one and the same function.
+
+Rice showed in nineteen fifty-three that no non-trivial property of a program's behaviour can, in general, be decided by reading its text. Behaviour has to be run to be seen.
+
+If even a program's own properties need running, then fit to a human cannot be read off a spec either. That supports the paper's finding that the cheapest critic is a running probe. It is an analogy, not a proof.
+
+## 5:34 · The probe as a sounding function
+
+The deck's own formulation goes one step further; this is not a claim of the paper. As software, a probe is usually deterministic. But close the loop with a stakeholder whose behaviour depends on the hidden problem.
+
+That loop maps problems to observations, a statistical experiment in Blackwell's sense. A brief becomes a probe, the stakeholder uses it, and Bayes' rule updates our belief.
+
+The randomness comes from the human, which gives the Dreamer a formal role. And a probe is judged by how much it tells us per unit of cost, which is Bayesian experimental design.
+
+## 6:09 · Two modes
+
+Back to the paper. In the problem-validating mode the agent renders the current process, and the stakeholder says: yes, this is exactly where it breaks. In the solution-proposing mode the probe is working software, and someone who asked for a wind-optimised route says that rerouting around the headwind saves eight minutes.
+
+The first updates our belief about which problems are real. The second estimates fit, and even which direction makes the solution better.
+
+## 6:37 · Eight discovery frames
+
+The paper's formal sketch has eight frames for the discovery side. Problem and solution domains. A noisy fit functional, estimated from use. A joint search. And the cost ratio, which the paper treats as structural, not as a productivity claim.
+
+Then the permeable seam, where a running probe yields a gradient of fit. The incumbent: today's solution, its constraints and its pain, all discovered rather than assumed. The value of an unlock, meaning how much pain disappears. And the two modes, where validating updates belief and proposing updates fit.
+
+## 7:11 · Engineering frames
+
+Engineering looks different. It fixes the problem p*, extracted from a validated probe, and searches only the solution space. The spec is now a fixed input. Production solutions must clear every quality threshold, integrate into the existing environment, and pass every verification check.
+
+So discovery searches problem and solution jointly, while engineering searches for quality under constraints. Probes deliberately live outside the production set.
+
+## 7:40 · A permeable seam
+
+The paper grounds its theory in thirty-three traditions, spread across four figures. The first is built on the Double Diamond: a problem domain and a solution domain, with a seam between them.
+
+Eight traditions share this picture, from Lean Canvas and the Opportunity Solution Tree to Cynefin and Jackson's problem frames.
+
+And all of them share the same hidden premise: the problem can be understood before any artefact exists. With cheap probes, the seam becomes permeable.
+
+## 8:09 · Vision to features
+
+The second figure stacks vision, strategy, roadmap and features. It shows an asymmetry in decision costs. A vision is cheap to change, it can be swapped in one meeting, but expensive to misalign, because a wrong vision cascades to every layer below.
+
+A feature is the opposite. It is expensive to change, with committed code and dependencies, but a wrong feature stays local. Seven traditions, from the Golden Circle to OKRs and Hoshin Kanri, describe this hierarchy. The paper's point is that a probe can test every altitude.
+
+## 8:43 · Von Hippel's toolkit
+
+The third figure moves discovery to the user. Eric von Hippel described toolkits that let lead users design inside a constrained space. The paper argues that an LLM agent is such a toolkit, and the spec is extracted from the user's probe.
+
+Innovation tournaments add a statistical argument from Terwiesch and Ulrich. The expected best candidate improves as the number of candidates grows, as long as each candidate stays cheap and the filters stay reasonable.
+
+## 9:13 · The waterfall, overlaid
+
+The fourth figure revisits Royce's waterfall from nineteen seventy: requirements, design, implementation, verification and operations. The agentic overlay puts discovery over the first steps, where a probe replaces documents, and engineering over the rest, with an overlapping handoff zone.
+
+Royce himself warned that a pure sequence is risky and invites failure. Twelve lifecycle models since then, from Spiral and Scrum to DevOps, have tried to answer that warning.
+
+## 9:43 · Three roles, two gates
+
+Who makes a probe? Three roles. The Dreamer is the stakeholder, speaking in natural language or by voice. The Orchestrator shapes the prompt and curates. The AI agent builds, deploys and reports back.
+
+Every idea passes two safety gates. First the Orchestrator's human check, then the agent's own self-check. Anything harmful is blocked. Skipping the Orchestrator is an anti-pattern. Across sixty-nine generations, zero safety incidents were recorded.
+
+## 10:13 · Pain to probe in minutes
+
+A session on a timeline. At time zero, the Dreamer states a pain, in about thirty-four words on average. Within a minute or two, the Orchestrator turns it into a prompt and queues it. Then the agent builds the probe and deploys it to a runnable address.
+
+Minutes later, the Dreamer is using the probe and giving operational feedback, such as: save twice fails. That feedback can become a follow-up brief in the same session. In the burst, a probe took about one point seven minutes.
+
+## 10:42 · The dual loop
+
+Another figure moves discovery inside the product itself. A user hits a gap and says: this is missing. An in-product agent starts a conversation, generates a probe, and extracts a spec that goes to the backlog.
+
+The user is the Dreamer, and the in-product agent is the Orchestrator. Each spec carries its provenance: who, when, and which version.
+
+The paper is open about the risks: spec quality and spam, ownership, a loud minority, privacy, and convergence with the organisation's own vision.
+
+## 11:13 · Three rings
+
+Probes also need a place to live. Picture an organisation's IT as three rings. The legacy core is extended, not replaced. A middle ring of integration holds APIs, connectors and bridges. The outer ring is where new AI processes and fast probes live.
+
+A failed probe costs only in the outer ring, and a validated one moves inward only through reviewed integration. The inside-out variant first reflects today's process back as a simulation, which helps in regulated settings.
+
+## 11:45 · Field evidence
+
+Now the evidence. Experiment A produced sixty-nine probes in two organisations. Nobody pre-selected the topics. People chose weather and environment, wellness, office services, productivity and developer tools, across twelve categories.
+
+Organisation A produced forty-nine probes over about four weeks. Organisation B produced twenty in a single day. Together that is roughly a hundred and eighteen thousand lines of code from about two thousand lines of spec, a ratio of about one to sixty.
+
+## 12:16 · Intent to code
+
+How much code does one line of intent buy? Nine probes were audited in detail. Four hundred and twenty-three lines of natural-language spec produced twenty-three thousand eight hundred and forty-five lines of code, with the squares drawn to scale.
+
+Per probe, the ratio ran from one to fourteen for a food app up to one to four hundred and sixty-seven for a reminder app. The mean was one to fifty-six and the median one to thirty-nine. A higher ratio reflects a shorter prompt, not more output.
+
+## 12:47 · The bottleneck moves
+
+In organisation B, about fifty participants fed an idea queue, and one Orchestrator dispatched it to twenty-one agents. The git log shows eighteen of twenty probes committed in a thirty-one-minute burst.
+
+The headline finding is that the bottleneck moves. First, production capacity was the limit. In the fifth, seven requests arrived and the Orchestrator became the bottleneck. In the largest sessions, the limit became the supply of ideas and how fast people could validate probes.
+
+On work time, the speed multiplier is about five hundred and seventy. With a tenfold quality discount, it is still thirty-seven to sixty-five.
+
+## 13:26 · Experiment B: healthcare
+
+Experiment B tests the problem-validating mode in healthcare. For a Friday skin symptom, the public emergency queue costs about two hundred and sixty euros in the simulation. Relax one constraint and a video doctor costs about one hundred and seventy. Relax another and it falls to about ninety.
+
+That difference is the value of the unlock: the pain of today's solution minus the pain of the new one. Each case renders today first, then relaxes constraints such as regulation or the physical visit.
+
+These are three researcher-authored cases. It is an illustration, not a field study.
+
+## 14:02 · Two factories
+
+Step back and the work fits a long lineage of software factories. Hitachi's software works in nineteen sixty-nine. Maturity levels in eighty-nine. Product lines and domain-specific factories in the early two thousands. Defence DevSecOps factories. And now fleets of AI agents that reason from specs.
+
+In Addy Osmani's terms, Agentic Engineering is the probabilistic software factory. Agentic Discovery is its sibling on the discovery side, where the intake of the queue, not the throughput, is what binds.
+
+## 14:35 · Design science
+
+Methodologically, the paper is design science research. It set six objectives. Time to the first probe was minutes, under an hour in every session. All sixty-nine probes deployed. Specs could be extracted. Seven of eight sites re-engaged, there were zero safety incidents, and the method scaled across eight engagements.
+
+The kernel theory is the Bayesian update of problem knowledge. The paper also names six limitations: a small self-selected sample, throwaway quality, a single agent vendor, the effort baseline, the researchers acting as orchestrators, and the scope of the method.
+
+## 15:12 · Why now
+
+Why was the upstream so expensive? Boehm found requirements and design took about a third of effort, post-delivery fixes cost about a hundred times more, and forty to fifty percent of effort went into rework.
+
+And why does it change now? Agent task horizons double roughly every seven months, according to METR. On SWE-bench Verified, agents now pass over eighty percent. GDPval reports Claude Opus 4.1 at about 47.6 percent expert parity.
+
+For contrast, the CHAOS report from twenty fifteen found nine percent of agile projects failed, against twenty-nine percent for waterfall.
+
+## 15:52 · Bridge to the literature
+
+To close part zero, here is how the rest of the deck plugs into the paper's frame. The belief about problems maps to silicon samples and needs extraction in part one. Candidate solutions and fit map to ideation, simulated users and UI critique in parts two and four. Prioritisation is part three, and spec is part five.
+
+The Orchestrator, the human in the loop, gets part six. This mapping is the deck's own interpretation, not a claim of the paper.
+
+## 16:20 · Agentic Search
+
+We now turn from discovery to search. This block is a literature review of agentic search and agentic information retrieval. It asks how about thirty-five sources actually define the concept, which formal models they use, and which taxonomies they propose.
+
+## 16:37 · Why definitions matter
+
+The first problem is vocabulary. One word is used for four different things.
+
+Agentic RAG puts an agent inside the pipeline, so the model decides when to retrieve. Agentic search makes search itself an action, planned over many steps and often trained with reinforcement learning. Deep research agents work over a long horizon and produce an analytical report. And agentic IR is a new paradigm, where the goal is an information state rather than a document.
+
+There is no settled definition yet. But the literature shows a nested structure and a common formal core.
+
+## 17:13 · Concept map
+
+Here is that nesting as a picture. Standard RAG sits in the middle, inside agentic RAG. Around it is agentic search, then deep research agents, and the outermost frame is agentic IR, whose goal is an information state. Each ring keeps everything inside it and adds something new.
+
+On the right is the inverted perspective. Here the agent is the user of the retrieval system, and retrievers and interfaces are redesigned for agent consumers rather than for people.
+
+## 17:43 · Timeline
+
+This is not a sudden idea. The timeline runs from Robertson's Probability Ranking Principle in 1977, through Belkin's ASK model, Bates's berrypicking, information foraging and exploratory search.
+
+Conversational search and RAG follow, then ReAct. From late 2024 the pace jumps: agentic IR, Search-o1, Search-R1, deep research agents, and in 2026 a large log study of real agent traffic.
+
+## 18:14 · AS I: Definitions
+
+Part one looks at definitions. How do the sources themselves define the concept? The quotations on these slides are verbatim from the retrieved papers, so we can compare their exact wording.
+
+## 18:26 · Zhang et al.: Agentic IR
+
+Zhang and colleagues make the boldest move. They say information is shifting from items in a corpus to information states in the wild.
+
+In their words, traditional retrieval helps the user get a preferred item from a fixed corpus. Agentic IR helps the user reach a target state on a state transition graph.
+
+An information state can be a flight booked or a purchase made, plus the user's current preferences. Search engines and recommenders become just tools that the agent calls.
+
+## 18:56 · Agentic IR formally
+
+Formally, Zhang and colleagues pose an optimization problem. Choose a policy that maximizes the expected reward of a whole trajectory, where actions come from the policy and the next state comes from the environment's transition.
+
+The target state, s*, could be a document, an answer or a completed order. The reward acts as a verifier of the entire trajectory, so evaluation moves from ranked lists to trajectories. And classic retrieval becomes a special case, where the spaces of states and actions are restricted.
+
+## 19:28 · Search agent (Xi et al.)
+
+Xi and colleagues define a search agent as a language model agent that understands intent and context, plans its own search strategy, retrieves over many turns from diverse sources, and integrates what it finds.
+
+Their loop is plan, act, reflect, select evidence, and generate. Note that pi here means a plan, not a reinforcement learning policy.
+
+They sort search structures into parallel, sequential, and hybrid forms such as trees or graphs.
+
+## 19:57 · Agentic search (Lin et al.)
+
+Lin and colleagues stress the shift in control. The model itself decides when, where and how to search. Retrieval stops being static evidence injection and becomes dynamic tool use.
+
+They formalize this as a Markov decision process. The state holds the query, reasoning and evidence. Actions are queries, selections, tool calls, or stopping. The reward mixes success, process quality and cost.
+
+Their framing of reinforcement-learning-based agentic search has three pillars: autonomy, learning and interaction. Notice how close this is to the decision process we just saw from Zhang and colleagues.
+
+## 20:35 · Deep Research Agents
+
+Huang and colleagues give a formal definition of deep research agents. These are language model agents that combine dynamic reasoning, adaptive planning and iterative tool use, and they end in comprehensive outputs for open-ended research tasks.
+
+Their taxonomy has four axes. Search can go through an API or a browser. Workflows are static or dynamic. Systems are single-agent or multi-agent. And learning can use fine-tuning, reinforcement learning, or non-parametric continual learning.
+
+## 21:08 · Agentic Deep Research
+
+A position paper from a different Zhang group makes a related point. Instead of one prompt and one retrieval, an agentic model plans a series of steps, searching, browsing and even collaborating, while it refines its understanding.
+
+Their key phrase is that reasoning and search co-evolve. The arc runs from keyword search, to the parametric chatbot, to retrieve-then-read, to reasoning and search in a loop. They also hypothesize a test-time scaling law over reasoning and search.
+
+## 21:38 · Agentic RAG
+
+Agentic RAG is the narrowest concept. Singh and colleagues embed agents into the RAG pipeline, using reflection, planning, tool use and collaboration. Search-o1 lets the reasoning model decide on its own when to retrieve.
+
+The Search-o1 equation factors reasoning and answer, with search calls inside the reasoning. Retrieval becomes a decision, but the pipeline stays.
+
+## 22:03 · The IR community's voice
+
+The information retrieval community frames this as delegation. White notes that searchers no longer split their goal into sub-queries, and the job of producing answers is handed to the system. The 2024 workshop report adds that agents also choose where to send queries.
+
+Zhai turns the perspective around, with intelligent agents as the users of retrieval systems. And Ning and colleagues, studying over fourteen million agent requests, find that agentic search is not a uniform iterative process.
+
+## 22:35 · Shi et al.: three phases
+
+Shi and colleagues, in a systematic survey of deep research, place agentic search as the first of three phases.
+
+Compared with standard RAG, all three phases have a broad action space, long horizons, flexible workflows, plus tools, reflection and memory. They differ in output. Agentic search gives a short answer, integrated research gives a report, and the AI scientist phase writes papers and runs code to test hypotheses.
+
+In their words, phase one is about finding the correct sources and extracting answers with minimal synthesis. What matters is faithfulness to the retrieved content and a predictable runtime.
+
+## 23:15 · AS II: Formalisms
+
+Part two moves from words to equations. Two schools appear. One treats search as an action in a decision process. The other interleaves search with generation. We start with the classic baseline that both schools depart from.
+
+## 23:30 · Baseline: PRP and RAG
+
+First, the baseline. Robertson's Probability Ranking Principle orders documents by probability of relevance. It is optimal only if each document is judged independently of the others.
+
+Classic RAG treats retrieval as a single latent step, conditioned only on the input. The top documents are retrieved once, and the answer is generated from them.
+
+Agentic search breaks both assumptions. Retrieval becomes a repeated, history-conditioned, chosen action.
+
+## 23:59 · ReAct: A ∪ L
+
+ReAct, by Yao and colleagues, supplies the base loop. The key move is to extend the action space with language, Â = A ∪ L. A thought is an action that changes nothing in the world, only the context.
+
+So the agent thinks, acts with a search or lookup, observes, and repeats until it finishes with an answer. Nearly all search agents build on this loop, from WebDancer and WebSailor to single-agent deep research systems.
+
+## 24:27 · Search-R1: RL objective
+
+Search-R1 puts the search engine inside the policy. The objective maximizes expected reward, minus a penalty that keeps the trained policy close to a reference model.
+
+Retrieval and reasoning are interleaved. The reward is outcome-only, an exact match on the answer, and gradients on retrieved tokens are masked. A tag protocol separates thinking, searching, retrieved information and the answer, under an action budget.
+
+Related systems vary the reward. WebDancer and WebSailor, for example, weight the format at one tenth and the answer at nine tenths.
+
+## 25:04 · Generation + search
+
+The second school factorizes generation. In Search-o1 and WebThinker, the probability splits into a reasoning chain with observations, and then the report or answer.
+
+Search queries arise in the middle of reasoning, conditioned on what has been reasoned so far. WebDancer writes the trajectory as a history of thoughts, actions and observations, and samples the next thought and action from that history.
+
+## 25:29 · POMDP and multi-agent
+
+A more general view comes from AgentGym. The agent task is a POMDP, a partially observable decision process. Search calls are actions, and search results are observations.
+
+Baidu's AI search system goes multi-agent. A planner turns the query into a directed acyclic graph of sub-tasks, each tied to a tool. Sub-tasks at the same depth run in parallel, and the reward sums answer, feedback, format and execution terms.
+
+## 25:58 · Foraging: when to stop
+
+Information foraging theory, from Pirolli and Card, adds what most agent models lack: a stopping rule. Gain is divided by time between and within patches.
+
+The marginal value theorem says to leave a patch when its marginal gain drops to the environment's average rate of return.
+
+For humans, a patch is a results page, a web page or a document. For agents, time is tokens, tool calls and latency. A stopping decision is needed, yet few agent papers formalize it.
+
+## 26:28 · AS III: Human and learning
+
+Part three brings back the human. Where does a person steer agentic search? And how do search agents learn from experience, through memory, through their weights, and through research loops?
+
+## 26:40 · The human in the formal model
+
+The formal models place the human in three different ways. Zhang and colleagues put user instructions and feedback into the state. Co-Gym makes the human part of the environment, with instructions that grow during collaboration. IntentRL makes the user's latent intent the hidden state, so the agent must ask and learn.
+
+In Co-Gym, agent and human act in the same environment, with no forced turn-taking.
+
+## 27:06 · Co-Gym: the human in the environment
+
+Here is Co-Gym in detail, from Shao and colleagues. The environment holds the task tools, collaboration acts like sending a message or waiting for a teammate, and a notification protocol. Agent and human both step into it, and both get notified of observations.
+
+They also measure who takes the initiative, with an initiative entropy. The more evenly initiative is shared, the higher the entropy.
+
+## 27:31 · Intervention points
+
+This slide is the deck's own synthesis of work from 2019 to 2026. The human can enter the loop at three points.
+
+Before the run, to clarify intent and co-plan, as in IntentRL or Magentic-UI. During the run, to steer, interrupt or answer questions, as in Co-STORM and SteER. After the run, to verify, correct and teach, from scientist review to memory in Reflexion.
+
+## 27:58 · Ask or act?
+
+When should an agent ask instead of act? Horvitz framed it as expected utility in 1999. Act autonomously only when you believe it beats inaction. Asking is its own line, which gives two thresholds.
+
+The plot is illustrative, not source data. The horizontal axis is the agent's belief that the user has a given goal. At low belief, do nothing. In the middle, ask. At high belief, act.
+
+SteER makes this concrete. Pause and ask when the expected gain exceeds the cost of asking, and that cost grows with each pause.
+
+## 28:33 · Levels of autonomy
+
+Feng, McDonald and Zhang argue that autonomy is a design choice, not a capability. They define it as the extent to which an agent is designed to act without user involvement. Their ladder runs from L1, the operator, where the user plans and approves, up to L5, the observer, who only watches the logs and holds an off switch. Gemini Deep Research sits at L3, while Co-Gym and Cocoa sit at L2.
+
+Shneiderman adds a second axis. Human control and automation are not a single trade-off. The goal is high levels of both.
+
+## 29:07 · Co-STORM
+
+Co-STORM, from Jiang and colleagues, turns the human into a participant. The task is to interact with a user who has a topic and a goal, and to write a long-form report tailored to their interest.
+
+Simulated experts with diverse perspectives hold a discourse, and a moderator steers it. The user can take a turn at any time. A mind map links each concept to retrieved information, which supports the human's own learning. The moderator reranks information so that it is relevant to the topic but unlike what has already been said. That is how it surfaces the unknown unknowns.
+
+## 29:42 · Five learning loops
+
+So how do agents learn? This review's synthesis arranges the literature into five nested loops, each slower than the last. The innermost loop is a single step, as in ReAct, measured in seconds. Then reflection across trials, memory across tasks, weight updates through reinforcement learning across training runs, and finally the research loop of AI scientists, measured in weeks.
+
+The key point is printed at the bottom of the figure. The human can join at every level.
+
+## 30:12 · Reflexion
+
+Loop two is Reflexion, from Shinn and colleagues. The agent learns without updating any weights. An actor acts, an evaluator scores the trajectory, and a self-reflection model writes a short lesson into long-term memory.
+
+In the authors' words, binary or scalar feedback is converted into verbal feedback, which acts as a semantic gradient. The memory is small, usually one to three reflections. On HotPotQA, exact-match grading supplies the binary signal.
+
+## 30:41 · Memory and cases
+
+Loop three is memory across tasks. Memento frames the agent as a memory-augmented decision process. A policy retrieves a past case, reuses and revises it with the language model, evaluates the result, and retains the new case for next time.
+
+In Memento the language model stays frozen, and soft Q-learning learns which case to pick. ExpeL distills insights from pairs of failures and successes, adding, editing and voting on them. Agent Workflow Memory stores reusable workflows.
+
+## 31:13 · The self-evolving agent
+
+Gao and colleagues give a formal definition. A self-evolving agent modifies its parameters, its context, its tools or its architecture, based on its own trajectories or feedback, to improve future performance.
+
+The agent is a tuple of architecture, language models, context and memory, and tools. An update function maps the agent, a trajectory and a reward to a new agent. Evolution can happen within a single test, or between tests, through in-context learning, fine-tuning or reinforcement learning.
+
+## 31:46 · Rewards for search agents
+
+Loop four changes the weights. The question is what gets rewarded. s3 rewards the gain beyond naive retrieval, with the generator frozen. StepSearch rewards information gain at each step and penalizes redundant documents. ZeroSearch replaces the real engine with a simulated one and a noise curriculum. WebRL generates new tasks from its own failures. EvolveSearch alternates reinforcement learning and supervised fine-tuning, without human annotation.
+
+## 32:16 · Search Self-Play
+
+Search Self-Play, from Lu and colleagues, goes one step further. The agent writes its own search tasks. A proposer starts from a ground-truth answer, searches, and writes a question. A check confirms the question is solvable with the proposer's documents.
+
+Then a solver searches on its own. The game is adversarial: the proposer is rewarded when the solver fails, under the constraint that the task stays solvable.
+
+## 32:42 · AI co-scientist
+
+Loop five is the research loop. Google's AI co-scientist runs a cycle of generate, debate and evolve. A supervisor queues work for agents that generate hypotheses, review them, rank them in an Elo tournament, and refine them.
+
+A meta-review agent feeds lessons back into the prompts. The authors call this learning without back-propagation. The scientist can supply the goal, their own hypotheses and reviews along the way.
+
+## 33:10 · Discovery as optimization
+
+Several systems treat scientific discovery as optimization. In DeepScientist, the objective is the black-box true scientific value of an idea. An LLM reviewer acts as a surrogate, and the next idea is chosen by an upper confidence bound.
+
+The AI Scientist runs ideas through a novelty check, experiments, a paper and a review, growing an archive. AlphaEvolve evolves code with LLM-written diffs and automatic evaluators. Dolphin lets experimental results steer the next round of literature search.
+
+## 33:43 · Searching as learning
+
+Now the flip side. Who learns when the agent searches? Vakkari defines learning as change in one's knowledge structures. Rieh and colleagues describe comprehensive search as iterative and reflective, leading to critical and creative learning.
+
+The recent evidence is sobering. In Search plus Chat, generative support helped right after the task, but the effect was gone a week later. Mittal and colleagues found the ChatGPT group learned less than the Google group. Co-STORM is one of the few systems designed for human learning.
+
+## 34:16 · Unified model
+
+This slide is the review's own proposal, putting the search agent, the human and learning in one frame. The inner loop is a single search run. The agent searches, uses tools, or asks the human, and it asks only when the expected value of asking exceeds its cost.
+
+The outer loop updates the agent between runs, by writing memory, by gradient steps, or by changing prompts. The synthesis adds one term, φ, for human feedback such as reviews, fixes and preferences.
+
+## 34:46 · Part IV: Synthesis
+
+That completes the human and learning block. Part four of agentic search steps back and asks two questions. What do the sources share, and what is still open?
+
+## 34:56 · Levels of autonomy
+
+Here is a second ladder of autonomy, compiled from the evolution paths in four surveys. At L0, ad hoc retrieval, the human does all the decomposing and synthesizing. Through exploratory and conversational search, and then retrieval-augmented generation, more moves to the system.
+
+At L4, the model decides when to retrieve. L5 is agentic search proper, with planning, multi-hop search and reflection. Deep research adds tools, memory and a report, and the AI scientist adds hypotheses and experiments. Left to right, decomposition moves from the human to the agent.
+
+## 35:34 · Common core
+
+Across the sources, six things are agreed. The model controls when, what, where and how to search, and when to stop. Search is multi-step, an observe, reason and act loop. Sources widen from a static corpus to the web, tools, memory and other agents. The components are profile, memory, planning and action. The formal frame is a decision process optimized with reinforcement learning. And evaluation covers the whole trajectory, not just the final answer.
+
+## 36:03 · Working definition
+
+From this, the review proposes a single working definition. Agentic search is an information-seeking process in which an LLM-based policy autonomously decides, over many steps, when, what, where and how to search, and when to stop. It aims to reach the user's target state within a limited budget.
+
+Formally, the policy maximizes the expected reward of reaching the target state, minus the cost of its actions. The cost term and the stop action are additions of this synthesis, not notation from any single source.
+
+## 36:36 · Open questions
+
+What is still open? Terminology is not settled, and only Zhang and colleagues formalize the paradigm itself. Budgets and stopping have not been connected to foraging theory. Some see the agent as the retrieval system, others as its user. Classic Cranfield evaluation does not cover trajectories. And the cost of asking and the learning loops are developing separately, while human learning may weaken when search is delegated.
+
+## 37:02 · Bridge: search and discovery
+
+Now two bridge slides. These are the deck's own synthesis, not claims from any source. The first says that agentic discovery is agentic search over the space of problems and solutions.
+
+The mapping lines up term by term. The target state becomes the best problem and solution pair. The verifier becomes the fit φ. Observations become operational feedback from the probe. The belief state becomes the posterior over problems. A search action becomes building a probe. And the stopping rule becomes the moment a spec is extracted and engineering begins.
+
+## 37:37 · Bridge: human and learning
+
+The second bridge maps the human and learning. The Orchestrator in the paper is the ask or act gate. Its safety and agent gates correspond to the decision to ask only when the expected value exceeds the cost. Skipping the role removes the gate.
+
+Probe feedback, such as "save twice fails", is the reward signal. It lets fit be estimated empirically. And the paper's dual loop, where customer and organisation meet at the backlog, is a learning loop. The remaining parts walk this frame through the layers of product development.
+
+## 38:09 · Part I: Market and customer
+
+Part one of that walk starts where product development starts, with the customer. How are agents used in market research and customer insight, and how far can we trust them?
+
+## 38:20 · Silicon samples
+
+Argyle and colleagues introduced algorithmic fidelity. It is the degree to which the patterns between ideas, attitudes and social context inside a model mirror those of real human sub-populations.
+
+They conditioned a language model on backstories of real survey respondents and compared the resulting silicon distribution to the humans. Vote choice correlated strongly, with tetrachoric correlations of 0.90 to 0.94 across three elections. Human judges could barely tell the model's lists from human ones.
+
+## 38:54 · Homo silicus and willingness to pay
+
+Horton calls language models a Homo silicus, an implicit model of humans that can be given endowments, information and preferences. Brand and colleagues report that willingness-to-pay estimates from GPT-3.5 were of realistic magnitude and matched a human study.
+
+For fluoride toothpaste, the model's WTP was about $3.4, against $3.27 for humans. Ten thousand eight hundred responses cost three dollars. But a later revision found the estimates often inaccurate, sometimes even wrong-signed. Use them as a supplement, not a substitute.
+
+## 39:31 · Generative agents
+
+Park and colleagues built memory-based generative agents. Each agent perceives, stores memories, retrieves them by recency, importance and relevance, then reflects and plans. In a later study they simulated one thousand and fifty-two real people.
+
+Accuracy is normalized against how well people replicate their own answers two weeks later. On that measure, interview-based agents reach eighty-five percent, clearly ahead of agents built only from demographics or personas.
+
+## 40:01 · Measuring representativeness
+
+Whose opinions does the model reflect? Santurkar and colleagues measure the distance between the model's answer distribution and a human group's distribution, question by question.
+
+Three findings stand out. Models tuned with human feedback amplify skew, in one case over ninety-nine percent approval for one candidate. Groups such as people over sixty-five, Mormons and the widowed are under-represented. And as Meister and colleagues put it, models may know a distribution but cannot sample from it.
+
+## 40:32 · Limits of validity
+
+The critique names three systematic distortions. Flattening erases differences within subgroups. Misportrayal means the model voices what outsiders think of a group, not what the group thinks of itself. Confounding means a price change also shifts what the model infers about quality and competitors.
+
+Bisbee and colleagues found that nearly half of the coefficients differed significantly from the survey benchmark, and a third of those flipped sign. The same prompt also gave different results three months apart.
+
+## 41:03 · Needs from user content
+
+Timoshenko and Hauser define a customer need as a benefit, in the customer's own words, that the customer seeks. Product attributes are only the means to satisfy it.
+
+Their pipeline filters user reviews and forum posts, clusters them, and lets a fine-tuned model propose candidate needs, which an analyst then winnows. The fine-tuned models perform at least as well as professional analysts, and analysts can refocus on higher-value work.
+
+## 41:31 · Interviews and hybrids
+
+Interviews can also be run by agents. Arora and colleagues found that a human and LLM hybrid outperforms either alone. Geiecke and Jaravel report that experts judged AI-led interviews comparable to an average human expert.
+
+Wuttke and colleagues counted guideline violations per interview, sixty-four for humans and seventy-two for the AI. The errors differ in kind. Humans dominate active-listening violations, while the AI mostly misses follow-up questions.
+
+## 42:02 · Simulated consumers
+
+Simulation can scale to a whole market in a sandbox. RecAgent studies information cocoons and conformity. Agent4Rec ran a thousand MovieLens agents, but precision fell sharply when liked items were scarce. SimUSER used offline tests to tune a system, and real-world engagement improved.
+
+The caution comes from Hewitt and colleagues. Simulated treatment effects correlate well with real ones, around r ≈ 0.85, but they overstate the size of the effect.
+
+## 42:33 · Part II: Vision and strategy
+
+From customers we move to part two, vision and strategy. How do agents change ideation, strategic choice and business models?
+
+## 42:42 · Ideas are dimes a dozen
+
+Girotra, Meincke, Terwiesch and Ulrich ran an ideation contest between students and GPT-4. Ideas were rated by purchase intent. Of the top forty ideas, humans produced five, GPT-4 fifteen, and GPT-4 with examples twenty.
+
+The authors write that the vast majority of the best ideas came from ChatGPT. It produced about eight hundred ideas an hour, at a fraction of the cost per idea. But human ideas were more novel. The bottleneck moves to selection.
+
+## 43:14 · Extreme-value theory
+
+Why does volume matter so much? In an innovation tournament, only the best idea counts. Extreme-value theory gives the expected maximum of n ideas, and it grows with the number of ideas, and often with their variance.
+
+Theorem three in Girotra, Terwiesch and Ulrich states when higher variance improves the best idea. Language models make n cheap, so variance and screening become decisive. The plot is an illustrative approximation.
+
+## 43:42 · Homogenization
+
+But there is a catch. Terwiesch and colleagues measured diversity as one minus the mean cosine similarity between ideas. Humans score highest at 0.77, while some model setups fall as low as 0.49.
+
+Even a thousand model ideas leave some human regions out of reach. Remedies include chain-of-thought, random personas and pooling across vendors. And Si and colleagues found LLM ideas judged more novel, yet after execution the rankings flipped on many metrics.
+
+## 44:14 · Strategy as search
+
+Csaszar, Ketkar and Kim describe strategy as three activities. Search generates alternatives, representation frames the problem, and aggregation combines evaluations. The landscape behind them is rugged, with a global peak and a familiar but mediocre one.
+
+The first formula is Levinthal's NK landscape, where interactions between choices make the terrain rugged. The second is the regression used to measure the effect of AI on outcomes.
+
+In these studies, business plans written with an LLM scored about 0.14 standard deviations higher, and LLM ratings correlated with a venture capital panel at about 0.52. The risk is herding around familiar peaks.
+
+## 44:58 · Aggregating evaluations
+
+Doshi and colleagues collected nearly thirty-eight thousand predictions to test whether AI can evaluate strategies. Single evaluations varied a lot, from the best model with chain of thought to the weakest base model, and some showed a strong bias toward the last option.
+
+Their conclusion: one AI evaluation is often inconsistent and biased, but when evaluations are aggregated, the rankings start to resemble those of human experts.
+
+The ensemble logic is simple. Ensemble error equals average individual error minus average disagreement. Here, scale mattered more than diversity.
+
+## 45:36 · Jagged frontier
+
+Dell'Acqua and colleagues studied seven hundred fifty-eight consultants at the Boston Consulting Group. They describe a jagged technology frontier, where AI improves some tasks and worsens others, even inside the same workflow.
+
+Inside the frontier, consultants with AI finished more tasks, worked faster, and produced higher quality. Outside it, they were nineteen percent less likely to be correct. The catch is that you cannot see the frontier from inside, and strategy work contains both kinds of task.
+
+## 46:08 · Part III: Roadmap
+
+Part three moves from strategy to the roadmap. The question here is prioritization and release planning: once the ideas exist, which ones go into the next release, and who decides?
+
+## 46:19 · Next Release Problem
+
+Bagnall and colleagues formalized the roadmap as the Next Release Problem. Customers carry weights, requirements carry costs and dependencies, and a budget limits what fits. In this small example, the budget of six selects requirements one, two and four.
+
+Formally it is an integer program: maximize the weighted value of satisfied customers, subject to the budget and precedence constraints.
+
+An agent can propose weights, costs and dependencies, and a solver selects. But the weights remain a human value judgement. And no peer-reviewed study yet puts an LLM inside this optimization loop.
+
+## 46:57 · LLM prioritization
+
+Multi-agent prioritization with methods like the hundred-dollar test, WSJF and AHP reaches moderate agreement with experts, best for middle and low priority items, with variance from run to run.
+
+The calibration risk is subtle. Participants kept their own rankings, yet their confidence rose and their effort fell. Trust went up without any change in the decision.
+
+And in MetaGPT, a product manager agent analyzes competition and user needs to write the PRD.
+
+## 47:30 · Part IV: Design
+
+Part four turns to design. We look at simulated users, AI critique of user interfaces, and the design space itself, and at where AI quietly narrows what designers explore.
+
+## 47:43 · Simulated usability tests
+
+UXAgent generates thousands of simulated users from personas. Each LLM agent has a fast loop of perception, planning and action, and a slow loop of wondering and reflection, with memory in between. The agents browse a real website, and the researcher reads their actions, reasoning and survey answers to pilot a study.
+
+Memories are retrieved by a weighted score of importance, relevance and recency.
+
+A caution from AgentA/B: agents took about six actions per session, humans about sixteen. Simulated users reproduce the direction of an effect, not its size.
+
+## 48:20 · UI critique
+
+Can an LLM act as a heuristic evaluator? Duan and colleagues asked GPT-4 for feedback on fifty-one interfaces. About half the feedback was accurate, a fifth partially accurate, and nearly a third not accurate.
+
+UIClip learns from pairwise preferences, almost entirely on synthetic data. UICrit added over three thousand expert critiques and lifted LLM feedback by fifty-five percent, yet it is still far from human quality.
+
+Interestingly, GPT-4 found nine violations that twelve experts missed, though its usefulness declined over iterations.
+
+## 48:58 · Design space
+
+Luminate, by Suh and colleagues, starts from a diagnosis: today's AI interfaces push users to converge quickly on a few ideas instead of exploring the wide latent design space.
+
+Their answer is to make the space explicit. Generate dimensions such as mood and tone, give each a set of values, and sample combinations across them.
+
+This formalization is the deck's own, built from the source's description. It gives the paper's solution space a concrete structure, a product of dimensions.
+
+## 49:29 · Fixation and personas
+
+Design fixation is the unintentional conformity to existing ideas that limits exploration. In a study with sixty designers, the group shown Midjourney images produced fewer ideas, with less variety and less originality. Fixation simply moved from the example to the AI outputs.
+
+Personas skew too. Salminen and colleagues found most LLM personas were based in the United States though no country was requested. And synthetic research data from Hämäläinen and colleagues was judged more human-like, while covering only a small share of what real people produced.
+
+## 50:07 · Part V: Requirements & spec
+
+Part five follows the chain from elicitation to formal specification. This is where an idea becomes something a machine can build, and where the question of who validates becomes formal.
+
+## 50:18 · S, K ⊢ R
+
+Zave and Jackson give the formal anchor. Requirements live in the environment, the program lives in the machine, and the specification sits on the shared interface between them, supported by domain knowledge.
+
+The condition reads: S, K ⊢ R, and together they must be consistent.
+
+Their completion rules say requirements must be validated with the customer, and domain knowledge against reality. An agent can draft all three. It cannot validate them. This is where the human is formally indispensable.
+
+## 50:52 · Elicitron
+
+Elicitron, from Autodesk Research, uses simulated users to find latent needs. It generates diverse agents, lets them imagine using the product, interviews them, and classifies the needs they raise. Classification improved from zero-shot to criteria with chain of thought, with an F1 near 0.95.
+
+The authors are candid. User agents are prompted to hallucinate their interaction with the product, so the hallucination is by design. There was no validation with real users, and prioritizing the needs remains the designer's task.
+
+## 51:28 · Limits of elicitation
+
+How far does agent elicitation go? ReqElicitGym reports that agents elicit less than half of users' implicit requirements, with rates between seven and thirty-two percent.
+
+LLMREI elicited up to about three quarters of requirements, but its authors say human-led interviews remain necessary for sensitive or complex cases.
+
+MARE chains five agents through collection, modelling and checking, with stakeholders simulated and only the rough idea from a human. And Arora and colleagues found that ChatGPT elicitation precision ranged from eighty-two percent down to fifteen percent, depending on the person using it.
+
+## 52:08 · From PRD to code
+
+MetaGPT turns software development into an assembly line. A product manager writes the PRD, an architect designs the system, a project manager splits tasks, an engineer codes and a QA engineer tests, all through a shared message pool of typed documents.
+
+The idea is to encode standardized operating procedures into prompts, so agents can verify intermediate results and reduce errors.
+
+Human revision cost was lower than ChatDev's. But note the gap: no stakeholder ever validates the PRD.
+
+## 52:42 · ChatDev
+
+ChatDev, from Qian and colleagues, models the waterfall as a chat chain. Design, coding and testing each become pairs of roles, like a chief executive and a chief technology officer, or a reviewer and a programmer, talking in loops until they agree.
+
+Formally, the chain is a sequence of phases, each a sequence of subtasks, and each subtask is a dialogue between an instructor and an assistant.
+
+The reported quality score was about 0.40. The authors' own lesson: without clear, detailed requirements, agents struggle to grasp the task.
+
+## 53:16 · Formal specification
+
+What about translating natural language into formal logic? In nl2spec, accuracy rose from a few percent for small models to forty-four percent for Codex, and to eighty-six percent when a human repaired the translation interactively.
+
+Ambiguity is the reason. One English sentence can parse into two different temporal formulas, and at least nine of thirty-six cases were ambiguous.
+
+SpecGen produced verifiable specifications for most programs. But verifiable means the spec matches the code, not that S, K ⊢ R.
+
+## 53:53 · Stories, Gherkin and SDD
+
+At the level of user stories, the QUS framework defines thirteen quality criteria. Its tool favours recall, so humans prune the false positives.
+
+Translating law into Gherkin scenarios scored high on relevance, clarity and completeness, yet omissions and hallucinations still require systematic human review.
+
+Spec-driven development makes the specification the versioned source of truth. Accountability is split: the brief's author owns the spec, the orchestrator the workflow, and the reviewer the evidence audit.
+
+## 54:26 · Part VI: Human in the loop
+
+Part six steps back from individual layers. Across all of them, the human stays in the loop. But what does that actually take, and when does the human and AI combination really pay off?
+
+## 54:38 · When the combination pays off
+
+Vaccaro, Almaatouq and Malone ran a meta-analysis of a hundred and six experiments. On average, human and AI teams did worse than the better of the two alone. Synergy was negative for decision tasks and positive only for creation tasks.
+
+It also depended on who was stronger. When the human beat the AI, the team gained. When the AI beat the human, the team lost. Augmentation, meaning the team versus the human alone, was clearly positive.
+
+## 55:07 · Complementarity and overreliance
+
+Complementarity means the team beats both the human and the AI. That is only possible in a zone where neither dominates. When the AI is far stronger, the team tends to fall between them.
+
+Overreliance is the probability that the human agrees with the AI when the AI is wrong. Bansal and colleagues found that explanations raise acceptance regardless of correctness.
+
+Buçinca and colleagues reduced overreliance with cognitive forcing. The cost: users liked the most effective interventions the least.
+
+## 55:39 · The social dilemma
+
+Doshi and Hauser found a social dilemma. With generative AI, writers are individually better off, with stories rated more novel, but collectively a narrower range of content is produced.
+
+Anderson and colleagues saw the same: ChatGPT ideas were more alike at group level, and people felt less responsible for their ideas. Evaluators also impose an ownership penalty on AI-assisted work.
+
+## 56:05 · Ironies of automation
+
+Bainbridge wrote in 1983 that the more advanced a control system is, the more crucial the human operator may become.
+
+Simkute and colleagues find the same ironies in generative AI. The role shifts from production to evaluation, workflows are restructured unhelpfully, interruptions multiply, and easy tasks get easier while hard ones get harder. On the right are the mitigations, such as continuous feedback and clear task allocation. The links between them are the deck's own interpretation.
+
+## 56:36 · Critical thinking and sycophancy
+
+Lee and colleagues surveyed knowledge workers. Most reported less cognitive effort across thinking activities, from knowledge to evaluation.
+
+Confidence in AI was linked to less critical thinking, while self-confidence and reflection were linked to more.
+
+Sharma and colleagues add sycophancy: models trained on human feedback tend to agree with user beliefs over the truth. In discovery that is acute, because the stakeholder's own hypothesis gets confirmed.
+
+## 57:05 · Part VII: Synthesis
+
+Part seven brings it together. Across every layer, we ask what the agent can do, and what the human must still do.
+
+## 57:13 · Gates per layer
+
+This table is the deck's synthesis. In each layer the agent generates, simulates or drafts, and the human selects, validates and commits. Agents produce ideas, simulate customers, evaluate strategies, propose priorities, critique designs and draft requirements. Humans own the vision, validate with real people, frame strategy, calibrate the roadmap, bring taste and ethics, and validate requirements and domain knowledge. The evidence strength dots are this review's own judgement.
+
+## 57:44 · Cascade model
+
+This is the deck's own formal proposal: upstream agentic discovery as a cascade. A market prior feeds an idea pool, release selection picks a subset, the design space holds candidate solutions, the specification must entail the requirements, and the probe measures fit.
+
+Observations from the probe update every layer. And at each layer a human gate accepts, revises or rejects.
+
+The objective maximizes fit times the market prior, subject to the release budget, the entailment condition, and every gate accepting. The gates are the synthesis' own addition.
+
+## 58:20 · Six principles
+
+Six principles follow. First, supplement, don't replace: synthetic respondents pilot, real people validate.
+
+Second, variance is your friend, because with cheap ideas, diversity and screening decide. Third, aggregate evaluations rather than trusting a single judgement. Fourth, build an explicit design space against fixation.
+
+Fifth, validate requirements and domain knowledge, which is formally a human task. Sixth, design in friction, since cognitive forcing and probes reduce overreliance, even if users dislike it.
+
+## 58:53 · Open questions
+
+Much remains open. No study chains market, strategy, roadmap, design and spec agents end to end. Most requirements studies are lab experiments with simulated stakeholders. No LLM sits inside release planning optimization yet.
+
+We also do not know how to keep diversity when agents generate most ideas, how model drift affects reproducibility, or who is accountable for an agent-generated vision, strategy or spec.
+
+## 59:22 · Sources
+
+The remaining source slides list every reference in this deck, each one clickable to open. Thank you for listening.
