@@ -1,0 +1,1509 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Agentic Probe — Talk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+/* ── Tokens ───────────────────────────────────────────────── */
+:root{
+  --paper:#f6f4ee; --card:#ffffff; --ink:#151821; --ink2:#3a3f4d; --muted:#6b7080; --line:#dedad0; --line2:#ebe8df;
+  --ad:#0d7a6b; --ad-2:#14a08c; --ad-soft:#d9efe9; --ad-tint:#eef8f5;
+  --ae:#4038b8; --ae-2:#6a63e0; --ae-soft:#e2e0f8; --ae-tint:#f1f0fc;
+  --hot:#e0561b; --hot-soft:#fde6d8; --amber:#b86e0b; --amber-soft:#fbefd9;
+  --night:#0d1220; --night-2:#161d31; --night-ink:#eef0f6; --night-muted:#9aa3b8;
+  --serif:"Source Serif 4", Georgia, serif; --sans:Inter, system-ui, sans-serif; --mono:"JetBrains Mono", ui-monospace, monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--c-0a0d16);color:var(--ink);font-family:var(--sans);overflow:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── Stage ────────────────────────────────────────────────── */
+#stage{position:fixed;left:50%;top:50%;width:1280px;height:720px;transform-origin:0 0}
+html{overflow:hidden;touch-action:pan-x pan-y}
+.slide{position:absolute;inset:0;width:1280px;height:720px;background:var(--paper);overflow:hidden;
+  opacity:0;pointer-events:none;transition:opacity .45s ease}
+.slide.active{opacity:1;pointer-events:auto}
+.slide{color:var(--ink)}
+.slide.dark{color:var(--night-ink);background:radial-gradient(1200px 700px at 78% 30%, var(--c-1b2440) 0%, var(--night) 62%);color:var(--night-ink)}
+
+.kicker{position:absolute;left:72px;top:52px;font:600 13px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;align-items:center}
+.kicker i{width:8px;height:8px;border-radius:50%;background:var(--ad);display:inline-block}
+.dark .kicker{color:var(--night-muted)}
+h1{position:absolute;left:72px;top:80px;width:1136px;font:600 42px/1.14 var(--serif);letter-spacing:-.012em;color:var(--ink)}
+.dark h1{color:var(--night-head)}
+h1 em{font-style:normal;color:var(--ad)}
+.lede{position:absolute;left:72px;top:190px;width:1000px;font:400 19px/1.5 var(--sans);color:var(--ink2)}
+.foot{position:absolute;left:72px;right:72px;bottom:28px;display:flex;justify-content:space-between;font:500 12px/1 var(--mono);color:var(--muted);letter-spacing:.04em;border-top:1px solid var(--line);padding-top:12px}
+.dark .foot{border-color:var(--c-27304a);color:var(--night-muted)}
+.src{position:absolute;left:72px;bottom:58px;font:400 12.5px/1.4 var(--sans);color:var(--muted);width:1136px}
+.dark .src{color:var(--night-muted)}
+svg text{font-family:var(--sans)}
+.slide svg text{fill:var(--ink)}
+.slide.dark svg text{fill:var(--night-ink)}
+.mono{font-family:var(--mono)}
+b,strong{font-weight:600}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px}
+.tag{display:inline-block;font:600 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;padding:6px 9px;border-radius:999px}
+.tag.ad{background:var(--ad-soft);color:var(--ad)} .tag.ae{background:var(--ae-soft);color:var(--ae)}
+.tag.hot{background:var(--hot-soft);color:var(--hot)} .tag.am{background:var(--amber-soft);color:var(--amber)}
+
+/* ── Entrance animation (deck only; ?static disables) ─────── */
+.a{opacity:0;transform:translateY(12px)}
+.slide.active .a{animation:up .7s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+@keyframes up{to{opacity:1;transform:none}}
+.grow{transform:scaleX(0);transform-box:fill-box;transform-origin:left center}
+.slide.active .grow{animation:gx .9s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,.2s)}
+@keyframes gx{to{transform:scaleX(1)}}
+.growy{transform:scaleY(0);transform-box:fill-box;transform-origin:center bottom}
+.slide.active .growy{animation:gy .9s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,.2s)}
+@keyframes gy{to{transform:scaleY(1)}}
+.draw{stroke-dasharray:var(--len,1200);stroke-dashoffset:var(--len,1200)}
+.slide.active .draw{animation:dr 1.4s ease forwards;animation-delay:var(--d,.2s)}
+@keyframes dr{to{stroke-dashoffset:0}}
+.flow{animation:flow 3.2s linear infinite;animation-delay:var(--d,0s);opacity:0}
+@keyframes flow{0%{transform:translateX(0);opacity:0}12%{opacity:1}85%{opacity:1}100%{transform:translateX(var(--dx,120px));opacity:0}}
+.pulse{animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:.9}}
+body.static .a,body.static .grow,body.static .growy{animation:none!important;opacity:1;transform:none}
+body.static .draw{animation:none!important;stroke-dashoffset:0}
+body.static .flow{animation:none;opacity:.9}
+body.static .pulse{animation:none;opacity:.6}
+body.static .slide{transition:none}
+body.static #hint,body.static #bar{display:none}
+
+/* ── Chrome: notes, help, overview, progress ──────────────── */
+#bar{position:fixed;left:0;bottom:0;height:3px;background:var(--ad-2);transition:width .4s ease;z-index:5}
+#notes{position:fixed;left:0;right:0;bottom:0;max-height:34vh;overflow:auto;background:rgba(10,13,22,.96);color:var(--c-e8eaf2);
+  font:400 17px/1.6 var(--sans);padding:18px 28px 26px;border-top:1px solid var(--c-2a3350);display:none;z-index:6}
+#notes h4{font:600 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--c-8f99b3);margin-bottom:10px}
+#notes p{margin:0 0 .6em;max-width:1100px}
+body.notes #notes{display:block}
+#hint{position:fixed;right:16px;top:12px;font:500 12px/1 var(--mono);color:var(--c-7d869c);z-index:4;opacity:.8}
+#hint kbd{border:1px solid var(--c-39425c);border-radius:4px;padding:2px 5px;margin:0 2px;color:var(--c-c9cfdd)}
+body.grid{overflow:auto}
+body.grid #stage{position:static;transform:none!important;width:auto;height:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:24px}
+body.grid .slide{position:relative;opacity:1;zoom:.24;pointer-events:auto;cursor:pointer;outline:6px solid transparent;border-radius:6px}
+body.grid .slide.active{outline-color:var(--ad-2)}
+body.grid .a,body.grid .grow,body.grid .growy{opacity:1;transform:none;animation:none}
+body.grid .draw{stroke-dashoffset:0;animation:none}
+body.grid #hint,body.grid #bar{display:none}
+aside.notes{display:none}
+
+@media print{
+  @page{size:1280px 720px;margin:0}
+  body{background:none;overflow:visible}
+  #stage{position:static;transform:none!important;width:auto;height:auto}
+  .slide{position:relative;opacity:1;page-break-after:always;break-after:page}
+  .a,.grow,.growy{opacity:1!important;transform:none!important;animation:none!important}
+  .draw{stroke-dashoffset:0!important;animation:none!important}
+  #hint,#bar,#notes{display:none!important}
+}
+
+/* ── Phones and tablets: a bottom bar with ‹ n / N ›, style and full screen; swipe and tap edges ── */
+#tbar{display:none}
+body.touch #tbar{display:flex;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom));z-index:8;align-items:center;gap:6px;
+  background:rgba(14,18,30,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:5px 6px;color:#e8ebf3;font:500 13px/1 var(--mono)}
+#tbar button{width:40px;height:40px;border-radius:50%;border:0;background:transparent;color:inherit;font:400 24px/1 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}
+#tbar button:active{background:rgba(255,255,255,.14)}
+#tbar #tStyle,#tbar #tFs{font:600 14px/1 var(--sans);width:36px;height:36px;color:#b8c0d4}
+#tbar #tPos{min-width:58px;text-align:center;letter-spacing:.04em}
+#tbar .sp{width:1px;height:20px;background:rgba(255,255,255,.18);margin:0 2px}
+body.touch #hint,body.touch #styles{display:none}
+#rot{display:none}
+@media (orientation:portrait){body.touch #rot{display:block;position:fixed;left:16px;right:16px;bottom:calc(72px + env(safe-area-inset-bottom));text-align:center;font:400 12px/1.4 var(--sans);color:#7d869c;z-index:7;pointer-events:none}}
+body.static #rot,body.grid #rot{display:none!important}
+body.touch #bar{bottom:auto;top:0}
+body.static #tbar,body.grid #tbar{display:none!important}
+@media print{#tbar{display:none!important}}
+
+/* ── Slide-specific ───────────────────────────────────────── */
+/* s0 cover */
+#s0 .ttl{position:absolute;left:72px;top:150px;width:560px;font:600 76px/1.0 var(--serif);letter-spacing:-.02em;color:var(--night-head)}
+#s0 .ttl span{color:var(--c-7fe0cc)}
+#s0 .sub{position:absolute;left:72px;top:330px;width:540px;font:400 25px/1.34 var(--serif);color:var(--c-d7dbe7)}
+#s0 .sub em{font-style:normal;color:var(--c-ff9a62)}
+#s0 .who{position:absolute;left:72px;top:450px;font:500 16px/1.6 var(--sans);color:var(--c-c3c9d8)}
+#s0 .who small{display:block;color:var(--night-muted);font-size:14px}
+#s0 .art{position:absolute;left:640px;top:96px;width:590px;height:420px}
+#s0 .stats{position:absolute;left:72px;right:72px;top:560px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+#s0 .stats div{border-top:1px solid var(--c-2b3552);padding-top:14px}
+#s0 .stats b{display:block;font:600 34px/1 var(--serif);color:var(--night-head)}
+#s0 .stats span{font:400 14px/1.4 var(--sans);color:var(--night-muted)}
+#s0 .stats div:first-child b{color:var(--c-7fe0cc)}
+
+/* s1 definition */
+#s1 .defq{position:absolute;left:72px;top:200px;width:560px;padding:16px 20px;font:400 18px/1.45 var(--serif);color:var(--ink2);border-left:4px solid var(--ad)}
+#s1 .defq small{display:block;font:600 11px/1 var(--mono);letter-spacing:.12em;color:var(--ad);margin-bottom:8px}
+#s1 .defq b{color:var(--ink)}
+#s1 .props{position:absolute;left:72px;top:408px;width:560px;display:flex;flex-direction:column;gap:12px}
+#s1 .prop{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:center}
+#s1 .prop svg{width:44px;height:44px}
+#s1 .prop h3{font:600 18px/1.2 var(--serif);color:var(--ink)}
+#s1 .prop p{font:400 14.5px/1.4 var(--sans);color:var(--ink2);margin-top:2px}
+#s1 .vs{position:absolute;left:668px;top:200px;width:540px}
+#s1 .vh,#s1 .vr{display:grid;grid-template-columns:118px 1fr 1fr;gap:10px;align-items:stretch}
+#s1 .vh{margin-bottom:8px}
+#s1 .vh b{font:600 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;padding:9px 12px;border-radius:8px}
+#s1 .vh .pt{background:var(--c-ecebe6);color:var(--c-6a6d76)} #s1 .vh .pr{background:var(--ad);color:var(--c-fff-fg)}
+#s1 .vr{margin-bottom:8px}
+#s1 .vr span{font:500 12.5px/1.3 var(--sans);color:var(--muted);padding-top:8px}
+#s1 .vr i{font-style:normal;font:400 14px/1.35 var(--sans);padding:8px 12px;border-radius:8px}
+#s1 .vr .pt{background:var(--c-f1f0eb);color:var(--c-6a6d76)} #s1 .vr .pr{background:var(--ad-tint);color:var(--ink);border:1px solid var(--ad-soft)}
+#s1 .echo{position:absolute;left:668px;top:478px;width:540px;display:grid;grid-template-columns:1fr 34px 1.25fr;align-items:center}
+#s1 .bub{padding:12px 14px;border-radius:14px;font:400 16px/1.3 var(--serif)}
+#s1 .bub small{display:block;font:600 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+#s1 .bub.old{background:var(--c-ecebe6);color:var(--c-6a6d76)} #s1 .bub.new{background:var(--ad);color:var(--c-fff-fg)} #s1 .bub.new small{color:var(--c-b9efe3)}
+#s1 .arr{text-align:center;font:400 24px/1 var(--sans);color:var(--ad)}
+
+/* s2 premise */
+#s2 .stair{position:absolute;left:60px;top:206px;width:720px;height:380px}
+#s2 .facts{position:absolute;left:824px;top:206px;width:384px;display:flex;flex-direction:column;gap:12px}
+#s2 .fact{padding:12px 18px 11px}
+#s2 .fact b{display:block;font:600 30px/1 var(--serif);color:var(--hot)}
+#s2 .fact p{font:400 15px/1.42 var(--sans);color:var(--ink2);margin-top:6px}
+#s2 .fact small{display:block;font:500 11.5px/1.3 var(--mono);color:var(--muted);margin-top:6px}
+#s2 .premise{position:absolute;left:72px;top:612px;width:1136px;font:italic 400 19px/1.3 var(--serif);color:var(--ink2)}
+#s2 .premise b{font-style:normal;color:var(--ink)}
+
+/* s2 cost collapse */
+#s3 .chart{position:absolute;left:60px;top:218px;width:1160px;height:300px}
+#s3 .calls{position:absolute;left:72px;top:530px;width:1136px;display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:16px}
+#s3 .calls div{padding:14px 18px}
+#s3 .calls b{font:600 28px/1 var(--serif);color:var(--ink);display:block}
+#s3 .calls span{font:400 14.5px/1.4 var(--sans);color:var(--ink2);display:block;margin-top:6px}
+#s3 .calls .key{background:var(--ad-tint);border-color:var(--ad-soft)}
+#s3 .calls .key b{color:var(--ad)}
+
+/* s3 two phases */
+#s6 .flowsvg{position:absolute;left:72px;top:212px;width:1136px;height:330px}
+#s6 .cmpx{position:absolute;left:72px;top:552px;width:1136px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+#s6 .cmpx div{padding:12px 16px;font:400 15px/1.45 var(--sans);color:var(--ink2);border-left:4px solid}
+#s6 .cmpx .l{border-color:var(--ad);background:var(--ad-tint)} #s6 .cmpx .r{border-color:var(--ae);background:var(--ae-tint)}
+#s6 .cmpx b{color:var(--ink)}
+
+/* s4 probe */
+#s4 .types{position:absolute;left:72px;top:204px;width:1136px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+#s4 .type{padding:16px 16px;height:356px}
+#s4 .type svg{width:100%;height:150px;display:block;border-radius:8px;background:var(--ad-tint)}
+#s4 .type h3{font:600 20px/1.2 var(--serif);margin-top:16px;color:var(--ink)}
+#s4 .type p{font:400 14px/1.45 var(--sans);color:var(--ink2);margin-top:6px}
+#s4 .type p.w{font:600 12px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ad);margin-top:8px}
+#s4 .trait{position:absolute;left:72px;top:592px;width:1136px;font:400 18px/1.4 var(--serif);color:var(--ink2)}
+#s4 .trait b{color:var(--ink)}
+
+/* s5 two modes */
+#s5 .modes{position:absolute;left:72px;top:206px;width:1136px;display:grid;grid-template-columns:1fr 1fr;gap:22px}
+#s5 .md{padding:16px 20px 14px;height:404px;position:relative}
+#s5 .md h3{font:600 22px/1.2 var(--serif);margin:10px 0 2px}
+#s5 .md .q{font:italic 400 16px/1.3 var(--serif);color:var(--muted)}
+#s5 .md svg{width:100%;height:168px;display:block;margin-top:6px}
+#s5 .quote{font:400 16.5px/1.4 var(--serif);padding:10px 14px;border-radius:10px;margin-top:6px}
+#s5 .pv .quote{background:var(--amber-soft);color:var(--c-5d3a07)}
+#s5 .sp .quote{background:var(--ad-tint);color:var(--c-0b4a41)}
+#s5 .out{font:400 14px/1.4 var(--sans);color:var(--ink2);margin-top:10px}
+#s5 .both{position:absolute;left:72px;top:626px;width:1136px;font:400 17px/1.3 var(--sans);color:var(--ink2)}
+#s5 .both b{color:var(--ink)}
+
+/* s6 roles */
+#s7 .roles{position:absolute;left:72px;top:198px;width:1136px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+#s7 .role{padding:16px 18px;display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:start;height:128px}
+#s7 .role svg{width:56px;height:56px}
+#s7 .role h3{font:600 20px/1.1 var(--serif)}
+#s7 .role p{font:400 14.5px/1.4 var(--sans);color:var(--ink2);margin-top:6px}
+#s7 .role.orc{border:2px solid var(--hot);background:var(--c-fffaf6)}
+#s7 .pipe{position:absolute;left:72px;top:352px;width:1136px;height:210px}
+#s7 .note{position:absolute;left:72px;top:582px;width:1136px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+#s7 .note div{padding:12px 16px;font:400 15px/1.45 var(--sans);color:var(--ink2)}
+#s7 .note .zero{background:var(--ad-tint);border-color:var(--ad-soft)}
+#s7 .note .warn{background:var(--hot-soft);border-color:var(--c-f7cfb8)}
+#s7 .note b{color:var(--ink)}
+
+/* s7 layered */
+#s8 .rings{position:absolute;left:84px;top:180px;width:470px;height:470px}
+#s8 .layers{position:absolute;left:620px;top:212px;width:588px;display:flex;flex-direction:column;gap:12px}
+#s8 .lyr{display:grid;grid-template-columns:14px 1fr;gap:14px;padding:12px 16px}
+#s8 .lyr i{width:14px;height:14px;border-radius:50%;margin-top:5px}
+#s8 .lyr h3{font:600 17px/1.25 var(--sans)}
+#s8 .lyr p{font:400 14.5px/1.42 var(--sans);color:var(--ink2);margin-top:3px}
+#s8 .obs{padding:14px 18px;background:var(--night);color:var(--c-e7eaf2);border:0;font:400 16px/1.45 var(--serif)}
+#s8 .obs small{display:block;font:600 11px/1 var(--mono);letter-spacing:.12em;color:var(--c-7fe0cc);margin-bottom:8px}
+
+/* s8 evidence */
+#s9 .nums{position:absolute;left:72px;top:206px;width:440px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#s9 .num{padding:16px 18px;height:132px}
+#s9 .num b{display:block;font:600 46px/1 var(--serif);color:var(--ink)}
+#s9 .num span{display:block;font:400 14px/1.35 var(--sans);color:var(--ink2);margin-top:8px}
+#s9 .num.hl{background:var(--ad);border-color:var(--ad)} #s9 .num.hl b,#s9 .num.hl span{color:var(--c-fff-fg)}
+#s9 .cats{position:absolute;left:548px;top:200px;width:660px;height:420px}
+#s9 .legend{position:absolute;left:548px;top:622px;font:400 13px/1 var(--sans);color:var(--muted);display:flex;gap:18px;align-items:center}
+#s9 .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-2px}
+
+/* s9 amplification */
+#s10 .sq{position:absolute;left:60px;top:196px;width:420px;height:420px}
+#s10 .lol{position:absolute;left:520px;top:206px;width:690px;height:360px}
+#s10 .agg{position:absolute;left:520px;top:576px;width:688px;font:400 15px/1.45 var(--sans);color:var(--ink2)}
+#s10 .agg b{color:var(--ink)}
+
+/* s10 burst */
+#s11 .burst{position:absolute;left:60px;top:200px;width:1160px;height:330px}
+#s11 .facts4{position:absolute;left:72px;top:548px;width:1136px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+#s11 .facts4 div{padding:12px 16px}
+#s11 .facts4 b{display:block;font:600 30px/1 var(--serif)}
+#s11 .facts4 span{display:block;font:400 13.5px/1.35 var(--sans);color:var(--ink2);margin-top:6px}
+
+/* s11 headline (dark) */
+#s12 .stages{position:absolute;left:72px;top:206px;width:1136px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+#s12 .stg{background:var(--night-2);border:1px solid var(--c-27304a);border-radius:14px;padding:16px 18px 16px;height:318px}
+#s12 .stg .n{font:600 12px/1 var(--mono);letter-spacing:.12em;color:var(--night-muted)}
+#s12 .stg h3{font:600 21px/1.2 var(--serif);color:var(--night-head);margin:8px 0 4px}
+#s12 .stg .cc{font:500 13.5px/1.3 var(--mono);color:var(--c-aab3c8)}
+#s12 .stg svg{width:100%;height:118px;margin:10px 0 6px;display:block}
+#s12 .stg p{font:400 14.5px/1.42 var(--sans);color:var(--c-cfd5e2)}
+#s12 .stg .lim{margin-top:10px;font:600 14px/1.3 var(--sans);color:var(--c-ff9a62)}
+#s12 .stg .lim.ok{color:var(--c-7fe0cc)}
+#s12 .take{position:absolute;left:72px;top:562px;width:1136px;font:400 23px/1.35 var(--serif);color:var(--c-e8ebf3)}
+#s12 .take em{font-style:normal;color:var(--c-ff9a62)}
+
+/* s12 healthcare */
+#s13 .cases{position:absolute;left:72px;top:214px;width:560px;display:flex;flex-direction:column;gap:14px}
+#s13 .case{padding:14px 18px}
+#s13 .case h3{font:600 17px/1.25 var(--sans)}
+#s13 .case .path{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+#s13 .case .path span{font:500 12.5px/1 var(--sans);padding:7px 9px;border-radius:8px;background:var(--c-eeece6);color:var(--ink2)}
+#s13 .case .path span.cf{background:var(--amber-soft);color:var(--c-6b4307)}
+#s13 .case .path i{font-style:normal;color:var(--muted)}
+#s13 .big{position:absolute;left:660px;top:214px;width:548px;height:392px;padding:16px 20px}
+#s13 .big h3{font:600 17px/1.25 var(--sans)}
+#s13 .big svg{width:100%;height:300px;display:block;margin-top:6px}
+#s13 .scope{position:absolute;left:72px;top:626px;width:1136px;font:400 14px/1.4 var(--sans);color:var(--muted)}
+
+/* s13 factories */
+#s15 .tl{position:absolute;left:72px;top:206px;width:1136px;height:180px}
+#s15 .line{position:absolute;left:72px;top:418px;width:1136px;display:grid;grid-template-columns:330px 40px 1fr;align-items:stretch}
+#s15 .q{background:var(--ad);color:var(--c-fff-fg);border-radius:14px;padding:18px 20px}
+#s15 .q small{font:600 11px/1 var(--mono);letter-spacing:.12em;color:var(--c-b9efe3);display:block;margin-bottom:8px}
+#s15 .q b{font:600 24px/1.2 var(--serif);display:block}
+#s15 .q span{font:400 14px/1.4 var(--sans);color:var(--c-d6f3ec);display:block;margin-top:8px}
+#s15 .gap{display:flex;align-items:center;justify-content:center;font:400 28px/1 var(--sans);color:var(--muted)}
+#s15 .fac{background:var(--ae-tint);border:1px solid var(--ae-soft);border-radius:14px;padding:16px 20px}
+#s15 .fac small{font:600 11px/1 var(--mono);letter-spacing:.12em;color:var(--ae);display:block}
+#s15 .steps{display:flex;gap:10px;align-items:center;margin:14px 0 12px}
+#s15 .steps span{flex:1;text-align:center;font:600 16px/1 var(--sans);padding:14px 0;background:var(--c-fff-bg);border:1px solid var(--ae-soft);border-radius:10px;color:var(--ae)}
+#s15 .steps i{font-style:normal;color:var(--ae-2)}
+#s15 .fac p{font:400 14px/1.4 var(--sans);color:var(--ink2)}
+#s15 .sib{position:absolute;left:72px;top:600px;width:1136px;font:400 18px/1.4 var(--serif);color:var(--ink2)}
+#s15 .sib b{color:var(--ink)}
+
+/* s14 limits */
+#s16 .lims{position:absolute;left:72px;top:206px;width:1136px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+#s16 .lim{padding:16px 18px;height:196px;position:relative}
+#s16 .lim .k{font:600 12px/1 var(--mono);color:var(--hot);letter-spacing:.1em}
+#s16 .lim h3{font:600 18px/1.25 var(--serif);margin:8px 0 6px}
+#s16 .lim p{font:400 14px/1.42 var(--sans);color:var(--ink2)}
+#s16 .lim .t{position:absolute;left:18px;right:18px;bottom:14px;font:500 12.5px/1.3 var(--sans);color:var(--ad)}
+
+/* s15 close */
+#s17 .imp{position:absolute;left:72px;top:206px;width:1136px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+#s17 .do{padding:20px 20px 18px;height:220px;background:var(--night-2);border:1px solid var(--c-27304a);border-radius:14px}
+#s17 .do svg{width:44px;height:44px}
+#s17 .do h3{font:600 22px/1.2 var(--serif);color:var(--night-head);margin:12px 0 8px}
+#s17 .do p{font:400 14.5px/1.45 var(--sans);color:var(--c-c7cede)}
+#s17 .contrib{position:absolute;left:72px;top:452px;width:1136px;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+#s17 .contrib div{border-top:2px solid var(--c-2f3a5a);padding-top:10px;font:400 13px/1.4 var(--sans);color:var(--c-aeb6ca)}
+#s17 .contrib b{display:block;font:600 12px/1 var(--mono);color:var(--c-7fe0cc);letter-spacing:.08em;margin-bottom:6px}
+#s17 .end{position:absolute;left:72px;top:548px;width:1136px;font:600 27px/1.25 var(--serif);color:var(--night-head)}
+#s17 .end em{font-style:normal;color:var(--c-ff9a62)}
+#s17 .contact{position:absolute;left:72px;top:640px;font:400 14px/1.4 var(--sans);color:var(--night-muted)}
+
+/* ── Styles (five; "paper" is the original) ───────────────── */
+:root{--c-0a0d16:#0a0d16;--c-0b4a41:#0b4a41;--c-0b5a4f:#0b5a4f;--c-0d7a6b:#0d7a6b;--c-0f2b2b:#0f2b2b;--c-14a08c:#14a08c;--c-151821:#151821;--c-161d31:#161d31;--c-1a1f3d:#1a1f3d;--c-1b2440:#1b2440;--c-1d2440:#1d2440;--c-27304a:#27304a;--c-2a1a17:#2a1a17;--c-2a3350:#2a3350;--c-2b3552:#2b3552;--c-2f3a5a:#2f3a5a;--c-39425c:#39425c;--c-3a3f4d:#3a3f4d;--c-3a4566:#3a4566;--c-4038b8:#4038b8;--c-5d3a07:#5d3a07;--c-6a6d76:#6a6d76;--c-6b4307:#6b4307;--c-6b7080:#6b7080;--c-7d869c:#7d869c;--c-7fe0cc:#7fe0cc;--c-8a5207:#8a5207;--c-8a8f9c:#8a8f9c;--c-8f99b3:#8f99b3;--c-9aa0ab:#9aa0ab;--c-9aa3b8:#9aa3b8;--c-a9b2ff:#a9b2ff;--c-aab3c8:#aab3c8;--c-aeb6ca:#aeb6ca;--c-b8460f:#b8460f;--c-b86e0b:#b86e0b;--c-b9b5ab:#b9b5ab;--c-b9efe3:#b9efe3;--c-c3c9d8:#c3c9d8;--c-c7cede:#c7cede;--c-c9cfdd:#c9cfdd;--c-cdc9ff:#cdc9ff;--c-cfcac0:#cfcac0;--c-cfd5e2:#cfd5e2;--c-d6f3ec:#d6f3ec;--c-d7dbe7:#d7dbe7;--c-d9efe9:#d9efe9;--c-e0561b:#e0561b;--c-e2e0f8:#e2e0f8;--c-e3dfd5:#e3dfd5;--c-e7eaf2:#e7eaf2;--c-e8eaf2:#e8eaf2;--c-e8ebf3:#e8ebf3;--c-e9b949:#e9b949;--c-e9eeec:#e9eeec;--c-ecebe6:#ecebe6;--c-eeece6:#eeece6;--c-f0b597:#f0b597;--c-f1f0eb:#f1f0eb;--c-f7cfb8:#f7cfb8;--c-fbefd9:#fbefd9;--c-fde6d8:#fde6d8;--c-ff7a3d:#ff7a3d;--c-ff9a62:#ff9a62;--c-fff-bg:#fff;--c-fff-fg:#fff;--c-fffaf6:#fffaf6;--night-head:#fff}
+[data-style="midnight"] .slide{--r-paper:#0f1424;--r-card:#171e33;--r-ink:#eef1f8;--r-ink2:#c9cfdd;--r-muted:#9aa3b8;--r-muted2:#7f88a0;--r-line:#2a3352;--r-line2:#34406a;--r-grid:#222b47;--r-neutral:#4a5470;--r-neutral-soft:#1f2740;--r-ad:#3fd0b6;--r-ad2:#7fe0cc;--r-ad-soft:#143a38;--r-ad-tint:#12302f;--r-ad-pale:#06231f;--r-ad-deep:#b9efe3;--r-ae:#8f97ff;--r-ae2:#b3b8ff;--r-ae-soft:#23284d;--r-ae-tint:#1b2042;--r-ae-pale:#141838;--r-hot:#ff8a4c;--r-hot-soft:#3a2216;--r-hot-deep:#ffb38a;--r-hot-line:#6b3a22;--r-hot-tint:#26180f;--r-amber:#f0b44c;--r-amber-soft:#33270f;--r-amber-deep:#f6d08a;--r-gold:#c99a2e;--r-night:#0a0e1a;--r-night2:#121a2e;--r-night3:#18203a;--r-night-line:#2a3352;--r-night-ink:#eef0f6;--r-night-muted:#9aa3b8;--r-mint:#7fe0cc;--r-mint2:#3fd0b6;--r-mint-deep:#0f2b2b;--r-peach:#ff9a62;--r-peach2:#ff7a3d;--r-peach-deep:#2a1a17;--r-peri:#a9b2ff;--r-peri2:#7f8cff;--r-on-accent:#0a0e1a;--r-night-head:#ffffff;--r-stage:#05070d;--paper:var(--r-paper);--card:var(--r-card);--ink:var(--r-ink);--ink2:var(--r-ink2);--muted:var(--r-muted);--line:var(--r-line);--line2:var(--r-line2);--ad:var(--r-ad);--ad-2:var(--r-ad2);--ad-soft:var(--r-ad-soft);--ad-tint:var(--r-ad-tint);--ae:var(--r-ae);--ae-2:var(--r-ae2);--ae-soft:var(--r-ae-soft);--ae-tint:var(--r-ae-tint);--hot:var(--r-hot);--hot-soft:var(--r-hot-soft);--amber:var(--r-amber);--amber-soft:var(--r-amber-soft);--night:var(--r-night);--night-2:var(--r-night2);--night-ink:var(--r-night-ink);--night-muted:var(--r-night-muted);--c-0a0d16:var(--r-stage);--c-0b4a41:var(--r-ad-deep);--c-0b5a4f:var(--r-ad-deep);--c-0d7a6b:var(--r-ad);--c-0f2b2b:var(--r-mint-deep);--c-14a08c:var(--r-ad2);--c-151821:var(--r-ink);--c-161d31:var(--r-night2);--c-1a1f3d:var(--r-night3);--c-1b2440:var(--r-night3);--c-1d2440:var(--r-night3);--c-27304a:var(--r-night-line);--c-2a1a17:var(--r-peach-deep);--c-2a3350:var(--r-night-line);--c-2b3552:var(--r-night-line);--c-2f3a5a:var(--r-night-line);--c-39425c:var(--r-night-line);--c-3a3f4d:var(--r-ink2);--c-3a4566:var(--r-night-line);--c-4038b8:var(--r-ae);--c-5d3a07:var(--r-amber-deep);--c-6a6d76:var(--r-muted);--c-6b4307:var(--r-amber-deep);--c-6b7080:var(--r-muted);--c-7d869c:var(--r-night-muted);--c-7fe0cc:var(--r-mint);--c-8a5207:var(--r-amber-deep);--c-8a8f9c:var(--r-muted2);--c-8f99b3:var(--r-night-muted);--c-9aa0ab:var(--r-muted2);--c-9aa3b8:var(--r-night-muted);--c-a9b2ff:var(--r-peri);--c-aab3c8:var(--r-night-muted);--c-aeb6ca:var(--r-night-muted);--c-b8460f:var(--r-hot-deep);--c-b86e0b:var(--r-amber);--c-b9b5ab:var(--r-neutral);--c-b9efe3:var(--r-ad-pale);--c-c3c9d8:var(--r-night-ink);--c-c7cede:var(--r-night-ink);--c-c9cfdd:var(--r-night-ink);--c-cdc9ff:var(--r-ae-pale);--c-cfcac0:var(--r-line2);--c-cfd5e2:var(--r-night-ink);--c-d6f3ec:var(--r-ad-pale);--c-d7dbe7:var(--r-night-ink);--c-d9efe9:var(--r-ad-soft);--c-e0561b:var(--r-hot);--c-e2e0f8:var(--r-ae-soft);--c-e3dfd5:var(--r-grid);--c-e7eaf2:var(--r-night-ink);--c-e8eaf2:var(--r-night-ink);--c-e8ebf3:var(--r-night-ink);--c-e9b949:var(--r-gold);--c-e9eeec:var(--r-ad-tint);--c-ecebe6:var(--r-neutral-soft);--c-eeece6:var(--r-neutral-soft);--c-f0b597:var(--r-hot-line);--c-f1f0eb:var(--r-neutral-soft);--c-f7cfb8:var(--r-hot-line);--c-fbefd9:var(--r-amber-soft);--c-fde6d8:var(--r-hot-soft);--c-ff7a3d:var(--r-peach2);--c-ff9a62:var(--r-peach);--c-fff-bg:var(--r-card);--c-fff-fg:var(--r-on-accent);--c-fffaf6:var(--r-hot-tint);--night-head:var(--r-night-head)}
+[data-style="nordic"] .slide{--r-paper:#f4f7fa;--r-card:#ffffff;--r-ink:#0f1b2d;--r-ink2:#34445c;--r-muted:#5f6f86;--r-muted2:#8593a8;--r-line:#d5dde7;--r-line2:#c3cfdc;--r-grid:#e1e8f0;--r-neutral:#b7c2cf;--r-neutral-soft:#e6ebf1;--r-ad:#1f6f5c;--r-ad2:#2f9479;--r-ad-soft:#d5ebe3;--r-ad-tint:#edf6f2;--r-ad-pale:#c9eadd;--r-ad-deep:#13493c;--r-ae:#1d4e89;--r-ae2:#3b74b8;--r-ae-soft:#dbe6f4;--r-ae-tint:#f0f5fb;--r-ae-pale:#c8dbf2;--r-hot:#e2574c;--r-hot-soft:#fbe1de;--r-hot-deep:#b23a31;--r-hot-line:#f2b3ad;--r-hot-tint:#fff7f6;--r-amber:#c07a12;--r-amber-soft:#f8ecd5;--r-amber-deep:#6f4608;--r-gold:#e3b341;--r-night:#0d1b2e;--r-night2:#13263f;--r-night3:#1a3050;--r-night-line:#2a4466;--r-night-ink:#eaf1f8;--r-night-muted:#9db0c6;--r-mint:#8fd9c4;--r-mint2:#4cc2a3;--r-mint-deep:#0e2f2a;--r-peach:#ff9b8f;--r-peach2:#ff7466;--r-peach-deep:#3a1a17;--r-peri:#a9c7f0;--r-peri2:#6f9fe0;--r-on-accent:#ffffff;--r-night-head:#ffffff;--r-stage:#08111d;--paper:var(--r-paper);--card:var(--r-card);--ink:var(--r-ink);--ink2:var(--r-ink2);--muted:var(--r-muted);--line:var(--r-line);--line2:var(--r-line2);--ad:var(--r-ad);--ad-2:var(--r-ad2);--ad-soft:var(--r-ad-soft);--ad-tint:var(--r-ad-tint);--ae:var(--r-ae);--ae-2:var(--r-ae2);--ae-soft:var(--r-ae-soft);--ae-tint:var(--r-ae-tint);--hot:var(--r-hot);--hot-soft:var(--r-hot-soft);--amber:var(--r-amber);--amber-soft:var(--r-amber-soft);--night:var(--r-night);--night-2:var(--r-night2);--night-ink:var(--r-night-ink);--night-muted:var(--r-night-muted);--c-0a0d16:var(--r-stage);--c-0b4a41:var(--r-ad-deep);--c-0b5a4f:var(--r-ad-deep);--c-0d7a6b:var(--r-ad);--c-0f2b2b:var(--r-mint-deep);--c-14a08c:var(--r-ad2);--c-151821:var(--r-ink);--c-161d31:var(--r-night2);--c-1a1f3d:var(--r-night3);--c-1b2440:var(--r-night3);--c-1d2440:var(--r-night3);--c-27304a:var(--r-night-line);--c-2a1a17:var(--r-peach-deep);--c-2a3350:var(--r-night-line);--c-2b3552:var(--r-night-line);--c-2f3a5a:var(--r-night-line);--c-39425c:var(--r-night-line);--c-3a3f4d:var(--r-ink2);--c-3a4566:var(--r-night-line);--c-4038b8:var(--r-ae);--c-5d3a07:var(--r-amber-deep);--c-6a6d76:var(--r-muted);--c-6b4307:var(--r-amber-deep);--c-6b7080:var(--r-muted);--c-7d869c:var(--r-night-muted);--c-7fe0cc:var(--r-mint);--c-8a5207:var(--r-amber-deep);--c-8a8f9c:var(--r-muted2);--c-8f99b3:var(--r-night-muted);--c-9aa0ab:var(--r-muted2);--c-9aa3b8:var(--r-night-muted);--c-a9b2ff:var(--r-peri);--c-aab3c8:var(--r-night-muted);--c-aeb6ca:var(--r-night-muted);--c-b8460f:var(--r-hot-deep);--c-b86e0b:var(--r-amber);--c-b9b5ab:var(--r-neutral);--c-b9efe3:var(--r-ad-pale);--c-c3c9d8:var(--r-night-ink);--c-c7cede:var(--r-night-ink);--c-c9cfdd:var(--r-night-ink);--c-cdc9ff:var(--r-ae-pale);--c-cfcac0:var(--r-line2);--c-cfd5e2:var(--r-night-ink);--c-d6f3ec:var(--r-ad-pale);--c-d7dbe7:var(--r-night-ink);--c-d9efe9:var(--r-ad-soft);--c-e0561b:var(--r-hot);--c-e2e0f8:var(--r-ae-soft);--c-e3dfd5:var(--r-grid);--c-e7eaf2:var(--r-night-ink);--c-e8eaf2:var(--r-night-ink);--c-e8ebf3:var(--r-night-ink);--c-e9b949:var(--r-gold);--c-e9eeec:var(--r-ad-tint);--c-ecebe6:var(--r-neutral-soft);--c-eeece6:var(--r-neutral-soft);--c-f0b597:var(--r-hot-line);--c-f1f0eb:var(--r-neutral-soft);--c-f7cfb8:var(--r-hot-line);--c-fbefd9:var(--r-amber-soft);--c-fde6d8:var(--r-hot-soft);--c-ff7a3d:var(--r-peach2);--c-ff9a62:var(--r-peach);--c-fff-bg:var(--r-card);--c-fff-fg:var(--r-on-accent);--c-fffaf6:var(--r-hot-tint);--night-head:var(--r-night-head)}
+[data-style="graphite"] .slide{--r-paper:#f2f2f0;--r-card:#ffffff;--r-ink:#111111;--r-ink2:#333333;--r-muted:#6a6a6a;--r-muted2:#8c8c8c;--r-line:#d9d9d6;--r-line2:#c4c4c0;--r-grid:#e2e2df;--r-neutral:#b5b5b0;--r-neutral-soft:#e8e8e5;--r-ad:#1a1a1a;--r-ad2:#444444;--r-ad-soft:#e3e3e0;--r-ad-tint:#f0f0ee;--r-ad-pale:#d0d0cc;--r-ad-deep:#111111;--r-ae:#5a5a5a;--r-ae2:#7a7a7a;--r-ae-soft:#e6e6e3;--r-ae-tint:#f3f3f1;--r-ae-pale:#cfcfcb;--r-hot:#d9a400;--r-hot-soft:#fbf0c2;--r-hot-deep:#7a5c00;--r-hot-line:#ecd476;--r-hot-tint:#fffbea;--r-amber:#6e6e6e;--r-amber-soft:#ececea;--r-amber-deep:#2b2b2b;--r-gold:#bdbdb8;--r-night:#141414;--r-night2:#1e1e1e;--r-night3:#262626;--r-night-line:#3a3a3a;--r-night-ink:#f0f0f0;--r-night-muted:#a3a3a3;--r-mint:#f2c300;--r-mint2:#d9a400;--r-mint-deep:#2a2410;--r-peach:#f2c300;--r-peach2:#ffd84d;--r-peach-deep:#2a2410;--r-peri:#cfcfcf;--r-peri2:#9a9a9a;--r-on-accent:#ffffff;--r-night-head:#ffffff;--r-stage:#0b0b0b;--paper:var(--r-paper);--card:var(--r-card);--ink:var(--r-ink);--ink2:var(--r-ink2);--muted:var(--r-muted);--line:var(--r-line);--line2:var(--r-line2);--ad:var(--r-ad);--ad-2:var(--r-ad2);--ad-soft:var(--r-ad-soft);--ad-tint:var(--r-ad-tint);--ae:var(--r-ae);--ae-2:var(--r-ae2);--ae-soft:var(--r-ae-soft);--ae-tint:var(--r-ae-tint);--hot:var(--r-hot);--hot-soft:var(--r-hot-soft);--amber:var(--r-amber);--amber-soft:var(--r-amber-soft);--night:var(--r-night);--night-2:var(--r-night2);--night-ink:var(--r-night-ink);--night-muted:var(--r-night-muted);--c-0a0d16:var(--r-stage);--c-0b4a41:var(--r-ad-deep);--c-0b5a4f:var(--r-ad-deep);--c-0d7a6b:var(--r-ad);--c-0f2b2b:var(--r-mint-deep);--c-14a08c:var(--r-ad2);--c-151821:var(--r-ink);--c-161d31:var(--r-night2);--c-1a1f3d:var(--r-night3);--c-1b2440:var(--r-night3);--c-1d2440:var(--r-night3);--c-27304a:var(--r-night-line);--c-2a1a17:var(--r-peach-deep);--c-2a3350:var(--r-night-line);--c-2b3552:var(--r-night-line);--c-2f3a5a:var(--r-night-line);--c-39425c:var(--r-night-line);--c-3a3f4d:var(--r-ink2);--c-3a4566:var(--r-night-line);--c-4038b8:var(--r-ae);--c-5d3a07:var(--r-amber-deep);--c-6a6d76:var(--r-muted);--c-6b4307:var(--r-amber-deep);--c-6b7080:var(--r-muted);--c-7d869c:var(--r-night-muted);--c-7fe0cc:var(--r-mint);--c-8a5207:var(--r-amber-deep);--c-8a8f9c:var(--r-muted2);--c-8f99b3:var(--r-night-muted);--c-9aa0ab:var(--r-muted2);--c-9aa3b8:var(--r-night-muted);--c-a9b2ff:var(--r-peri);--c-aab3c8:var(--r-night-muted);--c-aeb6ca:var(--r-night-muted);--c-b8460f:var(--r-hot-deep);--c-b86e0b:var(--r-amber);--c-b9b5ab:var(--r-neutral);--c-b9efe3:var(--r-ad-pale);--c-c3c9d8:var(--r-night-ink);--c-c7cede:var(--r-night-ink);--c-c9cfdd:var(--r-night-ink);--c-cdc9ff:var(--r-ae-pale);--c-cfcac0:var(--r-line2);--c-cfd5e2:var(--r-night-ink);--c-d6f3ec:var(--r-ad-pale);--c-d7dbe7:var(--r-night-ink);--c-d9efe9:var(--r-ad-soft);--c-e0561b:var(--r-hot);--c-e2e0f8:var(--r-ae-soft);--c-e3dfd5:var(--r-grid);--c-e7eaf2:var(--r-night-ink);--c-e8eaf2:var(--r-night-ink);--c-e8ebf3:var(--r-night-ink);--c-e9b949:var(--r-gold);--c-e9eeec:var(--r-ad-tint);--c-ecebe6:var(--r-neutral-soft);--c-eeece6:var(--r-neutral-soft);--c-f0b597:var(--r-hot-line);--c-f1f0eb:var(--r-neutral-soft);--c-f7cfb8:var(--r-hot-line);--c-fbefd9:var(--r-amber-soft);--c-fde6d8:var(--r-hot-soft);--c-ff7a3d:var(--r-peach2);--c-ff9a62:var(--r-peach);--c-fff-bg:var(--r-card);--c-fff-fg:var(--r-on-accent);--c-fffaf6:var(--r-hot-tint);--night-head:var(--r-night-head)}
+[data-style="terracotta"] .slide{--r-paper:#f7f1e8;--r-card:#fffdf9;--r-ink:#2b1d14;--r-ink2:#4d3a2c;--r-muted:#7b6a5c;--r-muted2:#9b8a7c;--r-line:#e3d7c6;--r-line2:#d4c4ae;--r-grid:#ebe1d2;--r-neutral:#c4b5a2;--r-neutral-soft:#efe6d9;--r-ad:#6b7d3a;--r-ad2:#86994b;--r-ad-soft:#e4e9d3;--r-ad-tint:#f3f5ea;--r-ad-pale:#dfe8c4;--r-ad-deep:#3f4b20;--r-ae:#b4532a;--r-ae2:#cf7449;--r-ae-soft:#f4dfd3;--r-ae-tint:#fbf1eb;--r-ae-pale:#f6d3c0;--r-hot:#c8901a;--r-hot-soft:#f6e8c8;--r-hot-deep:#8a5f08;--r-hot-line:#e6c98a;--r-hot-tint:#fffaf0;--r-amber:#8c5a3c;--r-amber-soft:#f1e2d6;--r-amber-deep:#4f2f1a;--r-gold:#d9a441;--r-night:#2a1d16;--r-night2:#36261d;--r-night3:#423026;--r-night-line:#5a4334;--r-night-ink:#f6ece2;--r-night-muted:#c2ad9b;--r-mint:#d9c27a;--r-mint2:#b9a24f;--r-mint-deep:#3a3220;--r-peach:#f0a46a;--r-peach2:#e88a4a;--r-peach-deep:#3d2416;--r-peri:#e8b49a;--r-peri2:#d38c6b;--r-on-accent:#fffdf9;--r-night-head:#fffaf3;--r-stage:#1b120d;--paper:var(--r-paper);--card:var(--r-card);--ink:var(--r-ink);--ink2:var(--r-ink2);--muted:var(--r-muted);--line:var(--r-line);--line2:var(--r-line2);--ad:var(--r-ad);--ad-2:var(--r-ad2);--ad-soft:var(--r-ad-soft);--ad-tint:var(--r-ad-tint);--ae:var(--r-ae);--ae-2:var(--r-ae2);--ae-soft:var(--r-ae-soft);--ae-tint:var(--r-ae-tint);--hot:var(--r-hot);--hot-soft:var(--r-hot-soft);--amber:var(--r-amber);--amber-soft:var(--r-amber-soft);--night:var(--r-night);--night-2:var(--r-night2);--night-ink:var(--r-night-ink);--night-muted:var(--r-night-muted);--c-0a0d16:var(--r-stage);--c-0b4a41:var(--r-ad-deep);--c-0b5a4f:var(--r-ad-deep);--c-0d7a6b:var(--r-ad);--c-0f2b2b:var(--r-mint-deep);--c-14a08c:var(--r-ad2);--c-151821:var(--r-ink);--c-161d31:var(--r-night2);--c-1a1f3d:var(--r-night3);--c-1b2440:var(--r-night3);--c-1d2440:var(--r-night3);--c-27304a:var(--r-night-line);--c-2a1a17:var(--r-peach-deep);--c-2a3350:var(--r-night-line);--c-2b3552:var(--r-night-line);--c-2f3a5a:var(--r-night-line);--c-39425c:var(--r-night-line);--c-3a3f4d:var(--r-ink2);--c-3a4566:var(--r-night-line);--c-4038b8:var(--r-ae);--c-5d3a07:var(--r-amber-deep);--c-6a6d76:var(--r-muted);--c-6b4307:var(--r-amber-deep);--c-6b7080:var(--r-muted);--c-7d869c:var(--r-night-muted);--c-7fe0cc:var(--r-mint);--c-8a5207:var(--r-amber-deep);--c-8a8f9c:var(--r-muted2);--c-8f99b3:var(--r-night-muted);--c-9aa0ab:var(--r-muted2);--c-9aa3b8:var(--r-night-muted);--c-a9b2ff:var(--r-peri);--c-aab3c8:var(--r-night-muted);--c-aeb6ca:var(--r-night-muted);--c-b8460f:var(--r-hot-deep);--c-b86e0b:var(--r-amber);--c-b9b5ab:var(--r-neutral);--c-b9efe3:var(--r-ad-pale);--c-c3c9d8:var(--r-night-ink);--c-c7cede:var(--r-night-ink);--c-c9cfdd:var(--r-night-ink);--c-cdc9ff:var(--r-ae-pale);--c-cfcac0:var(--r-line2);--c-cfd5e2:var(--r-night-ink);--c-d6f3ec:var(--r-ad-pale);--c-d7dbe7:var(--r-night-ink);--c-d9efe9:var(--r-ad-soft);--c-e0561b:var(--r-hot);--c-e2e0f8:var(--r-ae-soft);--c-e3dfd5:var(--r-grid);--c-e7eaf2:var(--r-night-ink);--c-e8eaf2:var(--r-night-ink);--c-e8ebf3:var(--r-night-ink);--c-e9b949:var(--r-gold);--c-e9eeec:var(--r-ad-tint);--c-ecebe6:var(--r-neutral-soft);--c-eeece6:var(--r-neutral-soft);--c-f0b597:var(--r-hot-line);--c-f1f0eb:var(--r-neutral-soft);--c-f7cfb8:var(--r-hot-line);--c-fbefd9:var(--r-amber-soft);--c-fde6d8:var(--r-hot-soft);--c-ff7a3d:var(--r-peach2);--c-ff9a62:var(--r-peach);--c-fff-bg:var(--r-card);--c-fff-fg:var(--r-on-accent);--c-fffaf6:var(--r-hot-tint);--night-head:var(--r-night-head)}
+[data-style="midnight"] .slide:not(.dark){background:radial-gradient(1200px 700px at 80% 0%, var(--r-night3) 0%, var(--r-paper) 60%)}
+#styles{position:fixed;left:16px;top:10px;display:flex;gap:6px;z-index:7;font:500 12px/1 var(--mono)}
+#styles button{border:1px solid #39425c;background:rgba(10,13,22,.7);color:#c9cfdd;border-radius:999px;padding:5px 10px;cursor:pointer;display:flex;gap:6px;align-items:center;font:inherit}
+#styles button i{width:10px;height:10px;border-radius:50%;display:inline-block}
+#styles button[aria-pressed="true"]{border-color:#7fe0cc;color:#fff}
+body.static #styles,body.grid #styles{display:none}
+@media print{#styles{display:none!important}}
+
+/* s14 possible futures */
+#s14 .space{position:absolute;left:72px;top:200px;width:1136px;display:grid;grid-template-columns:1fr 1fr 1fr .72fr;gap:16px}
+#s14 .col{padding:16px 16px 14px;height:372px;position:relative}
+#s14 dl{display:grid;grid-template-columns:78px 1fr;gap:6px 8px;margin:14px 0 14px}
+#s14 dt{font:600 11px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+#s14 dd{font:400 15px/1.35 var(--sans);color:var(--ink)}
+#s14 .meter{height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+#s14 .meter i{display:block;height:100%;background:var(--ad);border-radius:4px}
+#s14 .col:nth-child(2) .meter i{background:var(--amber)} #s14 .col:nth-child(3) .meter i{background:var(--ae)}
+#s14 .lvl{font:500 12px/1.3 var(--mono);color:var(--muted);margin:6px 0 12px}
+#s14 .sk{font:400 13.5px/1.4 var(--sans);color:var(--ink2);border:1.5px dashed var(--line2);border-radius:10px;padding:9px 11px;margin-top:8px}
+#s14 .sk.solid{border-style:solid;border-color:var(--ad-soft);background:var(--ad-tint)}
+#s14 .q4{border:1.5px dashed var(--hot);border-radius:14px;padding:16px;height:372px;background:var(--hot-tint)}
+#s14 .big-q{font:700 112px/1 var(--sans);color:var(--hot);margin:26px 0 14px;opacity:.85;text-align:center}
+#s14 .q4 p{font:400 15px/1.45 var(--serif);color:var(--ink2)}
+#s14 .bottom{position:absolute;left:72px;top:594px;width:1136px;font:400 19px/1.4 var(--serif);color:var(--ink2)}
+#s14 .bottom b{color:var(--ink)}
+#s1 .defq .also{display:block;margin-top:8px;font:italic 400 15.5px/1.4 var(--serif);color:var(--muted)}
+#s4 .type{position:relative}
+#s4 .ev{position:absolute;right:24px;top:24px;font:600 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:6px 8px;border-radius:999px}
+#s4 .ev.full{background:var(--ad);color:var(--c-fff-fg)} #s4 .ev.half{background:var(--amber-soft);color:var(--amber)} #s4 .ev.open{border:1px dashed var(--line2);color:var(--muted)}
+</style>
+</head>
+<body>
+<div id="stage">
+
+<!-- ═════════ 0 ═════════ -->
+<section class="slide dark" id="s0" data-title="Cover">
+  <div class="kicker a"><i style="background:var(--c-7fe0cc)"></i>A talk on Agentic Discovery &amp; Engineering · Aalto University · 2026</div>
+  <div class="ttl a" style="--d:.1s">The Agentic <span>Probe</span></div>
+  <div class="sub a" style="--d:.25s">Agentic Discovery is the expedition. The probe is its instrument, built by an AI agent <em>in minutes.</em></div>
+  <div class="who a" style="--d:.4s">Tapio Pitkäranta · Leena Pitkäranta<small>Aalto University · Computer Science · Industrial Engineering and Management</small></div>
+  <svg class="art" viewBox="0 0 590 420" aria-label="A ship on the surface lowers a probe on a sounding line; sonar arcs reach the seabed of the problem domain and echo back">
+    <defs>
+      <radialGradient id="glow0" cx="50%" cy="50%" r="50%"><stop offset="0" stop-opacity=".55" style="stop-color:var(--c-7fe0cc)"/><stop offset="1" stop-opacity="0" style="stop-color:var(--c-7fe0cc)"/></radialGradient>
+      <linearGradient id="sea0" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-opacity=".0" style="stop-color:var(--c-1b2440)"/><stop offset="1" stop-opacity=".9" style="stop-color:var(--c-1b2440)"/></linearGradient>
+    </defs>
+    <rect x="0" y="70" width="590" height="350" fill="url(#sea0)"/>
+    <line x1="0" y1="70" x2="590" y2="70" stroke-width="1.4" style="stroke:var(--c-3a4566)"/>
+    <text x="590" y="60" text-anchor="end" font-family="JetBrains Mono" font-size="11" letter-spacing="1.2" style="fill:var(--c-9aa3b8)">SURFACE · WHAT WE ASSUME</text>
+    <!-- ship -->
+    <path d="M58 70 L172 70 L156 94 L74 94 Z" style="fill:var(--c-3a4566)"/><path d="M100 70 V34 M100 38 L128 62 H100" stroke-width="2" fill="none" style="stroke:var(--c-9aa3b8)"/>
+    <text x="186" y="88" font-family="JetBrains Mono" font-size="11.5" font-weight="600" letter-spacing="1.4" style="fill:var(--c-a9b2ff)">THE SHIP</text>
+    <text x="186" y="104" font-size="12.5" style="fill:var(--c-9aa3b8)">production: costly to steer</text>
+    <!-- sounding line + probe -->
+    <path d="M115 94 V236" stroke-width="1.6" stroke-dasharray="4 5" class="draw" style="stroke:var(--c-7fe0cc);--len:150;--d:.3s"/>
+    <circle cx="115" cy="251" r="54" fill="url(#glow0)" class="pulse"/>
+    <rect x="103" y="236" width="24" height="31" rx="12" style="fill:var(--c-7fe0cc)"/>
+    <text x="92" y="246" text-anchor="end" font-family="JetBrains Mono" font-size="11.5" font-weight="600" letter-spacing="1.4" style="fill:var(--c-7fe0cc)">THE PROBE</text>
+    <text x="92" y="262" text-anchor="end" font-size="12.5" style="fill:var(--c-9aa3b8)">minutes,</text><text x="92" y="277" text-anchor="end" font-size="12.5" style="fill:var(--c-9aa3b8)">disposable</text>
+    <!-- sonar arcs -->
+    <g fill="none" stroke-width="1.6" style="stroke:var(--c-7fe0cc)">
+      <path d="M180.8 226.1 A70 70 0 0 1 138.9 315.8" opacity=".9" class="a" style="--d:.5s"/>
+      <path d="M237.2 205.5 A130 130 0 0 1 159.5 372.2" opacity=".65" class="a" style="--d:.7s"/>
+      <path d="M293.5 185 A190 190 0 0 1 180 428.5" opacity=".45" class="a" style="--d:.9s"/>
+      <path d="M349.9 164.5 A250 250 0 0 1 200.5 484.9" opacity=".3" class="a" style="--d:1.1s"/>
+    </g>
+    <!-- seabed -->
+    <path d="M0 404 C 80 384, 140 412, 220 388 S 330 300, 400 326 S 520 392, 590 352 L590 420 L0 420Z" stroke-width="1.2" style="fill:var(--c-161d31);stroke:var(--c-3a4566)"/>
+    <g class="a" style="fill:var(--c-ff9a62);--d:1.3s"><circle cx="236" cy="384" r="4.5"/><circle cx="318" cy="327" r="4.5"/><circle cx="356" cy="314" r="4.5"/></g>
+    <text x="372" y="300" font-size="12.5" class="a" style="fill:var(--c-ff9a62);--d:1.4s">echoes: operational feedback</text>
+    <text x="590" y="412" text-anchor="end" font-family="JetBrains Mono" font-size="11" letter-spacing="1.2" style="fill:var(--c-9aa3b8)">THE PROBLEM DOMAIN · MEASURED, NOT ASSUMED</text>
+  </svg>
+  <div class="stats">
+    <div class="a" style="--d:.5s"><b>69</b><span>software probes built in the field study</span></div>
+    <div class="a" style="--d:.6s"><b>8</b><span>in-room engagements, two partner organisations</span></div>
+    <div class="a" style="--d:.7s"><b>≈1.7 min</b><span>to generate one probe (Organisation B, mean)</span></div>
+    <div class="a" style="--d:.8s"><b>100%</b><span>probe-generation success</span></div>
+  </div>
+  <aside class="notes"><p>Before a ship commits to a course through unknown water, someone drops a probe over the side to measure the depth. This talk is about that kind of probe, for software.</p><p>Think of agentic discovery as an expedition into the problem. The agentic probe is its instrument. An AI agent builds it from a stakeholder's own words, in minutes. Sometimes it is a prototype, sometimes a simulation of today's work, sometimes a possible future.</p><p>Our field study built sixty-nine of them, all of the prototype kind, in eight in-room engagements with two partner organisations. And every generation attempt succeeded.</p><p>The ship is the production investment, slow to steer. The probe is cheap and goes down first. What echoes back is operational feedback from the problem itself.</p></aside>
+</section>
+
+<!-- ═════════ 1 ═════════ -->
+<section class="slide" id="s1" data-title="What an Agentic Probe is">
+  <div class="kicker a"><i></i>1 · The probe</div>
+  <h1 class="a" style="--d:.05s">An Agentic Probe is an instrument for discovery, not a draft</h1>
+  <div class="defq card a" style="--d:.15s"><small>DEFINITION · PAPER §3</small>A stakeholder-runnable instance of a candidate solution to a stated pain. Throwaway-grade by design: its job is to <b>validate or falsify the pain</b>, not to be production-ready.<span class="also">Pointed at the problem instead, the same probe renders today&#8217;s process or a possible future.</span></div>
+  <div class="props">
+    <div class="prop a" style="--d:.3s"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="21" style="fill:var(--c-e2e0f8)"/><rect x="13" y="13" width="18" height="18" rx="4" style="fill:var(--c-4038b8)"/><rect x="18" y="18" width="8" height="8" rx="2" style="fill:var(--c-cdc9ff)"/></svg><div><h3>Agentic</h3><p>An AI agent builds it from the stakeholder&#8217;s own words, in minutes.</p></div></div>
+    <div class="prop a" style="--d:.42s"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="21" style="fill:var(--c-d9efe9)"/><path d="M14 23 l6 6 l11 -13" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--c-0d7a6b)"/></svg><div><h3>Usable</h3><p>The stakeholder uses it as if it were real, instead of reading about it.</p></div></div>
+    <div class="prop a" style="--d:.54s"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="21" style="fill:var(--c-fde6d8)"/><path d="M15 15 L29 29 M29 15 L15 29" stroke-width="3.2" stroke-linecap="round" style="stroke:var(--c-e0561b)"/></svg><div><h3>Disposable</h3><p>It answers a question about the problem, then it is thrown away.</p></div></div>
+  </div>
+  <div class="vs a" style="--d:.5s">
+    <div class="vh"><span></span><b class="pt">Prototype</b><b class="pr">Probe</b></div>
+    <div class="vr"><span>What it is</span><i class="pt">a partial software artefact</i><i class="pr">software, a process simulation or a walkable scenario</i></div>
+    <div class="vr"><span>Where it goes</span><i class="pt">refined towards production</i><i class="pr">thrown away once it has answered</i></div>
+    <div class="vr"><span>What it is for</span><i class="pt">a first draft of the product</i><i class="pr">an instrument for searching the problem domain</i></div>
+  </div>
+  <div class="echo a" style="--d:.9s"><div class="bub old"><small>Shown a slide deck</small>“I like the colour.”</div><div class="arr">→</div><div class="bub new"><small>Using a probe</small>“When I press save twice, nothing happens.”</div></div>
+  <div class="foot"><span>Agentic Discovery is the expedition · the probe is its instrument · Finnish: <i>agenttinen luotain</i></span><span>1 / 17</span></div>
+  <aside class="notes"><p>So what is an agentic probe? It is an instrument for discovery, not a draft.</p><p>The paper defines a probe as a stakeholder-runnable instance of a candidate solution to a stated pain. It is throwaway-grade by design. Its job is to validate or falsify the pain, not to be production-ready. That definition is written from the solution side. Pointed at the problem instead, the same kind of probe renders today's process, or a possible future.</p><p>It is agentic: an AI agent builds it from the stakeholder's own words, in minutes. The paper simply says probe. We say agentic probe, because only agents made it this cheap.</p><p>It is usable: the stakeholder uses it as if it were real, instead of reading about it. And it is disposable. It answers a question, and then it is thrown away.</p><p>That is why the paper coins a new word instead of saying prototype. A prototype is a partial draft that gets refined towards production. A probe is an instrument for searching the problem domain, and it may not be software at all.</p><p>Show people a slide deck and they say: I like the colour. Hand them a probe and they say: when I press save twice, nothing happens. That operational feedback is what the probe is for.</p></aside>
+</section>
+
+<!-- ═════════ 2 ═════════ -->
+<section class="slide" id="s2" data-title="The hidden premise">
+  <div class="kicker a"><i style="background:var(--hot)"></i>2 · Why probes were impossible</div>
+  <h1 class="a" style="--d:.05s">Until now, a working answer cost too much to be used as a question</h1>
+  <svg class="stair" viewBox="0 0 720 380" aria-label="Waterfall of six phases, each separated by a handoff document">
+    <g font-size="16" font-weight="600">
+      <g class="a" style="--d:.15s"><rect x="10" y="10" width="220" height="44" rx="10" style="fill:var(--c-fff-bg);stroke:var(--c-cfcac0)"/><text x="28" y="38">Discovery</text><text x="214" y="37" text-anchor="end" font-family="JetBrains Mono" font-size="11.5" font-weight="500" style="fill:var(--c-8a8f9c)">workshops</text></g>
+      <g class="a" style="--d:.25s"><rect x="100" y="72" width="220" height="44" rx="10" style="fill:var(--c-fff-bg);stroke:var(--c-cfcac0)"/><text x="118" y="100">Design</text><text x="304" y="99" text-anchor="end" font-family="JetBrains Mono" font-size="11.5" font-weight="500" style="fill:var(--c-8a8f9c)">drawings</text></g>
+      <g class="a" style="--d:.35s"><rect x="190" y="134" width="220" height="44" rx="10" style="fill:var(--c-fff-bg);stroke:var(--c-cfcac0)"/><text x="208" y="162">Specification</text><text x="394" y="161" text-anchor="end" font-family="JetBrains Mono" font-size="11.5" font-weight="500" style="fill:var(--c-8a8f9c)">documents</text></g>
+      <g class="a" style="--d:.45s"><rect x="280" y="196" width="220" height="44" rx="10" style="fill:var(--c-151821)"/><text x="298" y="224" style="fill:var(--c-fff-fg)">Development</text><text x="484" y="223" text-anchor="end" font-family="JetBrains Mono" font-size="11.5" font-weight="500" style="fill:var(--c-9aa3b8)">code</text></g>
+      <g class="a" style="--d:.55s"><rect x="370" y="258" width="220" height="44" rx="10" style="fill:var(--c-fff-bg);stroke:var(--c-cfcac0)"/><text x="388" y="286">QA</text><text x="574" y="285" text-anchor="end" font-family="JetBrains Mono" font-size="11.5" font-weight="500" style="fill:var(--c-8a8f9c)">test plans</text></g>
+      <g class="a" style="--d:.65s"><rect x="460" y="320" width="250" height="44" rx="10" style="fill:var(--c-fff-bg);stroke:var(--c-cfcac0)"/><text x="478" y="348">Release &amp; Ops</text><text x="694" y="347" text-anchor="end" font-family="JetBrains Mono" font-size="11.5" font-weight="500" style="fill:var(--c-8a8f9c)">pipelines</text></g>
+    </g>
+    <!-- handoffs -->
+    <g stroke-width="2" fill="none" class="a" style="stroke:var(--c-e0561b);--d:.8s">
+      <path d="M160 54 V70"/><path d="M250 116 V132"/><path d="M340 178 V194"/><path d="M430 240 V256"/><path d="M520 302 V318"/>
+    </g>
+    <g class="a" style="--d:.9s">
+      <g stroke-width="1.2" style="fill:var(--c-fde6d8);stroke:var(--c-e0561b)">
+        <path d="M168 56 h11 l4 4 v13 h-15z"/><path d="M258 118 h11 l4 4 v13 h-15z"/><path d="M348 180 h11 l4 4 v13 h-15z"/><path d="M438 242 h11 l4 4 v13 h-15z"/><path d="M528 304 h11 l4 4 v13 h-15z"/>
+      </g>
+      <text x="190" y="69" font-size="12.5" font-weight="500" style="fill:var(--c-b8460f)">handoff · sign-off</text>
+    </g>
+    <text x="10" y="372" font-family="JetBrains Mono" font-size="11.5" class="a" style="fill:var(--c-8a8f9c);--d:1s">each step: its own specialists, documents and rituals</text>
+  </svg>
+  <div class="facts">
+    <div class="fact card a" style="--d:.5s"><b>≈30%</b><p>of project effort goes to requirements and design</p><small>Boehm 1981; COCOMO II</small></div>
+    <div class="fact card a" style="--d:.65s"><b>≈100×</b><p>the cost of a defect found after delivery, vs. one found in requirements</p><small>Boehm &amp; Basili 2001</small></div>
+    <div class="fact card a" style="--d:.8s"><b>40–50%</b><p>of effort spent on rework</p><small>Boehm &amp; Basili 2001</small></div>
+  </div>
+  <div class="premise a" style="--d:1.1s"><b>Hidden premise:</b> drawings instead of code, documents instead of prototypes, slide decks instead of running applications.</div>
+  <div class="foot"><span>Agentic Discovery &amp; Engineering</span><span>2 / 17</span></div>
+  <aside class="notes"><p>Why didn't we work this way before? Because until now, a working answer cost far too much to be used as a question.</p><p>The lifecycle we inherited protects that expensive artefact. Discovery, design, specification, development, testing, release. Every arrow is a handoff with its own sign-off.</p><p>The numbers explain why. Requirements and design take about thirty percent of project effort. A defect found after delivery costs roughly a hundred times more than one caught in requirements. And forty to fifty percent of effort goes into rework.</p><p>So the whole apparatus rests on a hidden premise: drawings instead of code, documents instead of prototypes, slide decks instead of running applications. In that world, there was no room for a probe.</p></aside>
+</section>
+
+<!-- ═════════ 3 ═════════ -->
+<section class="slide" id="s3" data-title="The cost collapse">
+  <div class="kicker a"><i style="background:var(--ad)"></i>3 · Why probes are cheap now</div>
+  <h1 class="a" style="--d:.05s">A probe costs minutes now, so asking with software is cheap</h1>
+  <svg class="chart" viewBox="0 0 1160 300" aria-label="Log-scale bars: 2,370 person-days by hand, 33 hours of prompts, 1.7 minutes per probe">
+    <g transform="translate(330,0)">
+      <!-- grid -->
+      <g stroke-width="1" style="stroke:var(--c-e3dfd5)">
+        <line x1="28" y1="18" x2="28" y2="250"/><line x1="253" y1="18" x2="253" y2="250"/><line x1="368" y1="18" x2="368" y2="250"/><line x1="535" y1="18" x2="535" y2="250"/><line x1="668" y1="18" x2="668" y2="250"/><line x1="795" y1="18" x2="795" y2="250"/>
+      </g>
+      <g font-family="JetBrains Mono" font-size="12" text-anchor="middle" style="fill:var(--c-6b7080)">
+        <text x="28" y="272">1 min</text><text x="253" y="272">1 hour</text><text x="368" y="272">1 workday</text><text x="535" y="272">1 work-month</text><text x="668" y="272">1 work-year</text><text x="795" y="272" text-anchor="end">10 work-years</text>
+      </g>
+      <text x="410" y="294" font-size="12" text-anchor="middle" style="fill:var(--c-8a8f9c)">effort, logarithmic scale</text>
+      <!-- bars -->
+      <rect x="0" y="30" width="795" height="46" rx="6" class="grow" style="fill:var(--c-b9b5ab);--d:.3s"/>
+      <rect x="0" y="112" width="445" height="46" rx="6" fill="var(--ad)" class="grow" style="--d:.6s"/>
+      <rect x="0" y="194" width="57" height="46" rx="6" fill="var(--hot)" class="grow" style="--d:.9s"/>
+      <g font-size="17" font-weight="600">
+        <text x="780" y="59" text-anchor="end" class="a" style="fill:var(--c-151821);--d:1.0s">≈ 2,370 person-days · ≈ 119 person-months</text>
+        <text x="456" y="141" class="a" style="fill:var(--c-0d7a6b);--d:1.2s">≈ 33 hours</text>
+        <text x="68" y="223" class="a" style="fill:var(--c-e0561b);--d:1.4s">≈ 1.7 minutes</text>
+      </g>
+    </g>
+    <g font-size="15.5" text-anchor="end" style="fill:var(--c-151821)">
+      <text x="310" y="50" font-weight="600">Hand-coding the same ≈140k lines</text><text x="310" y="69" font-size="13" style="fill:var(--c-6b7080)">at 50 deployable LOC per day</text>
+      <text x="310" y="132" font-weight="600">Writing the prompts for all 69 probes</text><text x="310" y="151" font-size="13" style="fill:var(--c-6b7080)">≈1 minute per prompt line</text>
+      <text x="310" y="214" font-weight="600">Generating one probe</text><text x="310" y="233" font-size="13" style="fill:var(--c-6b7080)">Organisation B, mean</text>
+    </g>
+  </svg>
+  <div class="calls">
+    <div class="card a" style="--d:1.3s"><b>≈570×</b><span>work-time multiplier against the hand-coding baseline</span></div>
+    <div class="card a" style="--d:1.45s"><b>37–65×</b><span>still left after a 10× quality discount for throwaway-grade code</span></div>
+    <div class="card key a" style="--d:1.6s"><b>Cheap to explore</b><span>What matters is not how fast you ship, but how cheaply you can explore what to build.</span></div>
+  </div>
+  <div class="foot"><span>Source: paper §6.5 · probes are throwaway-grade by design</span><span>3 / 17</span></div>
+  <aside class="notes"><p>Now look at what a probe costs.</p><p>Our engagements produced about a hundred and forty thousand lines of code. Written by hand, at fifty deployable lines a day, that is roughly two thousand three hundred and seventy person-days. Close to ten working years.</p><p>Writing the prompts for all sixty-nine probes took about thirty-three hours.</p><p>And generating one probe took, on average, about a minute and three-quarters.</p><p>On work time, that is roughly a five hundred and seventy-fold difference. Probes are throwaway-grade, so discount it tenfold, and you are still at thirty-seven to sixty-five times. The point is not that we ship faster. It is that asking a question with a probe has become almost free.</p></aside>
+</section>
+
+<!-- ═════════ 4 ═════════ -->
+<section class="slide" id="s4" data-title="Four kinds of probe">
+  <div class="kicker a"><i></i>4 · The probe</div>
+  <h1 class="a" style="--d:.05s">Four kinds of probe, each searching for something different</h1>
+  <div class="types">
+    <div class="type card a" style="--d:.3s">
+      <svg viewBox="0 0 240 112"><rect x="22" y="14" width="196" height="86" rx="8" stroke-width="1.4" style="fill:var(--c-fff-bg);stroke:var(--c-0d7a6b)"/><path d="M22 30 H218" stroke-width="1.2" style="stroke:var(--c-0d7a6b)"/><circle cx="34" cy="22" r="3" style="fill:var(--c-e0561b)"/><circle cx="44" cy="22" r="3" style="fill:var(--c-e9b949)"/><circle cx="54" cy="22" r="3" style="fill:var(--c-14a08c)"/><rect x="34" y="40" width="58" height="50" rx="5" style="fill:var(--c-d9efe9)"/><rect x="102" y="40" width="104" height="10" rx="4" style="fill:var(--c-d9efe9)"/><rect x="102" y="56" width="80" height="10" rx="4" style="fill:var(--c-e9eeec)"/><rect x="102" y="76" width="48" height="14" rx="7" style="fill:var(--c-0d7a6b)"/></svg>
+      <h3>Prototype</h3><p class="w">Discovers: does a solution fit?</p><p>Working software the stakeholder can use. In the field: meeting-room booking, a cash-flow forecast.</p><span class="ev full">Field · 69 probes</span>
+    </div>
+    <div class="type card a" style="--d:.4s">
+      <svg viewBox="0 0 240 112"><g stroke-width="1.4" style="fill:var(--c-fff-bg);stroke:var(--c-0d7a6b)"><rect x="16" y="40" width="50" height="30" rx="6"/><rect x="96" y="40" width="50" height="30" rx="6"/><rect x="176" y="40" width="50" height="30" rx="6"/></g><path d="M66 55 H94 M146 55 H174" stroke-width="1.6" style="stroke:var(--c-0d7a6b)"/><circle cx="121" cy="55" r="6" style="fill:var(--c-e0561b)"/><g font-family="JetBrains Mono" font-size="10" text-anchor="middle" style="fill:var(--c-0d7a6b)"><text x="80" y="92">2 d</text><text x="160" y="92">5 h</text></g><circle cx="200" cy="22" r="11" fill="none" stroke-width="1.4" style="stroke:var(--c-0d7a6b)"/><path d="M200 15 V22 L205 25" stroke-width="1.4" fill="none" style="stroke:var(--c-0d7a6b)"/></svg>
+      <h3>Process simulation</h3><p class="w">Discovers: the process, its constraints</p><p>Today&#8217;s process re-enacted with real timings, which the stakeholder can stop, correct or fork.</p><span class="ev half">Illustrated · 3 cases</span>
+    </div>
+    <div class="type card a" style="--d:.5s">
+      <svg viewBox="0 0 240 112"><rect x="18" y="16" width="96" height="80" rx="8" stroke-width="1.4" style="fill:var(--c-fff-bg);stroke:var(--c-9aa0ab)"/><rect x="126" y="16" width="96" height="80" rx="8" stroke-width="1.6" style="fill:var(--c-fff-bg);stroke:var(--c-0d7a6b)"/><g font-family="JetBrains Mono" font-size="10" text-anchor="middle"><text x="66" y="32" style="fill:var(--c-6b7080)">TODAY</text><text x="174" y="32" style="fill:var(--c-0d7a6b)">WHAT IF</text></g><path d="M34 80 L54 60 L74 70 L98 46" stroke-width="2" fill="none" style="stroke:var(--c-9aa0ab)"/><path d="M142 82 L162 70 L182 56 L206 40" stroke-width="2.4" fill="none" style="stroke:var(--c-0d7a6b)"/></svg>
+      <h3>Possible future</h3><p class="w">Discovers: which assumptions hold</p><p>Today and a possible future side by side, so assumptions can be judged before anything is built.</p><span class="ev half">Illustrated · what-ifs</span>
+    </div>
+    <div class="type card a" style="--d:.6s">
+      <svg viewBox="0 0 240 112"><rect x="20" y="14" width="130" height="84" rx="8" stroke-width="1.4" style="fill:var(--c-fff-bg);stroke:var(--c-0d7a6b)"/><rect x="32" y="28" width="70" height="8" rx="4" style="fill:var(--c-d9efe9)"/><rect x="32" y="42" width="100" height="8" rx="4" style="fill:var(--c-e9eeec)"/><rect x="118" y="46" width="104" height="44" rx="10" style="fill:var(--c-0d7a6b)"/><rect x="128" y="57" width="70" height="7" rx="3.5" style="fill:var(--c-b9efe3)"/><rect x="128" y="71" width="50" height="7" rx="3.5" style="fill:var(--c-b9efe3)"/><path d="M188 22 v14 M194 18 v22 M200 24 v10 M206 20 v18" stroke-width="2.4" stroke-linecap="round" style="stroke:var(--c-e0561b)"/></svg>
+      <h3>Combination</h3><p class="w">Discovers: what the question needs</p><p>UI, a chat overlay, a value-chain diagram, voice narration: chosen for the stakeholder.</p><span class="ev open">Open</span>
+    </div>
+  </div>
+  <div class="trait a" style="--d:.9s"><b>Common trait:</b> a probe is identified by the feedback it draws out, not by its medium. Our field study measured the first kind; the others are where discovery widens.</div>
+  <div class="foot"><span>Paper §3 · a probe is not necessarily software</span><span>4 / 17</span></div>
+  <aside class="notes"><p>There are at least four kinds of probe, and each one searches for something different.</p><p>The prototype is working software. It asks whether a solution fits. This is the kind our field study measured: sixty-nine of them, from meeting-room booking to a cash-flow forecast.</p><p>The process simulation re-enacts how the work runs today, with real timings. It searches for the process itself: its constraints, its hand-offs, its waiting. We have illustrated it in three healthcare cases.</p><p>The possible future puts today and a what-if side by side. It searches for assumptions that are reasonable before anything is built.</p><p>And often the probe is a combination. What makes all of them probes is not the medium, but the feedback they draw out. Our field study measured the first kind. The others are where discovery widens.</p></aside>
+</section>
+
+<!-- ═════════ 5 ═════════ -->
+<section class="slide" id="s5" data-title="Two modes">
+  <div class="kicker a"><i></i>5 · The probe</div>
+  <h1 class="a" style="--d:.05s">A probe asks one of two questions: <em>is this the pain?</em> Would this solve it?</h1>
+  <div class="modes">
+    <div class="md card pv a" style="--d:.2s">
+      <span class="tag am">Problem-validating</span>
+      <h3>Is <i>this</i> the pain?</h3><div class="q">The probe renders today's process</div>
+      <svg viewBox="0 0 520 190">
+        <defs><marker id="m5a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" style="fill:var(--c-b86e0b)"/></marker></defs>
+        <circle cx="70" cy="120" r="44" stroke-width="1.6" style="fill:var(--c-fbefd9);stroke:var(--c-b86e0b)"/><text x="70" y="117" text-anchor="middle" font-size="14" font-weight="600">Dreamer</text><text x="70" y="135" text-anchor="middle" font-size="11.5" style="fill:var(--c-6b7080)">stakeholder</text>
+        <circle cx="260" cy="58" r="40" style="fill:var(--c-151821)"/><text x="260" y="63" text-anchor="middle" font-size="14" font-weight="600" style="fill:var(--c-fff-fg)">AI agent</text>
+        <rect x="380" y="86" width="126" height="70" rx="12" stroke-width="1.8" style="fill:var(--c-fff-bg);stroke:var(--c-b86e0b)"/><text x="443" y="114" text-anchor="middle" font-size="14" font-weight="600">Probe</text><text x="443" y="134" text-anchor="middle" font-size="11.5" style="fill:var(--c-6b7080)">process simulation</text>
+        <g fill="none" stroke-width="1.8" style="stroke:var(--c-b86e0b)">
+          <path d="M108 98 Q170 52 218 56" marker-end="url(#m5a)" class="draw" style="--len:180;--d:.6s"/>
+          <path d="M300 62 Q370 66 410 86" marker-end="url(#m5a)" class="draw" style="--len:140;--d:.9s"/>
+          <path d="M392 156 Q260 196 112 142" marker-end="url(#m5a)" class="draw" style="--len:320;--d:1.2s"/>
+        </g>
+        <g font-size="12" style="fill:var(--c-8a5207)"><text x="96" y="62">describes pain</text><text x="344" y="58">renders</text><text x="230" y="186">validates · corrects · relaxes</text></g>
+      </svg>
+      <div class="quote">“Yes, this is exactly where it breaks.”</div>
+      <div class="out">Updates which problems are real. The spec is extracted from the validated pain.</div>
+    </div>
+    <div class="md card sp a" style="--d:.35s">
+      <span class="tag ad">Solution-proposing</span>
+      <h3>Would <i>this</i> solve it?</h3><div class="q">The probe is candidate software</div>
+      <svg viewBox="0 0 520 190">
+        <defs><marker id="m5b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" style="fill:var(--c-0d7a6b)"/></marker></defs>
+        <circle cx="70" cy="120" r="44" stroke-width="1.6" style="fill:var(--c-d9efe9);stroke:var(--c-0d7a6b)"/><text x="70" y="117" text-anchor="middle" font-size="14" font-weight="600">Dreamer</text><text x="70" y="135" text-anchor="middle" font-size="11.5" style="fill:var(--c-6b7080)">stakeholder</text>
+        <circle cx="260" cy="58" r="40" style="fill:var(--c-151821)"/><text x="260" y="63" text-anchor="middle" font-size="14" font-weight="600" style="fill:var(--c-fff-fg)">AI agent</text>
+        <rect x="380" y="86" width="126" height="70" rx="12" stroke-width="1.8" style="fill:var(--c-fff-bg);stroke:var(--c-0d7a6b)"/><text x="443" y="114" text-anchor="middle" font-size="14" font-weight="600">Probe</text><text x="443" y="134" text-anchor="middle" font-size="11.5" style="fill:var(--c-6b7080)">working software</text>
+        <g fill="none" stroke-width="1.8" style="stroke:var(--c-0d7a6b)">
+          <path d="M108 98 Q170 52 218 56" marker-end="url(#m5b)" class="draw" style="--len:180;--d:.75s"/>
+          <path d="M300 62 Q370 66 410 86" marker-end="url(#m5b)" class="draw" style="--len:140;--d:1.05s"/>
+          <path d="M392 156 Q260 196 112 142" marker-end="url(#m5b)" class="draw" style="--len:320;--d:1.35s"/>
+        </g>
+        <g font-size="12" style="fill:var(--c-0b5a4f)"><text x="112" y="62">states idea</text><text x="350" y="58">builds</text><text x="250" y="186">uses it</text></g>
+      </svg>
+      <div class="quote">“And rerouting around the headwind saves me eight minutes.”</div>
+      <div class="out">Estimates how well a candidate fits. The spec is extracted from the validated probe.</div>
+    </div>
+  </div>
+  <div class="both a" style="--d:1.5s">Either way, <b>the probe is less than 30 minutes away from the Dreamer's words.</b></div>
+  <div class="foot"><span>Agentic Discovery &amp; Engineering</span><span>5 / 17</span></div>
+  <aside class="notes"><p>A probe can ask one of two questions. Is this the pain? Or, would this solve it?</p><p>In the problem-validating mode, the agent renders how the work runs today, and the constraints that shape it. The stakeholder confirms it, corrects it, or relaxes a constraint to see what changes. Yes, this is exactly where it breaks. What we update is our belief about which problems are real.</p><p>In the solution-proposing mode, the probe is candidate software and the stakeholder simply uses it. Picture someone who asked for a wind-optimised route. They try it and say: and rerouting around the headwind saves me eight minutes. Now we know how well that candidate fits.</p><p>Either way, the probe is less than thirty minutes away from the dreamer's words.</p></aside>
+</section>
+
+<!-- ═════════ 6 ═════════ -->
+<section class="slide" id="s6" data-title="Two phases">
+  <div class="kicker a"><i></i>6 · Agentic Discovery</div>
+  <h1 class="a" style="--d:.05s">Agentic Discovery is the expedition; the probe is its instrument</h1>
+  <svg class="flowsvg" viewBox="0 0 1136 330" aria-label="Six SDLC phases mapped onto two bands: Agentic Discovery and Agentic Engineering, meeting at the Probe spec">
+    <g font-size="15" font-weight="600" text-anchor="middle">
+      <g class="a" style="--d:.1s"><rect x="0" y="0" width="168" height="54" rx="10" style="fill:var(--c-fff-bg);stroke:var(--c-cfcac0)"/><text x="84" y="33">1 · Discovery</text></g>
+      <g class="a" style="--d:.17s"><rect x="193.6" y="0" width="168" height="54" rx="10" style="fill:var(--c-fff-bg);stroke:var(--c-cfcac0)"/><text x="277.6" y="33">2 · Design</text></g>
+      <g class="a" style="--d:.24s"><rect x="387.2" y="0" width="168" height="54" rx="10" style="fill:var(--c-fff-bg);stroke:var(--c-cfcac0)"/><text x="471.2" y="33">3 · Spec</text></g>
+      <g class="a" style="--d:.31s"><rect x="580.8" y="0" width="168" height="54" rx="10" style="fill:var(--c-fff-bg);stroke:var(--c-cfcac0)"/><text x="664.8" y="33">4 · Dev</text></g>
+      <g class="a" style="--d:.38s"><rect x="774.4" y="0" width="168" height="54" rx="10" style="fill:var(--c-fff-bg);stroke:var(--c-cfcac0)"/><text x="858.4" y="33">5 · QA</text></g>
+      <g class="a" style="--d:.45s"><rect x="968" y="0" width="168" height="54" rx="10" style="fill:var(--c-fff-bg);stroke:var(--c-cfcac0)"/><text x="1052" y="33">6 · Release &amp; Ops</text></g>
+    </g>
+    <!-- funnels -->
+    <g fill="none" stroke-width="1.5" class="a" style="--d:.6s">
+      <path d="M84 54 C84 80 120 84 140 100 M277.6 54 V100 M440 54 C440 80 420 84 410 100" style="stroke:var(--c-0d7a6b)"/>
+      <path d="M500 54 C500 120 560 150 600 190 M664.8 54 C664.8 120 700 150 720 190 M858.4 54 V190 M1052 54 C1052 120 1020 150 1000 190" style="stroke:var(--c-4038b8)"/>
+    </g>
+    <!-- bands -->
+    <g class="grow band-ad" style="--d:.8s"><rect x="0" y="100" width="560" height="78" rx="14" style="fill:var(--c-0d7a6b)"/></g>
+    <g class="grow" style="--d:1.0s"><rect x="420" y="190" width="716" height="78" rx="14" style="fill:var(--c-4038b8)"/></g>
+    <g class="a" style="--d:1.2s">
+      <text x="24" y="132" font-family="JetBrains Mono" font-size="13" font-weight="600" letter-spacing="1.6" style="fill:var(--c-b9efe3)">AGENTIC DISCOVERY</text>
+      <text x="24" y="160" font-size="17" style="fill:var(--c-fff-fg)">an expedition, with probes</text>
+      <g style="fill:var(--c-b9efe3)"><rect x="300" y="128" width="26" height="20" rx="4"/><rect x="334" y="128" width="26" height="20" rx="4" opacity=".8"/><rect x="368" y="128" width="26" height="20" rx="4" opacity=".6"/><rect x="402" y="128" width="26" height="20" rx="4" opacity=".8"/></g>
+      <text x="1112" y="222" text-anchor="end" font-family="JetBrains Mono" font-size="13" font-weight="600" letter-spacing="1.6" style="fill:var(--c-cdc9ff)">AGENTIC ENGINEERING</text>
+      <text x="1112" y="250" text-anchor="end" font-size="17" style="fill:var(--c-fff-fg)">build it, verify it, run it</text>
+    </g>
+    <!-- handover diamond -->
+    <g class="a" style="--d:1.4s">
+      <path d="M490 150 L528 184 L490 218 L452 184 Z" stroke-width="2" style="fill:var(--c-fff-bg);stroke:var(--c-151821)"/>
+      <circle cx="490" cy="184" r="6" style="fill:var(--c-e0561b)"/>
+      <text x="490" y="300" text-anchor="middle" font-size="16" font-weight="600">Probe → spec</text>
+      <text x="490" y="320" text-anchor="middle" font-size="13" style="fill:var(--c-6b7080)">what the probes found, written as a spec: the only handover</text>
+      <path d="M490 220 V282" stroke-width="1.2" stroke-dasharray="3 4" style="stroke:var(--c-151821)"/>
+    </g>
+  </svg>
+  <div class="cmpx">
+    <div class="l a" style="--d:1.5s"><b>Agentic Discovery optimises for learning speed.</b> It explores the problem with probes; specs are <i>derived from</i> what the probes found. Minutes to hours, in the outer layer.</div>
+    <div class="r a" style="--d:1.6s"><b>Agentic Engineering optimises for production reliability.</b> The probe&#8217;s spec is its <i>input</i>; its output is production-grade code. Days to sprints, in the middle and core layers.</div>
+  </div>
+  <div class="foot"><span>Agentic Discovery &amp; Engineering</span><span>6 / 17</span></div>
+  <aside class="notes"><p>So far we have talked about the probe itself. Now the umbrella term. Agentic Discovery is the expedition: the phase of the lifecycle, and the practice, that finds out what to build. The probe is its instrument.</p><p>When probes are this cheap, the old phases collapse into two. Agentic Discovery absorbs discovery, design and the first draft of the spec. Its question is what to build, and for whom, and it explores that question with probes.</p><p>It optimises for learning speed. Specifications are not written ahead of time. They are derived from what the probes found. Sessions take minutes to hours.</p><p>Agentic Engineering is the second phase. The same kind of agent carries the validated result through development, verification, release and operations, in cycles of days to sprints.</p><p>Between the two there is exactly one handover: what the probes found, written down as a spec. Discovery produces it. Engineering consumes it. There is no requirements document waiting for sign-off. A probe has taken its place.</p></aside>
+</section>
+
+<!-- ═════════ 7 ═════════ -->
+<section class="slide" id="s7" data-title="Three roles">
+  <div class="kicker a"><i></i>7 · Agentic Discovery</div>
+  <h1 class="a" style="--d:.05s">Three roles turn a sentence into a probe, through two safety gates</h1>
+  <div class="roles">
+    <div class="role card dre a" style="--d:.15s">
+      <svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="27" style="fill:var(--c-d9efe9)"/><path d="M15 20 h26 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-14 l-7 6 v-6 h-5 a4 4 0 0 1 -4 -4 v-10 a4 4 0 0 1 4 -4z" style="fill:var(--c-0d7a6b)"/><circle cx="21" cy="29" r="2" style="fill:var(--c-fff-bg)"/><circle cx="28" cy="29" r="2" style="fill:var(--c-fff-bg)"/><circle cx="35" cy="29" r="2" style="fill:var(--c-fff-bg)"/></svg>
+      <div><h3>Dreamer</h3><p>A domain expert who can describe the need in plain language. Writes no code.</p></div>
+    </div>
+    <div class="role card orc a" style="--d:.25s">
+      <svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="27" style="fill:var(--c-fde6d8)"/><g style="fill:var(--c-e0561b)"><rect x="12" y="16" width="20" height="6" rx="3"/><rect x="12" y="25" width="20" height="6" rx="3" opacity=".75"/><rect x="12" y="34" width="20" height="6" rx="3" opacity=".5"/></g><path d="M36 28 h9 m-4 -4 l4 4 -4 4" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--c-e0561b)"/></svg>
+      <div><h3>Orchestrator</h3><p>Turns ideas into tractable prompts, checks safety, protects the agent queue.</p></div>
+    </div>
+    <div class="role card a" style="--d:.35s">
+      <svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="27" style="fill:var(--c-e2e0f8)"/><rect x="16" y="16" width="24" height="24" rx="5" style="fill:var(--c-4038b8)"/><g stroke-width="2.2" stroke-linecap="round" style="stroke:var(--c-4038b8)"><path d="M22 12v4M28 12v4M34 12v4M22 40v4M28 40v4M34 40v4M12 22h4M12 28h4M12 34h4M40 22h4M40 28h4M40 34h4"/></g><rect x="23" y="23" width="10" height="10" rx="2" style="fill:var(--c-cdc9ff)"/></svg>
+      <div><h3>AI agent</h3><p>A coding agent (Claude Code) reads the queue, builds the Probe, deploys and reports.</p></div>
+    </div>
+  </div>
+  <svg class="pipe" viewBox="0 0 1136 210" aria-label="Pipeline: idea, Orchestrator safety check, agent self-check, build, report, more ideas loop">
+    <defs><marker id="m6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" style="fill:var(--c-3a3f4d)"/></marker><marker id="m6r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" style="fill:var(--c-e0561b)"/></marker></defs>
+    <g font-family="JetBrains Mono" font-size="11" letter-spacing=".8" text-anchor="middle" style="fill:var(--c-6b7080)">
+      <text x="65" y="22">DREAMER</text><text x="222" y="22">ORCHESTRATOR</text><text x="382" y="22">AGENT</text><text x="536" y="22">AGENT</text><text x="704" y="22">AGENT</text><text x="870" y="22">DREAMER</text><text x="1045" y="22">SYSTEM</text>
+    </g>
+    <g fill="none" stroke-width="1.6" class="a" style="stroke:var(--c-3a3f4d);--d:.6s">
+      <path d="M130 84 H166" marker-end="url(#m6)"/><path d="M274 84 H326" marker-end="url(#m6)"/><path d="M434 84 H466" marker-end="url(#m6)"/><path d="M602 84 H634" marker-end="url(#m6)"/><path d="M770 84 H816" marker-end="url(#m6)"/><path d="M924 84 H974" marker-end="url(#m6)"/>
+      <path d="M870 132 V186 Q870 202 850 202 H45 Q25 202 25 186 V112" stroke-dasharray="4 5" marker-end="url(#m6)"/>
+    </g>
+    <g fill="none" stroke-width="1.6" class="a" style="stroke:var(--c-e0561b);--d:.8s"><path d="M222 132 V150" marker-end="url(#m6r)"/><path d="M382 132 V150" marker-end="url(#m6r)"/></g>
+    <g class="a" style="--d:.4s" font-size="15" font-weight="600" text-anchor="middle">
+      <rect x="0" y="60" width="130" height="48" rx="10" style="fill:var(--c-d9efe9);stroke:var(--c-0d7a6b)"/><text x="65" y="89">Idea</text>
+      <path d="M222 36 L274 84 L222 132 L170 84Z" stroke-width="2" style="fill:var(--c-fde6d8);stroke:var(--c-e0561b)"/><text x="222" y="81" font-size="14">Gate S</text><text x="222" y="99" font-size="11" font-weight="500" style="fill:var(--c-b8460f)">human check</text>
+      <path d="M382 36 L434 84 L382 132 L330 84Z" stroke-width="2" style="fill:var(--c-fde6d8);stroke:var(--c-e0561b)"/><text x="382" y="81" font-size="14">Gate AS</text><text x="382" y="99" font-size="11" font-weight="500" style="fill:var(--c-b8460f)">agent check</text>
+      <rect x="470" y="60" width="132" height="48" rx="10" style="fill:var(--c-4038b8)"/><text x="536" y="89" style="fill:var(--c-fff-fg)">Build</text>
+      <rect x="638" y="60" width="132" height="48" rx="10" style="fill:var(--c-e2e0f8);stroke:var(--c-4038b8)"/><text x="704" y="89">Report</text>
+      <path d="M870 36 L924 84 L870 132 L816 84Z" stroke-width="1.6" style="fill:var(--c-fff-bg);stroke:var(--c-3a3f4d)"/><text x="870" y="89" font-size="14">More?</text>
+      <rect x="978" y="60" width="134" height="48" rx="10" style="fill:var(--c-151821)"/><text x="1045" y="89" style="fill:var(--c-fff-fg)">Done</text>
+    </g>
+    <g font-size="13" text-anchor="middle" class="a" style="--d:.9s">
+      <rect x="162" y="152" width="120" height="32" rx="8" style="fill:var(--c-fff-bg);stroke:var(--c-f0b597)"/><text x="222" y="173" style="fill:var(--c-b8460f)">rejected</text>
+      <rect x="322" y="152" width="120" height="32" rx="8" style="fill:var(--c-fff-bg);stroke:var(--c-f0b597)"/><text x="382" y="173" style="fill:var(--c-b8460f)">blocked: harmful</text>
+      <text x="660" y="194" font-size="12.5" style="fill:var(--c-6b7080)">yes: the next idea joins the queue</text>
+    </g>
+  </svg>
+  <div class="note">
+    <div class="card zero a" style="--d:1.1s"><b>Zero safety incidents</b> were logged across all probe generations: two independent checks before any code is written.</div>
+    <div class="card warn a" style="--d:1.25s"><b>Without a named Orchestrator,</b> sessions either stalled on safety questions or drifted into free exploration.</div>
+  </div>
+  <div class="foot"><span>Agentic Discovery &amp; Engineering</span><span>7 / 17</span></div>
+  <aside class="notes"><p>Who makes a probe? Three roles. The dreamer is a domain expert who can describe a need in plain language, and writes no code.</p><p>The AI agent, in our case Claude Code, reads the queue, builds the probe, deploys it, and reports back.</p><p>And between them sits the orchestrator, who turns a sentence into a tractable prompt, checks safety, and protects the agent queue from unbounded requests.</p><p>Every idea passes two independent safety gates before any probe is built. First the orchestrator's human check. Then the agent's own assessment. Anything harmful is blocked. Then the build, the report, and the question: more ideas?</p><p>Across all generations, zero safety incidents were logged. And one lesson was unambiguous. Sessions without a named orchestrator either stalled on safety questions or drifted into free exploration. If you want probes, the orchestrator is the role you have to create.</p></aside>
+</section>
+
+<!-- ═════════ 8 ═════════ -->
+<section class="slide" id="s8" data-title="Layered model">
+  <div class="kicker a"><i></i>8 · Agentic Discovery</div>
+  <h1 class="a" style="--d:.05s">Probes live in the outer layer and never touch the legacy core</h1>
+  <svg class="rings" viewBox="0 0 520 520" aria-label="Concentric layers: outer discovery, middle integration, legacy core">
+    <defs><marker id="m7" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" style="fill:var(--c-151821)"/></marker></defs>
+    <circle cx="260" cy="260" r="250" class="a" style="fill:var(--c-d9efe9);--d:.15s"/>
+    <circle cx="260" cy="260" r="165" class="a" style="fill:var(--c-e2e0f8);--d:.3s"/>
+    <circle cx="260" cy="260" r="88" class="a" style="fill:var(--c-151821);--d:.45s"/>
+    <circle cx="260" cy="260" r="100" fill="none" stroke-width="1.6" stroke-dasharray="5 6" class="a" style="stroke:var(--c-e0561b);--d:1.2s"/>
+    <g text-anchor="middle" class="a" style="--d:.6s">
+      <text x="260" y="40" font-family="JetBrains Mono" font-size="12.5" font-weight="600" letter-spacing="1.4" style="fill:var(--c-0d7a6b)">OUTER · AGENTIC DISCOVERY</text>
+      <text x="260" y="122" font-family="JetBrains Mono" font-size="12.5" font-weight="600" letter-spacing="1.4" style="fill:var(--c-4038b8)">MIDDLE · INTEGRATION</text>
+      <text x="260" y="256" font-size="17" font-weight="600" style="fill:var(--c-fff-fg)">Core</text><text x="260" y="277" font-size="13" style="fill:var(--c-9aa3b8)">legacy IT</text>
+    </g>
+    <g class="a" style="fill:var(--c-0d7a6b);--d:.8s">
+      <rect x="54" y="180" width="18" height="14" rx="3"/><rect x="104" y="104" width="18" height="14" rx="3"/><rect x="180" y="56" width="18" height="14" rx="3" opacity=".7"/><rect x="54" y="326" width="18" height="14" rx="3" opacity=".8"/><rect x="104" y="400" width="18" height="14" rx="3"/><rect x="180" y="450" width="18" height="14" rx="3" opacity=".7"/><rect x="448" y="180" width="18" height="14" rx="3" opacity=".8"/><rect x="448" y="326" width="18" height="14" rx="3"/><rect x="330" y="56" width="18" height="14" rx="3"/>
+      <rect x="400" y="400" width="18" height="14" rx="3" style="fill:var(--c-e0561b)"/>
+    </g>
+    <path d="M398 398 L340 340" stroke-width="2.2" fill="none" marker-end="url(#m7)" class="draw" style="stroke:var(--c-151821);--len:90;--d:1.4s"/>
+    <text x="300" y="514" text-anchor="middle" font-size="13" class="a" style="fill:var(--c-151821);--d:1.6s">validated probe → reviewed integration</text>
+  </svg>
+  <div class="layers">
+    <div class="lyr card a" style="--d:.5s"><i style="background:var(--c-0d7a6b)"></i><div><h3>Outer layer: Agentic Discovery</h3><p>New processes are tried here, and probes are created at industrial speed.</p></div></div>
+    <div class="lyr card a" style="--d:.65s"><i style="background:var(--c-4038b8)"></i><div><h3>Middle layer: integration</h3><p>APIs, connectors and modernisation bridges. Validated probes move inward only through deliberate, reviewed steps.</p></div></div>
+    <div class="lyr card a" style="--d:.8s"><i style="background:var(--c-151821)"></i><div><h3>Core: legacy IT</h3><p>The stable foundation. The outer layers extend it; they do not replace it.</p></div></div>
+    <div class="obs card a" style="--d:1.1s"><small>FIELD OBSERVATION</small>No field site let a discovery session reach the legacy core. The layered model was the precondition for being let into the building at all.</div>
+  </div>
+  <div class="foot"><span>Agentic Discovery &amp; Engineering</span><span>8 / 17</span></div>
+  <aside class="notes"><p>Probes also need a place to live, and that place decides whether you are let in at all.</p><p>Think of an organisation's IT as three layers. The legacy core, the stable foundation. A middle layer of integration: interfaces, connectors, modernisation bridges. And an outer layer, where new processes are tried.</p><p>Probes live in that outer layer. That is where they can be created at industrial speed.</p><p>A probe that proves its value moves inward only through deliberate, reviewed integration steps.</p><p>This was not a design preference. No field site let a discovery session reach the legacy core. The layered model was the precondition for being let in at all. Probes could move fast precisely because they were kept away from the systems that must not break.</p></aside>
+</section>
+
+<!-- ═════════ 9 ═════════ -->
+<section class="slide" id="s9" data-title="Field evidence">
+  <div class="kicker a"><i></i>9 · The evidence</div>
+  <h1 class="a" style="--d:.05s">The field study: 69 software probes, and stakeholders chose what to probe</h1>
+  <div class="nums">
+    <div class="num card a" style="--d:.15s"><b>8</b><span>in-room engagements, two partner organisations</span></div>
+    <div class="num card hl a" style="--d:.25s"><b>69</b><span>software probes (prototype kind), across 12 functional categories</span></div>
+    <div class="num card a" style="--d:.35s"><b>≈140k</b><span>lines of generated source code</span></div>
+    <div class="num card a" style="--d:.45s"><b>100%</b><span>generation success, zero safety incidents</span></div>
+  </div>
+  <div class="src a" style="--d:.5s;left:72px;width:440px;bottom:auto;top:510px">One agent across the whole corpus: Claude Code on the Opus 4.6 and 4.7 models, so variation between engagements is not a vendor or model change.</div>
+  <svg class="cats" viewBox="0 0 660 420" aria-label="Probes by category, stacked Organisation A and B">
+    <g font-size="13.5" text-anchor="end" style="fill:var(--c-3a3f4d)">
+      <text x="236" y="21">Weather &amp; environment</text><text x="236" y="55">Wellness &amp; fitness</text><text x="236" y="89">Office services</text><text x="236" y="123">Productivity &amp; time</text><text x="236" y="157">Developer tools &amp; quality</text><text x="236" y="191">Culture &amp; learning</text><text x="236" y="225">Sales, CRM &amp; pricing</text><text x="236" y="259">Analytics &amp; finance</text><text x="236" y="293">HR &amp; compliance</text><text x="236" y="327">Food &amp; catering</text><text x="236" y="361">Content &amp; comms</text><text x="236" y="395">Transport</text>
+    </g>
+    <g transform="translate(250,6)">
+      <g class="grow" style="--d:.3s"><rect x="0" y="0" width="36" height="22" rx="3" style="fill:var(--c-0d7a6b)"/><rect x="36" y="0" width="324" height="22" rx="3" style="fill:var(--c-4038b8)"/></g>
+      <g class="grow" style="--d:.36s"><rect x="0" y="34" width="180" height="22" rx="3" style="fill:var(--c-0d7a6b)"/><rect x="180" y="34" width="108" height="22" rx="3" style="fill:var(--c-4038b8)"/></g>
+      <g class="grow" style="--d:.42s"><rect x="0" y="68" width="252" height="22" rx="3" style="fill:var(--c-0d7a6b)"/></g>
+      <g class="grow" style="--d:.48s"><rect x="0" y="102" width="144" height="22" rx="3" style="fill:var(--c-0d7a6b)"/><rect x="144" y="102" width="108" height="22" rx="3" style="fill:var(--c-4038b8)"/></g>
+      <g class="grow" style="--d:.54s"><rect x="0" y="136" width="180" height="22" rx="3" style="fill:var(--c-0d7a6b)"/><rect x="180" y="136" width="72" height="22" rx="3" style="fill:var(--c-4038b8)"/></g>
+      <g class="grow" style="--d:.60s"><rect x="0" y="170" width="216" height="22" rx="3" style="fill:var(--c-0d7a6b)"/></g>
+      <g class="grow" style="--d:.66s"><rect x="0" y="204" width="180" height="22" rx="3" style="fill:var(--c-0d7a6b)"/></g>
+      <g class="grow" style="--d:.72s"><rect x="0" y="238" width="108" height="22" rx="3" style="fill:var(--c-0d7a6b)"/><rect x="108" y="238" width="36" height="22" rx="3" style="fill:var(--c-4038b8)"/></g>
+      <g class="grow" style="--d:.78s"><rect x="0" y="272" width="144" height="22" rx="3" style="fill:var(--c-0d7a6b)"/></g>
+      <g class="grow" style="--d:.84s"><rect x="0" y="306" width="144" height="22" rx="3" style="fill:var(--c-0d7a6b)"/></g>
+      <g class="grow" style="--d:.90s"><rect x="0" y="340" width="108" height="22" rx="3" style="fill:var(--c-0d7a6b)"/><rect x="108" y="340" width="36" height="22" rx="3" style="fill:var(--c-4038b8)"/></g>
+      <g class="grow" style="--d:.96s"><rect x="0" y="374" width="72" height="22" rx="3" style="fill:var(--c-0d7a6b)"/><rect x="72" y="374" width="36" height="22" rx="3" style="fill:var(--c-4038b8)"/></g>
+      <g font-family="JetBrains Mono" font-size="13" font-weight="600" class="a" style="fill:var(--c-151821);--d:1.1s">
+        <text x="370" y="16">10</text><text x="298" y="50">8</text><text x="262" y="84">7</text><text x="262" y="118">7</text><text x="262" y="152">7</text><text x="226" y="186">6</text><text x="190" y="220">5</text><text x="154" y="254">4</text><text x="154" y="288">4</text><text x="154" y="322">4</text><text x="154" y="356">4</text><text x="118" y="390">3</text>
+      </g>
+    </g>
+  </svg>
+  <div class="legend a" style="--d:1.1s"><span><i style="background:var(--c-0d7a6b)"></i>Organisation A · 49 probes, seven offices</span><span><i style="background:var(--c-4038b8)"></i>Organisation B · 20 probes, one day</span></div>
+  <div class="foot"><span>Probes were not pre-selected: category breadth is itself a finding</span><span>9 / 17</span></div>
+  <aside class="notes"><p>So what did the field study produce? Sixty-nine probes, all of the prototype kind.</p><p>Eight in-room engagements, with two voluntary partner organisations. Sixty-nine deployable software probes. About a hundred and forty thousand lines of generated code. A hundred percent generation success, and no safety incidents.</p><p>And look at what people chose to probe. Nobody pre-selected these. Weather and environmental data, wellness, office services, time tracking, developer tooling, sales tools, finance, food. Twelve functional categories. That breadth is itself a finding: one runtime made probes for all of it.</p></aside>
+</section>
+
+<!-- ═════════ 10 ═════════ -->
+<section class="slide" id="s10" data-title="Intent to code">
+  <div class="kicker a"><i></i>10 · The evidence</div>
+  <h1 class="a" style="--d:.05s">A few lines of intent buy a working probe of thousands of lines</h1>
+  <svg class="sq" viewBox="0 0 420 420" aria-label="Area comparison: 423 lines of spec vs 23,845 lines of code">
+    <rect x="96" y="40" width="300" height="300" rx="6" stroke-width="1.6" class="a" style="fill:var(--c-e2e0f8);stroke:var(--c-4038b8);--d:.5s"/>
+    <g stroke-width="1" class="a" style="stroke:var(--c-cdc9ff);--d:.6s"><path d="M96 100 H396 M96 160 H396 M96 220 H396 M96 280 H396 M156 40 V340 M216 40 V340 M276 40 V340 M336 40 V340"/></g>
+    <rect x="30" y="300" width="40" height="40" rx="3" class="a" style="fill:var(--c-0d7a6b);--d:.25s"/>
+    <text x="50" y="368" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="600" class="a" style="fill:var(--c-0d7a6b);--d:.3s">423</text>
+    <text x="50" y="386" text-anchor="middle" font-size="12.5" class="a" style="fill:var(--c-6b7080);--d:.3s">spec lines</text>
+    <text x="246" y="186" text-anchor="middle" font-family="Source Serif 4" font-size="44" font-weight="600" class="a" style="fill:var(--c-4038b8);--d:.8s">23,845</text>
+    <text x="246" y="214" text-anchor="middle" font-size="15" class="a" style="fill:var(--c-3a3f4d);--d:.8s">lines of source code</text>
+    <text x="246" y="378" text-anchor="middle" font-size="13" class="a" style="fill:var(--c-6b7080);--d:.9s">areas to scale · 9 audited apps, April 2026</text>
+  </svg>
+  <svg class="lol" viewBox="0 0 690 360" aria-label="Spec-to-code ratio per application on a log scale, mean 1:56">
+    <g transform="translate(250,0)">
+      <g style="stroke:var(--c-e3dfd5)"><line x1="0" y1="10" x2="0" y2="300"/><line x1="100" y1="10" x2="100" y2="300"/><line x1="210" y1="10" x2="210" y2="300"/><line x1="310" y1="10" x2="310" y2="300"/><line x1="420" y1="10" x2="420" y2="300"/></g>
+      <g font-family="JetBrains Mono" font-size="12" text-anchor="middle" style="fill:var(--c-6b7080)"><text x="0" y="322">1:10</text><text x="100" y="322">1:30</text><text x="210" y="322">1:100</text><text x="310" y="322">1:300</text><text x="420" y="322">1:1000</text></g>
+      <text x="210" y="346" text-anchor="middle" font-size="12" style="fill:var(--c-8a8f9c)">lines of code per line of spec, log scale</text>
+      <line x1="157" y1="0" x2="157" y2="300" stroke-width="2" stroke-dasharray="5 5" class="a" style="stroke:var(--c-e0561b);--d:1.4s"/>
+      <text x="163" y="296" font-family="JetBrains Mono" font-size="12" font-weight="600" class="a" style="fill:var(--c-e0561b);--d:1.4s">mean 1:56</text>
+      <g stroke-width="2.4" style="stroke:var(--c-4038b8)">
+        <line x1="0" y1="34" x2="31" y2="34" class="grow" style="--d:.5s"/><line x1="0" y1="92" x2="63" y2="92" class="grow" style="--d:.6s"/><line x1="0" y1="150" x2="124" y2="150" class="grow" style="--d:.7s"/><line x1="0" y1="208" x2="235" y2="208" class="grow" style="--d:.8s"/><line x1="0" y1="266" x2="351" y2="266" class="grow" style="stroke:var(--c-0d7a6b);--d:.9s"/>
+      </g>
+      <g class="a" style="--d:1.1s">
+        <circle cx="31" cy="34" r="7" style="fill:var(--c-4038b8)"/><circle cx="63" cy="92" r="7" style="fill:var(--c-4038b8)"/><circle cx="124" cy="150" r="7" style="fill:var(--c-4038b8)"/><circle cx="235" cy="208" r="7" style="fill:var(--c-4038b8)"/><circle cx="351" cy="266" r="9" style="fill:var(--c-0d7a6b)"/>
+        <g font-family="JetBrains Mono" font-size="13" font-weight="600"><text x="44" y="39">1:14</text><text x="76" y="97">1:20</text><text x="137" y="155">1:39</text><text x="248" y="213">1:132</text><text x="366" y="271" style="fill:var(--c-0d7a6b)">1:467</text></g>
+      </g>
+    </g>
+    <g text-anchor="end" font-size="14.5" style="fill:var(--c-151821)">
+      <text x="236" y="32" font-weight="600">Food app</text><text x="236" y="49" font-size="12" style="fill:var(--c-6b7080)">66 → 946 lines</text>
+      <text x="236" y="90" font-weight="600">Personal trainer</text><text x="236" y="107" font-size="12" style="fill:var(--c-6b7080)">118 → 2,333</text>
+      <text x="236" y="148" font-weight="600">Time tracking</text><text x="236" y="165" font-size="12" style="fill:var(--c-6b7080)">40 → 1,554</text>
+      <text x="236" y="206" font-weight="600">Sales targets</text><text x="236" y="223" font-size="12" style="fill:var(--c-6b7080)">30 → 3,974</text>
+      <text x="236" y="264" font-weight="600">Reminder app</text><text x="236" y="281" font-size="12" style="fill:var(--c-6b7080)">6 → 2,800</text>
+    </g>
+  </svg>
+  <div class="agg a" style="--d:1.5s">Across all 69 probes: <b>≈1,970 spec lines → ≈118,400 code lines</b>, an aggregate 1 : 60, from about <b>33 hours</b> of prompt writing.</div>
+  <div class="foot"><span>Audited subset n = 9; five shown · median 1 : 39</span><span>10 / 17</span></div>
+  <aside class="notes"><p>How much probe does one line of intent buy?</p><p>We audited nine probes in detail. Four hundred and twenty-three lines of natural-language specification produced twenty-three thousand eight hundred and forty-five lines of source code. The squares are drawn to scale.</p><p>Per probe, the ratio ranged from one to fourteen for a food app, up to one to four hundred and sixty-seven for a reminder app written from a six-line request. The mean was one to fifty-six, the median one to thirty-nine.</p><p>Across all sixty-nine probes, about two thousand lines of intent became about a hundred and eighteen thousand lines of code, from about thirty-three hours of prompt writing.</p></aside>
+</section>
+
+<!-- ═════════ 11 ═════════ -->
+<section class="slide" id="s11" data-title="Burst">
+  <div class="kicker a"><i></i>11 · The evidence</div>
+  <h1 class="a" style="--d:.05s">About fifty people, one Orchestrator, 18 probes in 31 minutes</h1>
+  <svg class="burst" viewBox="0 0 1160 330" aria-label="Fifty participants feed a queue, one orchestrator dispatches to parallel agents, eighteen probes land between 09:41 and 10:13">
+    <defs><marker id="m10" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" style="fill:var(--c-3a3f4d)"/></marker></defs>
+    <!-- people 10x5 -->
+    <g class="a" style="fill:var(--c-0d7a6b);--d:.15s">
+      <g id="prow"><circle cx="12" cy="60" r="6"/><circle cx="30" cy="60" r="6"/><circle cx="48" cy="60" r="6"/><circle cx="66" cy="60" r="6"/><circle cx="84" cy="60" r="6"/><circle cx="102" cy="60" r="6"/><circle cx="120" cy="60" r="6"/><circle cx="138" cy="60" r="6"/><circle cx="156" cy="60" r="6"/><circle cx="174" cy="60" r="6"/></g>
+      <use href="#prow" y="22" opacity=".85"/><use href="#prow" y="44" opacity=".7"/><use href="#prow" y="66" opacity=".85"/><use href="#prow" y="88"/>
+    </g>
+    <text x="93" y="30" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="600" letter-spacing="1.2" style="fill:var(--c-0d7a6b)">≈50 PARTICIPANTS</text>
+    <path d="M190 104 H232" stroke-width="1.6" marker-end="url(#m10)" class="a" style="stroke:var(--c-3a3f4d);--d:.35s"/>
+    <!-- queue -->
+    <g class="a" style="--d:.4s"><rect x="240" y="60" width="96" height="16" rx="4" style="fill:var(--c-fbefd9);stroke:var(--c-b86e0b)"/><rect x="240" y="82" width="96" height="16" rx="4" style="fill:var(--c-fbefd9);stroke:var(--c-b86e0b)"/><rect x="240" y="104" width="96" height="16" rx="4" style="fill:var(--c-fbefd9);stroke:var(--c-b86e0b)"/><rect x="240" y="126" width="96" height="16" rx="4" style="fill:var(--c-fbefd9);stroke:var(--c-b86e0b)"/></g>
+    <text x="288" y="30" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="600" letter-spacing="1.2" style="fill:var(--c-b86e0b)">IDEA QUEUE</text>
+    <path d="M340 104 H380" stroke-width="1.6" marker-end="url(#m10)" class="a" style="stroke:var(--c-3a3f4d);--d:.5s"/>
+    <!-- orchestrator -->
+    <g class="a" style="--d:.55s"><circle cx="420" cy="104" r="34" stroke-width="2" style="fill:var(--c-fde6d8);stroke:var(--c-e0561b)"/><text x="420" y="109" text-anchor="middle" font-size="13" font-weight="600" style="fill:var(--c-b8460f)">1 Orch.</text></g>
+    <text x="420" y="30" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="600" letter-spacing="1.2" style="fill:var(--c-e0561b)">ORCHESTRATOR</text>
+    <!-- fan-out to 21 agents -->
+    <g stroke-width="1" opacity=".55" class="a" style="stroke:var(--c-4038b8);--d:.7s">
+      <path d="M454 104 L560 12"/><path d="M454 104 L560 24"/><path d="M454 104 L560 36"/><path d="M454 104 L560 48"/><path d="M454 104 L560 60"/><path d="M454 104 L560 72"/><path d="M454 104 L560 84"/><path d="M454 104 L560 96"/><path d="M454 104 L560 108"/><path d="M454 104 L560 120"/><path d="M454 104 L560 132"/><path d="M454 104 L560 144"/><path d="M454 104 L560 156"/><path d="M454 104 L560 168"/><path d="M454 104 L560 180"/><path d="M454 104 L560 192"/><path d="M454 104 L560 204"/><path d="M454 104 L560 216"/><path d="M454 104 L560 228"/><path d="M454 104 L560 240"/><path d="M454 104 L560 252"/>
+    </g>
+    <g class="a" style="fill:var(--c-4038b8);--d:.8s">
+      <rect x="560" y="8" width="26" height="8" rx="2"/><rect x="560" y="20" width="26" height="8" rx="2"/><rect x="560" y="32" width="26" height="8" rx="2"/><rect x="560" y="44" width="26" height="8" rx="2"/><rect x="560" y="56" width="26" height="8" rx="2"/><rect x="560" y="68" width="26" height="8" rx="2"/><rect x="560" y="80" width="26" height="8" rx="2"/><rect x="560" y="92" width="26" height="8" rx="2"/><rect x="560" y="104" width="26" height="8" rx="2"/><rect x="560" y="116" width="26" height="8" rx="2"/><rect x="560" y="128" width="26" height="8" rx="2"/><rect x="560" y="140" width="26" height="8" rx="2"/><rect x="560" y="152" width="26" height="8" rx="2"/><rect x="560" y="164" width="26" height="8" rx="2"/><rect x="560" y="176" width="26" height="8" rx="2"/><rect x="560" y="188" width="26" height="8" rx="2"/><rect x="560" y="200" width="26" height="8" rx="2"/><rect x="560" y="212" width="26" height="8" rx="2"/><rect x="560" y="224" width="26" height="8" rx="2"/><rect x="560" y="236" width="26" height="8" rx="2"/><rect x="560" y="248" width="26" height="8" rx="2"/>
+    </g>
+    <text x="600" y="284" font-family="JetBrains Mono" font-size="12" font-weight="600" letter-spacing="1.2" text-anchor="middle" style="fill:var(--c-4038b8)">21 AGENTS</text>
+    <path d="M600 130 H660" stroke-width="1.6" marker-end="url(#m10)" class="a" style="stroke:var(--c-3a3f4d);--d:.9s"/>
+    <!-- time window -->
+    <rect x="670" y="20" width="410" height="228" rx="14" class="win grow" style="fill:var(--c-d9efe9);--d:1s"/>
+    <text x="875" y="12" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="600" letter-spacing="1.2" style="fill:var(--c-0d7a6b)">18 OF 20 PROBES COMMITTED</text>
+    <g class="win a" style="fill:var(--c-0d7a6b);--d:1.3s">
+      <rect x="694" y="44" width="54" height="40" rx="6"/><rect x="756" y="44" width="54" height="40" rx="6"/><rect x="818" y="44" width="54" height="40" rx="6"/><rect x="880" y="44" width="54" height="40" rx="6"/><rect x="942" y="44" width="54" height="40" rx="6"/><rect x="1004" y="44" width="54" height="40" rx="6"/>
+      <rect x="694" y="114" width="54" height="40" rx="6"/><rect x="756" y="114" width="54" height="40" rx="6"/><rect x="818" y="114" width="54" height="40" rx="6"/><rect x="880" y="114" width="54" height="40" rx="6"/><rect x="942" y="114" width="54" height="40" rx="6"/><rect x="1004" y="114" width="54" height="40" rx="6"/>
+      <rect x="694" y="184" width="54" height="40" rx="6"/><rect x="756" y="184" width="54" height="40" rx="6"/><rect x="818" y="184" width="54" height="40" rx="6"/><rect x="880" y="184" width="54" height="40" rx="6"/><rect x="942" y="184" width="54" height="40" rx="6"/><rect x="1004" y="184" width="54" height="40" rx="6"/>
+    </g>
+    <g fill="none" stroke-dasharray="4 4" class="a" style="stroke:var(--c-0d7a6b);--d:1.5s"><rect x="1096" y="80" width="54" height="40" rx="6"/><rect x="1096" y="150" width="54" height="40" rx="6"/></g>
+    <text x="1123" y="214" text-anchor="middle" font-size="12" class="a" style="fill:var(--c-6b7080);--d:1.5s">+2 later</text>
+    <!-- axis -->
+    <g class="a" style="--d:1.2s"><line x1="670" y1="272" x2="1080" y2="272" stroke-width="1.6" style="stroke:var(--c-151821)"/><line x1="670" y1="266" x2="670" y2="278" stroke-width="1.6" style="stroke:var(--c-151821)"/><line x1="1080" y1="266" x2="1080" y2="278" stroke-width="1.6" style="stroke:var(--c-151821)"/>
+      <text x="670" y="300" text-anchor="middle" font-family="JetBrains Mono" font-size="14" font-weight="600">09:41</text><text x="1080" y="300" text-anchor="middle" font-family="JetBrains Mono" font-size="14" font-weight="600">10:13</text><text x="875" y="300" text-anchor="middle" font-size="14" style="fill:var(--c-3a3f4d)">31-minute burst in the git log</text></g>
+  </svg>
+  <div class="facts4">
+    <div class="card a" style="--d:1.4s"><b>≈1.7 min</b><span>mean generation time per probe</span></div>
+    <div class="card a" style="--d:1.5s"><b>3 hours</b><span>workshop, ideas submitted by about fifty participants</span></div>
+    <div class="card a" style="--d:1.6s"><b>20,900</b><span>lines across all 20 probes, by end of day</span></div>
+    <div class="card a" style="--d:1.7s"><b>2 languages</b><span>bilingual interface and a portfolio page included</span></div>
+  </div>
+  <div class="foot"><span>Source: git log, Organisation B (paper §6.5)</span><span>11 / 17</span></div>
+  <aside class="notes"><p>What does that look like on a single day? Here is organisation B.</p><p>About fifty people submitted ideas during a three-hour workshop. The ideas went into a queue. One orchestrator fed it to twenty-one agents running in parallel.</p><p>The git log tells the rest. Eighteen of the twenty probes were committed inside a single thirty-one-minute window, from nine forty-one to ten thirteen.</p><p>By the end of the day, all twenty probes, about twenty-one thousand lines, were complete, with a bilingual interface and a portfolio page to navigate them.</p></aside>
+</section>
+
+<!-- ═════════ 12 ═════════ -->
+<section class="slide dark" id="s12" data-title="The bottleneck moved">
+  <div class="kicker a"><i style="background:var(--c-ff9a62)"></i>12 · The finding</div>
+  <h1 class="a" style="--d:.05s">When probes are cheap, the bottleneck moves: production, orchestration, ideas</h1>
+  <div class="stages">
+    <div class="stg a" style="--d:.2s">
+      <div class="n">EVENTS 1–4 · SMALL OFFICE GROUPS</div><h3>The agent keeps up</h3><div class="cc">2–4 parallel requests</div>
+      <svg viewBox="0 0 330 118"><g stroke-width="10" stroke-linecap="round" style="stroke:var(--c-3a4566)"><path d="M64 60 H146 M184 60 H266"/></g>
+        <circle cx="45" cy="60" r="24" stroke-width="2" style="fill:var(--c-1d2440);stroke:var(--c-7fe0cc)"/><circle cx="165" cy="60" r="24" stroke-width="2" style="fill:var(--c-1d2440);stroke:var(--c-7fe0cc)"/><circle cx="285" cy="60" r="24" stroke-width="2" style="fill:var(--c-1d2440);stroke:var(--c-7fe0cc)"/>
+        <g font-family="JetBrains Mono" font-size="10.5" text-anchor="middle" style="fill:var(--c-9aa3b8)"><text x="45" y="106">IDEAS</text><text x="165" y="106">ORCHESTRATOR</text><text x="285" y="106">AGENT</text></g></svg>
+      <p>Every requested probe was built and shown back live, in the room.</p>
+      <div class="lim ok">No bottleneck</div>
+    </div>
+    <div class="stg a" style="--d:.45s">
+      <div class="n">EVENT 5 · HIGHER CONCURRENCY</div><h3>One person holds the queue</h3><div class="cc">7 parallel requests</div>
+      <svg viewBox="0 0 330 118"><circle cx="165" cy="60" r="44" opacity=".22" class="pulse" style="fill:var(--c-ff7a3d)"/><g stroke-width="10" stroke-linecap="round" style="stroke:var(--c-3a4566)"><path d="M64 60 H146 M184 60 H266"/></g>
+        <circle cx="45" cy="60" r="24" stroke-width="2" style="fill:var(--c-1d2440);stroke:var(--c-7fe0cc)"/><circle cx="165" cy="60" r="24" stroke-width="3" style="fill:var(--c-2a1a17);stroke:var(--c-ff9a62)"/><circle cx="285" cy="60" r="24" stroke-width="2" style="fill:var(--c-1d2440);stroke:var(--c-7fe0cc)"/>
+        <g font-family="JetBrains Mono" font-size="10.5" text-anchor="middle" style="fill:var(--c-9aa3b8)"><text x="45" y="106">IDEAS</text><text x="165" y="106" style="fill:var(--c-ff9a62)">ORCHESTRATOR</text><text x="285" y="106">AGENT</text></g></svg>
+      <p>Queue management, prompt hygiene and session tracking all fell back onto one person.</p>
+      <div class="lim">Limit: the human Orchestrator</div>
+    </div>
+    <div class="stg a" style="--d:.7s">
+      <div class="n">TWO LARGEST · ≈100 INVITED, HYBRID</div><h3>Every idea gets built</h3><div class="cc">orchestration partly automated</div>
+      <svg viewBox="0 0 330 118"><circle cx="45" cy="60" r="44" opacity=".22" class="pulse" style="fill:var(--c-ff7a3d)"/><g stroke-width="10" stroke-linecap="round" style="stroke:var(--c-3a4566)"><path d="M64 60 H146 M184 60 H266"/></g>
+        <circle cx="45" cy="60" r="24" stroke-width="3" style="fill:var(--c-2a1a17);stroke:var(--c-ff9a62)"/><circle cx="165" cy="60" r="24" stroke-width="2" style="fill:var(--c-1d2440);stroke:var(--c-7fe0cc)"/><circle cx="285" cy="60" r="24" stroke-width="2" style="fill:var(--c-1d2440);stroke:var(--c-7fe0cc)"/>
+        <g font-family="JetBrains Mono" font-size="10.5" text-anchor="middle" style="fill:var(--c-9aa3b8)"><text x="45" y="106" style="fill:var(--c-ff9a62)">IDEAS</text><text x="165" y="106">ORCHESTRATOR</text><text x="285" y="106">AGENT</text></g></svg>
+      <p>A small tool batched briefs and dispatched agents in parallel. Production stopped limiting.</p>
+      <div class="lim">Limit: idea supply &amp; validation speed</div>
+    </div>
+  </div>
+  <div class="take a" style="--d:1s">Every layer you automate exposes the next one. The rate limit is now <em>the queue at the inlet</em>, not the throughput.</div>
+  <div class="foot"><span>Same shift in the problem-validating mode: the limit is how fast people author the next “what if”</span><span>12 / 17</span></div>
+  <aside class="notes"><p>Which brings us to the headline finding. When probes are cheap, the bottleneck moves.</p><p>In the first four events, small office groups asked for two to four probes at a time. Every probe was built and shown back live, in the room. The agent kept up. There was no bottleneck.</p><p>In the fifth event, seven requests arrived in parallel, and the human orchestrator became the limit. Everything fell back onto one person.</p><p>We did not plan this progression. It appeared as the sessions grew. So for the two largest engagements, around a hundred people invited, in the room and online, we built a small tool that batched the briefs and dispatched agents in parallel. Every idea became a probe, several were iterated. And the limit moved again: to the supply of ideas, and to how fast people could judge the probes.</p><p>Every layer you automate exposes the next one. Once probes are nearly free, the rate limit is the queue of questions at the inlet, not the throughput.</p></aside>
+</section>
+
+<!-- ═════════ 13 ═════════ -->
+<section class="slide" id="s13" data-title="Healthcare cases">
+  <div class="kicker a"><i style="background:var(--amber)"></i>13 · The probe as simulation</div>
+  <h1 class="a" style="--d:.05s">A probe can be today's process, simulated, then relaxed one constraint at a time</h1>
+  <div class="cases">
+    <div class="case card a" style="--d:.2s"><h3>Case 1 · Renewing a chronic prescription</h3>
+      <div class="path"><span>visit + lab + e-prescription + pharmacy</span><i>→</i><span class="cf">AI-assisted visit</span><i>→</i><span class="cf">CE-marked agent renews, routes to a public lab</span></div></div>
+    <div class="case card a" style="--d:.35s"><h3>Case 2 · A sick child on the eve of a trip</h3>
+      <div class="path"><span>day-long public path, “no travel”</span><i>→</i><span class="cf">same-day private visit</span><i>→</i><span class="cf">AI-assisted self-care, evidence-based advice</span></div></div>
+    <div class="case card a" style="--d:.5s"><h3>The probe is the relaxation</h3>
+      <div class="path" style="margin-top:6px"><span style="background:none;padding:0;font:400 14.5px/1.45 var(--sans);color:var(--ink2)">The first scenario re-enacts how the process runs today. The stakeholder can stop it, correct it, or fork it. There is no software handoff across the seam.</span></div></div>
+  </div>
+  <div class="big card a" style="--d:.3s">
+    <h3>Case 3 · A skin symptom on a Friday evening</h3>
+    <svg viewBox="0 0 508 300" aria-label="Cost per path: public ER about 261 euros, video doctor about 170 euros, three AIs plus telemedicine about 90 euros">
+      <line x1="20" y1="236" x2="490" y2="236" stroke-width="1.4" style="stroke:var(--c-151821)"/>
+      <rect x="40" y="16" width="110" height="220" rx="8" class="growy" style="fill:var(--c-b9b5ab);--d:.5s"/>
+      <rect x="196" y="93" width="110" height="143" rx="8" class="growy" style="fill:var(--c-e9b949);--d:.7s"/>
+      <rect x="352" y="160" width="110" height="76" rx="8" class="growy" style="fill:var(--c-b86e0b);--d:.9s"/>
+      <g font-family="Source Serif 4" font-size="26" font-weight="600" text-anchor="middle" class="a" style="--d:1.1s"><text x="95" y="56" style="fill:var(--c-fff-fg)">≈261 €</text><text x="251" y="133" style="fill:var(--c-151821)">≈170 €</text><text x="407" y="152" style="fill:var(--c-151821)">≈90 €</text></g>
+      <g font-size="13.5" text-anchor="middle" style="fill:var(--c-3a3f4d)"><text x="95" y="258" font-weight="600">Public ER queue</text><text x="95" y="276">today</text><text x="251" y="258" font-weight="600">Video doctor</text><text x="251" y="276">occupational health</text><text x="407" y="258" font-weight="600">Three AIs agree</text><text x="407" y="276">+ CE-marked telemedicine</text></g>
+    </svg>
+  </div>
+  <div class="scope a" style="--d:1.2s">Honest scope: a researcher-authored companion, n = 3 cases in one domain, not a field study. Costs are the companion's simulated estimates per path.</div>
+  <div class="foot"><span>Agentic Discovery &amp; Engineering</span><span>13 / 17</span></div>
+  <aside class="notes"><p>Now the other kinds of probe. In healthcare, we made probes that simulate today's process, and then play out possible futures.</p><p>Renewing a chronic prescription: a visit, a lab test, an e-prescription and a pharmacy. A child falling ill the evening before a family trip, and a day-long public path that ends in: no travel.</p><p>The third case is a skin symptom on a Friday evening. Today, that means a public emergency queue, at about two hundred and sixty euros in the simulation. Relax one constraint, and a video doctor costs about a hundred and seventy. Relax another, and three independent AI assessments, confirmed by a certified telemedicine doctor, come to about ninety.</p><p>Each relaxed constraint is a possible future. The probe is the relaxation itself. Stakeholders can stop the simulation, correct it, or fork it, and the same shift appears: once a what-if is cheap to render, the limit is how fast people can author the next one.</p><p>To be honest about scope: these are three researcher-authored cases in one domain. An illustration, not a field study.</p></aside>
+</section>
+
+<!-- ═════════ 14 new ═════════ -->
+<section class="slide" id="s14" data-title="Possible futures">
+  <div class="kicker a"><i style="background:var(--amber)"></i>14 · Possible futures</div>
+  <h1 class="a" style="--d:.05s">Prototypes are only the start: most probes are still to be imagined</h1>
+  <div class="space">
+    <div class="col card a" style="--d:.15s"><span class="tag ad">Prototype</span>
+      <dl><dt>Renders</dt><dd>a candidate solution</dd><dt>Discovers</dt><dd>whether it fits</dd></dl>
+      <div class="meter"><i style="width:100%"></i></div><div class="lvl">Field study · 69 probes</div>
+      <div class="sk solid">Meeting-room booking, a cash-flow forecast, a personal trainer…</div></div>
+    <div class="col card a" style="--d:.3s"><span class="tag am">Simulation</span>
+      <dl><dt>Renders</dt><dd>today&#8217;s process</dd><dt>Discovers</dt><dd>constraints, hand-offs, waiting</dd></dl>
+      <div class="meter"><i style="width:38%"></i></div><div class="lvl">Illustrated · 3 cases</div>
+      <div class="sk">Sketch: a regulated administrative workflow, re-enacted step by step</div>
+      <div class="sk">Sketch: a supply-chain hand-off, with its real delays</div></div>
+    <div class="col card a" style="--d:.45s"><span class="tag ae">Possible future</span>
+      <dl><dt>Renders</dt><dd>a what-if, beside today</dd><dt>Discovers</dt><dd>which assumptions are reasonable</dd></dl>
+      <div class="meter"><i style="width:18%"></i></div><div class="lvl">Illustrated · healthcare what-ifs</div>
+      <div class="sk">Sketch: what if AI took over part of this service?</div>
+      <div class="sk">Sketch: on-call routing, with one constraint relaxed</div></div>
+    <div class="col q4 a" style="--d:.6s"><span class="tag hot">Not yet imagined</span>
+      <div class="big-q">?</div>
+      <p>Any question a stakeholder can step through, and judge, can become a probe.</p></div>
+  </div>
+  <div class="bottom a" style="--d:.8s"><b>Agentic Discovery is the expedition.</b> The probe is whatever instrument the question needs: a prototype, a simulation, a possible future.</div>
+  <div class="foot"><span>Sketches follow the paper&#8217;s future work (§9, thread 6) and §3; they are not results</span><span>14 / 17</span></div>
+  <aside class="notes"><p>And here is the honest part of the picture. Prototypes are only the start. Most probes are still to be imagined.</p><p>The prototype renders a candidate solution and discovers whether it fits. That is what we measured in the field.</p><p>A simulation renders today's process and discovers its constraints and hand-offs. Picture a regulated administrative workflow, re-enacted step by step, or a supply-chain hand-off with its real delays. These are sketches, not results.</p><p>A possible future renders a what-if beside today, and discovers which assumptions are reasonable. What if AI took over part of this service? What does on-call routing look like with one constraint relaxed?</p><p>And there are probes we cannot imagine yet. Any question a stakeholder can step through and judge can become one. That is why the umbrella term is agentic discovery. The expedition is the point, and the probe is whatever instrument the question needs.</p></aside>
+</section>
+
+<!-- ═════════ 14 ═════════ -->
+<section class="slide" id="s15" data-title="Two factories">
+  <div class="kicker a"><i style="background:var(--ae)"></i>15 · Two factories</div>
+  <h1 class="a" style="--d:.05s">Discovery runs as a small factory whose output is probes</h1>
+  <svg class="tl" viewBox="0 0 1136 180" aria-label="Software Factory lineage from 1969 to 2026">
+    <line x1="10" y1="90" x2="1126" y2="90" stroke-width="2.4" class="grow" style="stroke:var(--c-4038b8);--d:.2s"/>
+    <g class="a" style="--d:.4s"><circle cx="78" cy="90" r="8" stroke-width="2.4" style="fill:var(--c-fff-bg);stroke:var(--c-4038b8)"/><text x="78" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="600" style="fill:var(--c-4038b8)">1969</text><text x="78" y="40" text-anchor="middle" font-size="14" font-weight="600">Hitachi software works</text><text x="78" y="124" text-anchor="middle" font-size="12.5" style="fill:var(--c-6b7080)">Japanese factories</text><text x="78" y="141" text-anchor="middle" font-size="12.5" style="fill:var(--c-6b7080)">(Cusumano 1991)</text></g>
+    <g class="a" style="--d:.55s"><circle cx="410" cy="90" r="8" stroke-width="2.4" style="fill:var(--c-fff-bg);stroke:var(--c-4038b8)"/><text x="410" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="600" style="fill:var(--c-4038b8)">1989</text><text x="410" y="40" text-anchor="middle" font-size="14" font-weight="600">CMM maturity levels</text><text x="410" y="124" text-anchor="middle" font-size="12.5" style="fill:var(--c-6b7080)">Humphrey, SEI</text></g>
+    <g class="a" style="--d:.7s"><circle cx="626" cy="90" r="8" stroke-width="2.4" style="fill:var(--c-fff-bg);stroke:var(--c-4038b8)"/><text x="610" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="600" style="fill:var(--c-4038b8)">2002–04</text><text x="610" y="40" text-anchor="middle" font-size="14" font-weight="600">Product lines · DSL factories</text><text x="626" y="124" text-anchor="middle" font-size="12.5" style="fill:var(--c-6b7080)">Clements &amp; Northrop;</text><text x="626" y="141" text-anchor="middle" font-size="12.5" style="fill:var(--c-6b7080)">Greenfield &amp; Short</text></g>
+    <g class="a" style="--d:.85s"><circle cx="862" cy="90" r="8" stroke-width="2.4" style="fill:var(--c-fff-bg);stroke:var(--c-4038b8)"/><text x="862" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="600" style="fill:var(--c-4038b8)">2018–</text><text x="862" y="40" text-anchor="middle" font-size="14" font-weight="600">DoD DevSecOps factories</text><text x="862" y="124" text-anchor="middle" font-size="12.5" style="fill:var(--c-6b7080)">Kessel Run</text></g>
+    <g class="a" style="--d:1s"><circle cx="1060" cy="90" r="12" style="fill:var(--c-4038b8)"/><text x="1060" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="600" style="fill:var(--c-4038b8)">2026</text><text x="1060" y="40" text-anchor="middle" font-size="14" font-weight="700">AI agent fleets</text><text x="1060" y="124" text-anchor="middle" font-size="12.5" style="fill:var(--c-6b7080)">probabilistic:</text><text x="1060" y="141" text-anchor="middle" font-size="12.5" style="fill:var(--c-6b7080)">agents reason from specs</text></g>
+  </svg>
+  <div class="line">
+    <div class="q a" style="--d:1.2s"><small>AGENTIC DISCOVERY</small><b>What should we build, and for whom?</b><span>The question before the spec, which no factory generation addressed.</span></div>
+    <div class="gap a" style="--d:1.3s">→</div>
+    <div class="fac a" style="--d:1.1s"><small>AGENTIC ENGINEERING · EVERY GENERATION AUTOMATES THIS LINE</small>
+      <div class="steps"><span>spec</span><i>→</i><span>code</span><i>→</i><span>test</span><i>→</i><span>release</span></div>
+      <p>The assembly line is now an agent fleet; the factory manager writes prompts, reviews pull requests and validates output.</p></div>
+  </div>
+  <div class="sib a" style="--d:1.5s"><b>The new sibling:</b> a queue of stakeholder briefs feeding parallel agent sessions is a small Software Factory whose output is probes, limited by its intake, not its throughput.</div>
+  <div class="foot"><span>Agentic Discovery &amp; Engineering</span><span>15 / 17</span></div>
+  <aside class="notes"><p>Step back, and this fits a long tradition.</p><p>Hitachi's software works in nineteen sixty-nine. The capability maturity model. Product lines and model-driven factories. Defence DevSecOps factories. And now, fleets of AI agents.</p><p>Every generation automated the same line: spec, code, test, release. Agentic Engineering is the newest, probabilistic factory on that line, and, in Addy Osmani's phrase, the developer becomes a factory manager.</p><p>But none of these traditions addressed the question that comes before the spec. What should we build, and for whom? That is where discovery happens, with probes.</p><p>So the configuration we ended up with, a queue of stakeholder briefs feeding parallel agent sessions, is a small software factory of its own. Its output is probes, and it is limited by its intake, not its throughput.</p></aside>
+</section>
+
+<!-- ═════════ 15 ═════════ -->
+<section class="slide" id="s16" data-title="Limitations">
+  <div class="kicker a"><i style="background:var(--hot)"></i>16 · What we do not claim</div>
+  <h1 class="a" style="--d:.05s">Six limits on these claims, and what replication should test</h1>
+  <div class="lims">
+    <div class="lim card a" style="--d:.15s"><div class="k">L1</div><h3>Small, self-selected sample</h3><p>Eight engagements, two voluntary organisations. May not transfer where people cannot describe pains in conversation.</p><div class="t">→ more organisations, regulated domains</div></div>
+    <div class="lim card a" style="--d:.25s"><div class="k">L2</div><h3>Throwaway-grade code</h3><p>Probes validate fit, not production quality. The multiplier must not be projected onto delivery.</p><div class="t">→ measure the residual multiplier</div></div>
+    <div class="lim card a" style="--d:.35s"><div class="k">L3</div><h3>One agent vendor</h3><p>Every probe came from Claude Code. Patterns may or may not be vendor-independent.</p><div class="t">→ Codex, Cursor, Copilot, open-weight agents</div></div>
+    <div class="lim card a" style="--d:.45s"><div class="k">L4</div><h3>Effort baseline</h3><p>50 lines per day varies by domain and maturity. It moves the number, not the qualitative finding.</p><div class="t">→ alternative baselines</div></div>
+    <div class="lim card a" style="--d:.55s"><div class="k">L5</div><h3>Researchers as Orchestrators</h3><p>The authors often orchestrated. An independent or less skilled one might get different results.</p><div class="t">→ non-author orchestrators</div></div>
+    <div class="lim card a" style="--d:.65s"><div class="k">L6</div><h3>Problem-validating only as a companion</h3><p>Field scale covers the solution-proposing mode. The healthcare cases are illustrative, n = 3.</p><div class="t">→ field-scale process discovery</div></div>
+  </div>
+  <div class="foot"><span>Paper §7.4 and §9 Future Work</span><span>16 / 17</span></div>
+  <aside class="notes"><p>Now, the limits. There are six, and each one is a replication target.</p><p>The sample is small and self-selected: eight engagements, two voluntary organisations. And probes are throwaway-grade by design. The speed multiplier must not be projected onto production delivery.</p><p>All probes came from a single agent vendor, so the next studies should use others. And the fifty-lines-a-day baseline varies by domain. It moves the number, not the finding.</p><p>In several sessions, we, the authors, were the orchestrators, and an independent one might get different results. And simulations and possible futures have so far been shown only at illustrative scale, three cases. Field-scale process discovery is open work.</p></aside>
+</section>
+
+<!-- ═════════ 16 ═════════ -->
+<section class="slide dark" id="s17" data-title="What follows">
+  <div class="kicker a"><i style="background:var(--c-7fe0cc)"></i>17 · What follows</div>
+  <h1 class="a" style="--d:.05s">Design for discovery: production is cheap, so the inlet decides</h1>
+  <div class="imp">
+    <div class="do a" style="--d:.2s"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="21" style="fill:var(--c-2a1a17);stroke:var(--c-ff9a62)"/><g style="fill:var(--c-ff9a62)"><rect x="11" y="13" width="15" height="4.5" rx="2.2"/><rect x="11" y="20" width="15" height="4.5" rx="2.2" opacity=".75"/><rect x="11" y="27" width="15" height="4.5" rx="2.2" opacity=".5"/></g><path d="M29 22 h6 m-3 -3 l3 3 -3 3" stroke-width="2" fill="none" stroke-linecap="round" style="stroke:var(--c-ff9a62)"/></svg>
+      <h3>Name an Orchestrator</h3><p>The role that turns sentences into probes. It keeps prompts tractable and the agent queue protected, and it is the first thing to automate as you scale.</p></div>
+    <div class="do a" style="--d:.35s"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="21" style="fill:var(--c-0f2b2b);stroke:var(--c-7fe0cc)"/><circle cx="22" cy="22" r="13" fill="none" stroke-width="1.5" style="stroke:var(--c-7fe0cc)"/><circle cx="22" cy="22" r="6" style="fill:var(--c-7fe0cc)"/></svg>
+      <h3>Open an outer layer</h3><p>Give probes a safe place to run, away from the legacy core, and a reviewed path for the ones that hold up to move inward.</p></div>
+    <div class="do a" style="--d:.5s"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="21" style="fill:var(--c-1a1f3d);stroke:var(--c-a9b2ff)"/><path d="M12 30 L18 22 L24 26 L32 14" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--c-a9b2ff)"/></svg>
+      <h3>Measure the inlet</h3><p>Count questions asked and probes judged, not lines of code. Idea supply and validation speed are where the next constraint lives.</p></div>
+  </div>
+  <div class="contrib">
+    <div class="a" style="--d:.7s"><b>C1 · ARTEFACT</b>A discovery runtime: three roles, two gates, probes</div>
+    <div class="a" style="--d:.78s"><b>C2 · DESIGN THEORY</b>Two modes, problem-validating and solution-proposing</div>
+    <div class="a" style="--d:.86s"><b>C3 · EVALUATION</b>69 probes from 8 engagements, 1 : 56 mean amplification</div>
+    <div class="a" style="--d:.94s"><b>C4 · REPRODUCIBILITY</b>Public anonymised analytics appendix, provenance for every number</div>
+    <div class="a" style="--d:1.02s"><b>C5 · FINDING</b>The bottleneck shifts: production → orchestration → ideas</div>
+  </div>
+  <div class="end a" style="--d:1.2s">Agentic Discovery is the expedition. The probe is its instrument.<br><em>Production is no longer the bottleneck. Ideas are.</em></div>
+  <div class="contact a" style="--d:1.3s">Tapio Pitkäranta · tapio.pitkaranta@iki.fi &nbsp;·&nbsp; Leena Pitkäranta · leena.pitkaranta@iki.fi &nbsp;·&nbsp; Aalto University</div>
+  <aside class="notes"><p>So what follows? Design for discovery, with probes. Production is cheap, so the inlet decides.</p><p>First, name an orchestrator: the role that turns sentences into probes, and the first one to automate as you scale.</p><p>Second, open an outer layer. Give probes a safe place to run, away from the legacy core, and a reviewed path for the ones that hold up to move inward.</p><p>Third, measure the inlet. Count the questions asked and the probes judged, not lines of code. That is where the next constraint lives.</p><p>There is a lot left to do. Replication with other agents and orchestrators. Field studies of simulations and possible futures. And a hard open question: how a probe that held up crosses the seam into production, and which of its guarantees survive the crossing.</p><p>The paper contributes a discovery runtime, a design theory built on the two modes, an evaluation of sixty-nine probes, a public reproducibility kit, and the finding that the bottleneck shifts.</p><p>So, to close. Agentic discovery is the expedition. The probe is its instrument. Production is no longer the bottleneck. Ideas are. Thank you.</p></aside>
+</section>
+</div>
+
+<div id="bar"></div>
+<div id="styles" aria-label="Slide style"><button type="button" data-s="paper"><i style="background:#0d7a6b"></i>Paper</button><button type="button" data-s="midnight"><i style="background:#7fe0cc"></i>Midnight</button><button type="button" data-s="nordic"><i style="background:#1d4e89"></i>Nordic</button><button type="button" data-s="graphite"><i style="background:#f2c300"></i>Graphite</button><button type="button" data-s="terracotta"><i style="background:#b4532a"></i>Terracotta</button></div>
+<div id="tbar" aria-label="Slide navigation">
+  <button type="button" id="tPrev" aria-label="Previous slide">‹</button>
+  <span id="tPos">1 / 18</span>
+  <button type="button" id="tNext" aria-label="Next slide">›</button>
+  <span class="sp"></span>
+  <button type="button" id="tStyle" aria-label="Change style" title="Style">Aa</button>
+  <button type="button" id="tFs" aria-label="Full screen" title="Full screen">⤢</button>
+</div>
+<div id="rot">Swipe or tap the edges · turn your phone sideways for bigger slides</div>
+<div id="hint"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>G</kbd> overview · <kbd>F</kbd> full screen · <kbd>S</kbd> style</div>
+<div id="notes"><h4 id="notesTitle"></h4><div id="notesBody"></div></div>
+
+<script>
+(() => {
+  const q = new URLSearchParams(location.search);
+  if (q.has('static')) document.body.classList.add('static');
+
+  // Five slide styles (data-style on <html>); remembered per viewer, ?style= overrides.
+  const STYLES = ['paper', 'midnight', 'nordic', 'graphite', 'terracotta'];
+  function setStyle(s) {
+    if (!STYLES.includes(s)) s = 'paper';
+    document.documentElement.dataset.style = s;
+    document.querySelectorAll('#styles button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.s === s));
+    try { localStorage.setItem('talk-style', s); } catch {}
+    if (window.__deckTrack) window.__deckTrack('style', { style: s });
+  }
+  let st0 = q.get('style'); if (!st0) { try { st0 = localStorage.getItem('talk-style'); } catch {} }
+  setStyle(st0 || 'paper');
+  document.querySelectorAll('#styles button').forEach((b) => b.addEventListener('click', (e) => { e.stopPropagation(); setStyle(b.dataset.s); }));
+  addEventListener('keydown', (e) => { if ((e.key === 's' || e.key === 'S') && !e.metaKey && !e.ctrlKey) { const cur = document.documentElement.dataset.style; setStyle(STYLES[(STYLES.indexOf(cur) + 1) % STYLES.length]); } });
+  // Agentic Probe tracking (MyPublicAnalytics, injected into the published slides; extra.surface = 'slides').
+  // Events wait in a queue until the beacon (injected at the end of the published page) has loaded.
+  const tq = [];
+  const flushT = () => { if (window.mypa && window.mypa.send) { while (tq.length) { const [e, x] = tq.shift(); try { window.mypa.send(e, x); } catch {} } return true; } return false; };
+  const track = (ev, extra) => { if (q.has('static')) return; tq.push([ev, extra]); if (!flushT() && tq.length === 1) { const iv = setInterval(() => { if (flushT() || tq.length > 50) clearInterval(iv); }, 500); } };
+  let shownAt = null, shownIdx = null, how = 'load';
+  window.__deckTrack = track;
+  function leaveSlide() { if (shownIdx != null && shownAt != null) { const ms = Math.round(performance.now() - shownAt); if (ms >= 1500) track('slide_dwell', { slide: shownIdx, ms }); } }
+  addEventListener('pagehide', leaveSlide);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) { leaveSlide(); shownAt = null; } else shownAt = performance.now(); });
+  const stage = document.getElementById('stage');
+  const slides = [...document.querySelectorAll('.slide')];
+  const bar = document.getElementById('bar');
+  let cur = 0;
+
+  // The visible viewport (a phone's layout viewport would grow to the 1280-px canvas); leave room for the touch bar.
+  const vp = () => { const v = window.visualViewport; return { w: v ? v.width : document.documentElement.clientWidth, h: v ? v.height : innerHeight }; };
+  function fit() {
+    if (document.body.classList.contains('grid')) { stage.style.transform = 'none'; return; }
+    const { w, h } = vp(), bar = document.body.classList.contains('touch') ? 64 : 0;
+    const k = Math.min(w / 1280, (h - bar) / 720);
+    stage.style.top = `calc(50% - ${bar / 2}px)`;
+    stage.style.transform = `translate(-50%, -50%) scale(${k})`;
+    stage.style.transformOrigin = 'center center';
+  }
+  function show(i, push = true) {
+    cur = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, k) => s.classList.toggle('active', k === cur));
+    // restart entrance animations
+    const s = slides[cur]; s.classList.remove('active'); void s.offsetWidth; s.classList.add('active');
+    bar.style.width = (cur / (slides.length - 1) * 100) + '%';
+    if (shownIdx !== cur) { leaveSlide(); track('slide_view', { slide: cur, title: s.dataset.title, method: how }); shownIdx = cur; shownAt = performance.now(); }
+    how = 'key';
+    if (push) history.replaceState(null, '', location.pathname + location.search + '#s' + cur);
+    const n = s.querySelector('aside.notes');
+    document.getElementById('notesTitle').textContent = `${cur} / ${slides.length - 1} · ${s.dataset.title}`;
+    document.getElementById('notesBody').innerHTML = n ? n.innerHTML : '';
+  }
+  const fromHash = () => { const m = location.hash.match(/s(\d+)/); return m ? +m[1] : 0; };
+  addEventListener('resize', fit);
+  if (window.visualViewport) visualViewport.addEventListener('resize', fit);
+  addEventListener('hashchange', () => { how = 'hash'; show(fromHash(), false); });
+  addEventListener('keydown', (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const k = e.key;
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(k)) { e.preventDefault(); how = 'key'; show(cur + 1); }
+    else if (['ArrowLeft', 'PageUp', 'Backspace'].includes(k)) { e.preventDefault(); show(cur - 1); }
+    else if (k === 'Home') show(0);
+    else if (k === 'End') show(slides.length - 1);
+    else if (k === 'n' || k === 'N') { document.body.classList.toggle('notes'); track('notes', { on: document.body.classList.contains('notes'), slide: cur }); }
+    else if (k === 'f' || k === 'F') { track('fullscreen', { slide: cur }); document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+    else if (k === 'g' || k === 'G' || (k === 'Escape' && document.body.classList.contains('grid'))) { document.body.classList.toggle('grid'); track('overview', { on: document.body.classList.contains('grid') }); fit(); if (!document.body.classList.contains('grid')) show(cur); else slides[cur].scrollIntoView({block: 'center'}); }
+  });
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('#notes') || e.target.closest('#styles') || e.target.closest('#tbar')) return;
+    const s = e.target.closest('.slide');
+    if (document.body.classList.contains('grid')) { if (s) { document.body.classList.remove('grid'); fit(); show(slides.indexOf(s)); } return; }
+    how = 'click'; if (e.clientX > vp().w * 0.4) show(cur + 1); else show(cur - 1); if (typeof syncBar === 'function') syncBar();
+  });
+  let tx = null, ty = null;
+  addEventListener('touchstart', (e) => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, {passive: true});
+  addEventListener('touchend', (e) => { if (tx == null || e.target.closest('#tbar')) { tx = null; return; } const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { how = 'swipe'; show(cur + (dx < 0 ? 1 : -1)); syncBar(); e.preventDefault(); } tx = null; });
+  // Touch devices: bottom bar, swipe left/right, tap left/right third.
+  if (matchMedia('(pointer: coarse)').matches || innerWidth < 900) document.body.classList.add('touch');
+  const tPos = document.getElementById('tPos');
+  const syncBar = () => { tPos.textContent = cur === 0 ? 'Cover' : `${cur} / ${slides.length - 1}`; };
+  document.getElementById('tPrev').addEventListener('click', (e) => { e.stopPropagation(); how = 'button'; show(cur - 1); syncBar(); });
+  document.getElementById('tNext').addEventListener('click', (e) => { e.stopPropagation(); how = 'button'; show(cur + 1); syncBar(); });
+  document.getElementById('tStyle').addEventListener('click', (e) => { e.stopPropagation(); const st = document.documentElement.dataset.style; setStyle(STYLES[(STYLES.indexOf(st) + 1) % STYLES.length]); });
+  document.getElementById('tFs').addEventListener('click', (e) => { e.stopPropagation(); track('fullscreen', { slide: cur }); const el = document.documentElement; document.fullscreenElement ? document.exitFullscreen() : (el.requestFullscreen || el.webkitRequestFullscreen || (() => {})).call(el); });
+  addEventListener('hashchange', syncBar);
+  fit(); show(fromHash(), false); syncBar();
+})();
+</script>
+<script>window.__MYPA_SITE__="Agentic-Probe";window.__MYPA_ENDPOINT__=(location.protocol==='file:'||/^(localhost|127\.)/.test(location.hostname)||/[?&](render|static)\b/.test(location.search))?'':"https://mypa.longshoreforrest.workers.dev/collect";window.__MYPA_EXTRA__={surface:"slides",v:"2026-10-01"};window.__MYPA_AUTO__={hash:false,sections:false};</script>
+<script>/*!
+ * MyPublicAnalytics beacon — selainpuolen snippet.
+ *
+ * Lähetys:
+ *   - 'pageview' automaattisesti sivun latautuessa
+ *   - Custom-eventit: window.mypa.send('section_view', { section: 'experience' })
+ *
+ * Sivukohtainen perus-extra (valinnainen, aseta ennen latausta):
+ *   window.__MYPA_EXTRA__ = { assignment: '0018' };   // liitetään joka eventtiin
+ *
+ * HUOM: lähetettävä `path` on pathname + search — location.hash EI koskaan
+ * kulje mukana. Salatut sivut (MyAssistant) pitävät purkuavaimen juuri
+ * #-osassa, joten avain ei päädy analytiikkaan.
+ *
+ * Käyttää navigator.sendBeacon() (eloonjäänti sivu-vaihdoksen yli) ja
+ * fetch keepalive:n fallbackia.
+ *
+ * Self-tagging (oman vierailusi erottelu):
+ *   Käy kerran sivulla URL:lla ?_mypa_self=1 → localStorageen tallentuu lippu,
+ *   ja kaikki tulevat eventit lähetetään {self:true}. Pois: ?_mypa_self=0.
+ */
+(function () {
+  if (typeof window === "undefined") return;
+  if (window.mypa && window.mypa.__initialized) return;
+
+  var SITE = window.__MYPA_SITE__ || "unknown";
+  var ENDPOINT = window.__MYPA_ENDPOINT__ || "";
+  var AUTO_EVENT = window.__MYPA_AUTO_EVENT__ || "pageview";
+
+  if (!ENDPOINT) return;
+
+  // Perus-extra, joka liitetään JOKAISEEN tämän sivun eventtiin. Julkaisija
+  // asettaa tämän ennen beaconin latausta, esim. MyAssistantin salattu
+  // raportti: window.__MYPA_EXTRA__ = { assignment: '0018', doc: 0 }.
+  // Näin sivukohtainen identiteetti kulkee mukana ilman että polkuun tai
+  // otsikkoon tarvitsee laittaa mitään sisällöstä kertovaa.
+  var BASE_EXTRA = null;
+  try {
+    var be = window.__MYPA_EXTRA__;
+    if (be && typeof be === "object") BASE_EXTRA = be;
+  } catch (e) {}
+
+  // Self-marker: URL-parametri tai localStorage-lippu.
+  var SELF = false;
+  try {
+    var sp = new URLSearchParams(window.location.search);
+    if (sp.get("_mypa_self") === "1") {
+      try { localStorage.setItem("mypa_self", "1"); } catch (e) {}
+    } else if (sp.get("_mypa_self") === "0") {
+      try { localStorage.removeItem("mypa_self"); } catch (e) {}
+    }
+    try { SELF = localStorage.getItem("mypa_self") === "1"; } catch (e) {}
+  } catch (e) {}
+
+  function utm() {
+    try {
+      var p = new URLSearchParams(window.location.search);
+      return {
+        source: p.get("utm_source") || null,
+        medium: p.get("utm_medium") || null,
+        campaign: p.get("utm_campaign") || null,
+      };
+    } catch (e) {
+      return { source: null, medium: null, campaign: null };
+    }
+  }
+
+  // Käyttäjäidentiteetti (esim. Google Sign-In) jaetusta localStoragesta.
+  // Kirjoitettu muotoon { email, name, sub, idToken, t }. Worker varmentaa
+  // idTokenin RS256/JWKS:llä; user-kenttä on varauloskäynti (varmentamaton).
+  var IDENTITY_KEY = window.__MYPA_IDENTITY_KEY__ || "unitas:identity";
+  function identity() {
+    try {
+      var raw = localStorage.getItem(IDENTITY_KEY);
+      if (!raw) return null;
+      var o = JSON.parse(raw);
+      if (!o || !o.email) return null;
+      return o;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // Korkean entropian UA Client Hints (tarkka laitemalli). Vain Chromium.
+  // navigator.userAgentData.getHighEntropyValues on asynkroninen, joten
+  // populoimme tämän kertaalleen ja liitämme sen kaikkiin lähetettäviin
+  // eventteihin. resolveHighEntropy() kutsuu callbackin joka tapauksessa —
+  // myös silloin kun rajapintaa ei ole tai se hylkää — jottei pageview jää
+  // lähettämättä.
+  var UACH = null;
+  function resolveHighEntropy(cb) {
+    try {
+      var uad = navigator.userAgentData;
+      if (uad && typeof uad.getHighEntropyValues === "function") {
+        uad
+          .getHighEntropyValues([
+            "model",
+            "platformVersion",
+            "architecture",
+            "bitness",
+            "uaFullVersion",
+          ])
+          .then(function (he) {
+            UACH = {
+              model: he.model || null,
+              platform_version: he.platformVersion || null,
+              arch: he.architecture || null,
+              bitness: he.bitness || null,
+              full_version: he.uaFullVersion || null,
+            };
+          })
+          .catch(function () {})
+          .then(function () { cb(); });
+        return;
+      }
+    } catch (e) {}
+    cb();
+  }
+
+  function clientContext() {
+    var ctx = {};
+    try {
+      ctx.screen_w = window.screen && screen.width || null;
+      ctx.screen_h = window.screen && screen.height || null;
+      ctx.viewport_w = window.innerWidth || null;
+      ctx.viewport_h = window.innerHeight || null;
+      ctx.dpr = window.devicePixelRatio || null;
+      ctx.language = (navigator.language || "").slice(0, 16);
+      ctx.languages = Array.isArray(navigator.languages)
+        ? navigator.languages.slice(0, 4).join(",")
+        : null;
+      ctx.color_scheme =
+        (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches)
+          ? "dark" : "light";
+      ctx.tz =
+        (Intl && Intl.DateTimeFormat &&
+         new Intl.DateTimeFormat().resolvedOptions().timeZone) || null;
+      ctx.tz_offset = -new Date().getTimezoneOffset();
+      var c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if (c) {
+        ctx.net_type = c.effectiveType || null;
+        ctx.net_downlink = c.downlink || null;
+        ctx.net_rtt = c.rtt || null;
+        ctx.net_save_data = !!c.saveData;
+      }
+      ctx.touch = ("ontouchstart" in window) || (navigator.maxTouchPoints > 0);
+      ctx.hardware_concurrency = navigator.hardwareConcurrency || null;
+      ctx.device_memory = navigator.deviceMemory || null;
+    } catch (e) {}
+    return ctx;
+  }
+
+  function send(event, extra) {
+    try {
+      // Liitä client-konteksti pageview-eventtiin (kerran per session).
+      var ev = event || "pageview";
+      var enriched = Object.assign({}, BASE_EXTRA || {}, extra || {});
+      if (ev === "pageview" || ev === "login_pageview") {
+        Object.assign(enriched, clientContext());
+      }
+      var id = identity();
+      var body = JSON.stringify({
+        site: SITE,
+        path: window.location.pathname + window.location.search,
+        event: ev,
+        referrer: document.referrer || "",
+        utm: utm(),
+        extra: Object.keys(enriched).length ? enriched : null,
+        ch: UACH || undefined,
+        self: SELF || undefined,
+        user: id ? { email: id.email, name: id.name, sub: id.sub } : undefined,
+        idToken: id && id.idToken ? id.idToken : undefined,
+      });
+      if (
+        navigator.sendBeacon &&
+        navigator.sendBeacon(
+          ENDPOINT,
+          new Blob([body], { type: "text/plain;charset=UTF-8" }),
+        )
+      ) {
+        return;
+      }
+      fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "content-type": "text/plain;charset=UTF-8" },
+        body: body,
+        keepalive: true,
+        mode: "cors",
+        credentials: "omit",
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
+  function autoSend() {
+    // Odota korkean entropian client hintit ennen ensimmäistä lähetystä, jotta
+    // laitemalli ehtii mukaan. UACH jää talteen myös custom-eventtejä varten.
+    resolveHighEntropy(function () { send(AUTO_EVENT); });
+  }
+
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    autoSend();
+  } else {
+    document.addEventListener("DOMContentLoaded", autoSend);
+  }
+
+  window.mypa = { send: send, __initialized: true, __self: SELF };
+})();
+</script>
+<script>/*!
+ * MyPublicAnalytics auto-instrument — generic behavioral tracking companion.
+ *
+ * Load this AFTER beacon/analytics.js. The beacon sends the automatic
+ * 'pageview'; this adds the richer behavioral events the dashboard already
+ * understands, WITHOUT any site-specific code:
+ *
+ *   - section_view   once per `section[id]` (or [data-section]) scrolled into view
+ *   - nav_jump       clicks on same-origin page navigation (*.html links)
+ *   - click          outbound links, mailto/tel, and PDF opens
+ *   - engagement_end visible time + total time + max scroll % + sections seen,
+ *                    sent on tab-hide / page-exit (checkpoint-safe)
+ *
+ * It is a no-op if the beacon (window.mypa) is not present, and never throws.
+ * CV does its own bespoke instrumentation in script.js, so it does NOT load
+ * this file — this is for sites (PhD, future) that just want sensible defaults.
+ *
+ * Optional config (set before this script runs):
+ *   window.__MYPA_AUTO__ = { sections: true, nav: true, clicks: true, engagement: true,
+ *                            hash: true };
+ *
+ * `hash: false` riisuu #-fragmentin kaikista lähetettävistä osoitteista. Käytä
+ * sivustoilla, joilla fragmentti on salaisuus — esim. MyAssistantin salatut
+ * raportit, joiden purkuavain on linkin #-osassa. Oletus (true) säilyttää
+ * fragmentin, koska muilla sivustoilla se on merkityksellistä navigaatiotietoa.
+ */
+(function () {
+  if (typeof window === "undefined" || typeof document === "undefined") return;
+  if (window.__mypaAutoInit) return;
+  window.__mypaAutoInit = true;
+
+  var CFG = window.__MYPA_AUTO__ || {};
+  var DO_SECTIONS    = CFG.sections    !== false;
+  var DO_NAV         = CFG.nav         !== false;
+  var DO_CLICKS      = CFG.clicks      !== false;
+  var DO_ENGAGEMENT  = CFG.engagement  !== false;
+  var KEEP_HASH      = CFG.hash        !== false;
+  var PAGE = window.__MYPA_PAGE__ || null;
+
+  // Riisu #-fragmentti kun se on salaisuus (KEEP_HASH === false).
+  function safeUrl(s) {
+    var v = String(s == null ? "" : s);
+    return KEEP_HASH ? v : v.split("#")[0];
+  }
+
+  function send(event, extra) {
+    try {
+      if (window.mypa && window.mypa.send) {
+        var e = extra || {};
+        if (PAGE && e.page == null) e.page = PAGE;
+        window.mypa.send(event, e);
+      }
+    } catch (err) { /* never break the page */ }
+  }
+
+  // ── section_view ───────────────────────────────────────────────────────────
+  var sentSections = {};
+  var seenCount = 0;
+  function observeSections() {
+    if (!DO_SECTIONS || typeof IntersectionObserver === "undefined") return;
+    var nodes = document.querySelectorAll(
+      "section[id], [data-section], article[id], h2[id], h3[id]"
+    );
+    if (!nodes.length) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var t = entry.target;
+        var id = t.getAttribute("data-section") || t.id;
+        if (!id || sentSections[id]) return;
+        sentSections[id] = true;
+        seenCount++;
+        send("section_view", { section: String(id).slice(0, 80) });
+      });
+    }, { threshold: 0.25 });
+    nodes.forEach(function (n) { io.observe(n); });
+  }
+
+  // ── nav_jump + click (outbound / pdf / contact) ─────────────────────────────
+  function onClick(e) {
+    try {
+      var a = e.target && e.target.closest && e.target.closest("a[href]");
+      if (!a) return;
+      var href = a.getAttribute("href") || "";
+      if (!href || href.charAt(0) === "#") return;            // in-page anchor
+      var label = (a.textContent || "").trim().slice(0, 80);
+
+      if (href.indexOf("mailto:") === 0) {
+        if (DO_CLICKS) send("click", { target: "email", href: href.slice(0, 160) });
+        return;
+      }
+      if (href.indexOf("tel:") === 0) {
+        if (DO_CLICKS) send("click", { target: "phone", href: href.slice(0, 160) });
+        return;
+      }
+
+      // Resolve to compare origins reliably.
+      var url = null;
+      try { url = new URL(href, window.location.href); } catch (e2) {}
+      var external = url && url.origin !== window.location.origin;
+
+      if (/\.pdf($|[?#])/i.test(href)) {
+        if (DO_CLICKS) send("click", { target: "pdf", label: label, href: safeUrl(href).slice(0, 160) });
+        return;
+      }
+      if (external) {
+        if (DO_CLICKS) send("click", { target: "outbound", label: label, href: safeUrl(href).slice(0, 160) });
+        return;
+      }
+      // Same-origin navigation to another page bundle (*.html) → nav_jump.
+      if (DO_NAV && /\.html($|[?#])/i.test(href)) {
+        var dest = url
+          ? (url.pathname.split("/").pop() + (KEEP_HASH ? (url.hash || "") : ""))
+          : safeUrl(href);
+        send("nav_jump", { to: String(dest).slice(0, 120), label: label });
+      }
+    } catch (err) { /* ignore */ }
+  }
+  if (DO_NAV || DO_CLICKS) {
+    document.addEventListener("click", onClick, true);
+  }
+
+  // ── engagement_end (visible time, total time, max scroll %, sections) ────────
+  var startMs = nowMs();
+  var visibleAccum = 0;
+  var lastVisibleStart = document.visibilityState === "visible" ? nowMs() : 0;
+  var maxScrollPct = 0;
+  var sent = false;
+
+  function nowMs() {
+    try { return (performance && performance.now) ? performance.timeOrigin + performance.now() : +new Date(); }
+    catch (e) { return +new Date(); }
+  }
+  function updateScrollDepth() {
+    try {
+      var sh = document.documentElement.scrollHeight - window.innerHeight;
+      // Many pages scroll an inner container, not the window — pick the larger.
+      var main = document.querySelector(".content, main, .page");
+      if (main && main.scrollHeight - main.clientHeight > sh) {
+        var sh2 = main.scrollHeight - main.clientHeight;
+        if (sh2 > 0) {
+          var p2 = Math.round((main.scrollTop / sh2) * 100);
+          if (p2 > maxScrollPct) maxScrollPct = Math.min(100, p2);
+        }
+        return;
+      }
+      if (sh <= 0) return;
+      var pct = Math.round((window.scrollY / sh) * 100);
+      if (pct > maxScrollPct) maxScrollPct = Math.min(100, pct);
+    } catch (e) {}
+  }
+
+  function sendEngagement(reason) {
+    if (!DO_ENGAGEMENT || sent) return;
+    sent = true;
+    if (lastVisibleStart) {
+      visibleAccum += nowMs() - lastVisibleStart;
+      lastVisibleStart = 0;
+    }
+    send("engagement_end", {
+      reason: reason,
+      time_visible_ms: Math.round(visibleAccum),
+      time_total_ms: Math.round(nowMs() - startMs),
+      max_scroll_pct: maxScrollPct,
+      sections_seen: seenCount
+    });
+  }
+
+  function initEngagement() {
+    if (!DO_ENGAGEMENT) return;
+    window.addEventListener("scroll", updateScrollDepth, { passive: true, capture: true });
+    updateScrollDepth();
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState === "hidden") {
+        sendEngagement("hidden");           // checkpoint — may not be a real exit
+      } else if (document.visibilityState === "visible" && sent) {
+        sent = false;                        // user returned — new engagement window
+        startMs = nowMs();
+        visibleAccum = 0;
+        lastVisibleStart = nowMs();
+      } else if (document.visibilityState === "visible") {
+        lastVisibleStart = nowMs();
+      }
+    });
+    window.addEventListener("pagehide", function () { sendEngagement("pagehide"); });
+  }
+
+  function boot() {
+    observeSections();
+    initEngagement();
+  }
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    boot();
+  } else {
+    document.addEventListener("DOMContentLoaded", boot);
+  }
+})();
+</script>
+</body>
+</html>

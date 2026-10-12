@@ -1,0 +1,209 @@
+# The Agentic Probe — a talk on Agentic Discovery & Engineering
+
+A talk on the paper by Tapio Pitkäranta and Leena Pitkäranta (Aalto University), over a cover and 17 slides. 15:28. Synthetic narration (Kokoro af_heart).
+
+## 0:00 · The Agentic Probe
+
+Before a ship commits to a course through unknown water, someone drops a probe over the side to measure the depth. This talk is about that kind of probe, for software.
+
+Think of agentic discovery as an expedition into the problem. The agentic probe is its instrument. An AI agent builds it from a stakeholder's own words, in minutes. Sometimes it is a prototype, sometimes a simulation of today's work, sometimes a possible future.
+
+Our field study built sixty-nine of them, all of the prototype kind, in eight in-room engagements with two partner organisations. And every generation attempt succeeded.
+
+The ship is the production investment, slow to steer. The probe is cheap and goes down first. What echoes back is operational feedback from the problem itself.
+
+## 0:47 · What an Agentic Probe is
+
+So what is an agentic probe? It is an instrument for discovery, not a draft.
+
+The paper defines a probe as a stakeholder-runnable instance of a candidate solution to a stated pain. It is throwaway-grade by design. Its job is to validate or falsify the pain, not to be production-ready. That definition is written from the solution side. Pointed at the problem instead, the same kind of probe renders today's process, or a possible future.
+
+It is agentic: an AI agent builds it from the stakeholder's own words, in minutes. The paper simply says probe. We say agentic probe, because only agents made it this cheap.
+
+It is usable: the stakeholder uses it as if it were real, instead of reading about it. And it is disposable. It answers a question, and then it is thrown away.
+
+That is why the paper coins a new word instead of saying prototype. A prototype is a partial draft that gets refined towards production. A probe is an instrument for searching the problem domain, and it may not be software at all.
+
+Show people a slide deck and they say: I like the colour. Hand them a probe and they say: when I press save twice, nothing happens. That operational feedback is what the probe is for.
+
+## 2:02 · Why probes were impossible
+
+Why didn't we work this way before? Because until now, a working answer cost far too much to be used as a question.
+
+The lifecycle we inherited protects that expensive artefact. Discovery, design, specification, development, testing, release. Every arrow is a handoff with its own sign-off.
+
+The numbers explain why. Requirements and design take about thirty percent of project effort. A defect found after delivery costs roughly a hundred times more than one caught in requirements. And forty to fifty percent of effort goes into rework.
+
+So the whole apparatus rests on a hidden premise: drawings instead of code, documents instead of prototypes, slide decks instead of running applications. In that world, there was no room for a probe.
+
+## 2:48 · Why probes are cheap now
+
+Now look at what a probe costs.
+
+Our engagements produced about a hundred and forty thousand lines of code. Written by hand, at fifty deployable lines a day, that is roughly two thousand three hundred and seventy person-days. Close to ten working years.
+
+Writing the prompts for all sixty-nine probes took about thirty-three hours.
+
+And generating one probe took, on average, about a minute and three-quarters.
+
+On work time, that is roughly a five hundred and seventy-fold difference. Probes are throwaway-grade, so discount it tenfold, and you are still at thirty-seven to sixty-five times. The point is not that we ship faster. It is that asking a question with a probe has become almost free.
+
+## 3:30 · Four kinds of probe
+
+There are at least four kinds of probe, and each one searches for something different.
+
+The prototype is working software. It asks whether a solution fits. This is the kind our field study measured: sixty-nine of them, from meeting-room booking to a cash-flow forecast.
+
+The process simulation re-enacts how the work runs today, with real timings. It searches for the process itself: its constraints, its hand-offs, its waiting. We have illustrated it in three healthcare cases.
+
+The possible future puts today and a what-if side by side. It searches for assumptions that are reasonable before anything is built.
+
+And often the probe is a combination. What makes all of them probes is not the medium, but the feedback they draw out. Our field study measured the first kind. The others are where discovery widens.
+
+## 4:18 · Two questions a probe can ask
+
+A probe can ask one of two questions. Is this the pain? Or, would this solve it?
+
+In the problem-validating mode, the agent renders how the work runs today, and the constraints that shape it. The stakeholder confirms it, corrects it, or relaxes a constraint to see what changes. Yes, this is exactly where it breaks. What we update is our belief about which problems are real.
+
+In the solution-proposing mode, the probe is candidate software and the stakeholder simply uses it. Picture someone who asked for a wind-optimised route. They try it and say: and rerouting around the headwind saves me eight minutes. Now we know how well that candidate fits.
+
+Either way, the probe is less than thirty minutes away from the dreamer's words.
+
+## 5:03 · Agentic Discovery, the wider frame
+
+So far we have talked about the probe itself. Now the umbrella term. Agentic Discovery is the expedition: the phase of the lifecycle, and the practice, that finds out what to build. The probe is its instrument.
+
+When probes are this cheap, the old phases collapse into two. Agentic Discovery absorbs discovery, design and the first draft of the spec. Its question is what to build, and for whom, and it explores that question with probes.
+
+It optimises for learning speed. Specifications are not written ahead of time. They are derived from what the probes found. Sessions take minutes to hours.
+
+Agentic Engineering is the second phase. The same kind of agent carries the validated result through development, verification, release and operations, in cycles of days to sprints.
+
+Between the two there is exactly one handover: what the probes found, written down as a spec. Discovery produces it. Engineering consumes it. There is no requirements document waiting for sign-off. A probe has taken its place.
+
+## 6:05 · Three roles make a probe
+
+Who makes a probe? Three roles. The dreamer is a domain expert who can describe a need in plain language, and writes no code.
+
+The AI agent, in our case Claude Code, reads the queue, builds the probe, deploys it, and reports back.
+
+And between them sits the orchestrator, who turns a sentence into a tractable prompt, checks safety, and protects the agent queue from unbounded requests.
+
+Every idea passes two independent safety gates before any probe is built. First the orchestrator's human check. Then the agent's own assessment. Anything harmful is blocked. Then the build, the report, and the question: more ideas?
+
+Across all generations, zero safety incidents were logged. And one lesson was unambiguous. Sessions without a named orchestrator either stalled on safety questions or drifted into free exploration. If you want probes, the orchestrator is the role you have to create.
+
+## 7:02 · Where probes live
+
+Probes also need a place to live, and that place decides whether you are let in at all.
+
+Think of an organisation's IT as three layers. The legacy core, the stable foundation. A middle layer of integration: interfaces, connectors, modernisation bridges. And an outer layer, where new processes are tried.
+
+Probes live in that outer layer. That is where they can be created at industrial speed.
+
+A probe that proves its value moves inward only through deliberate, reviewed integration steps.
+
+This was not a design preference. No field site let a discovery session reach the legacy core. The layered model was the precondition for being let in at all. Probes could move fast precisely because they were kept away from the systems that must not break.
+
+## 7:48 · Sixty-nine probes
+
+So what did the field study produce? Sixty-nine probes, all of the prototype kind.
+
+Eight in-room engagements, with two voluntary partner organisations. Sixty-nine deployable software probes. About a hundred and forty thousand lines of generated code. A hundred percent generation success, and no safety incidents.
+
+And look at what people chose to probe. Nobody pre-selected these. Weather and environmental data, wellness, office services, time tracking, developer tooling, sales tools, finance, food. Twelve functional categories. That breadth is itself a finding: one runtime made probes for all of it.
+
+## 8:27 · Intent into a probe
+
+How much probe does one line of intent buy?
+
+We audited nine probes in detail. Four hundred and twenty-three lines of natural-language specification produced twenty-three thousand eight hundred and forty-five lines of source code. The squares are drawn to scale.
+
+Per probe, the ratio ranged from one to fourteen for a food app, up to one to four hundred and sixty-seven for a reminder app written from a six-line request. The mean was one to fifty-six, the median one to thirty-nine.
+
+Across all sixty-nine probes, about two thousand lines of intent became about a hundred and eighteen thousand lines of code, from about thirty-three hours of prompt writing.
+
+## 9:08 · Eighteen probes in thirty-one minutes
+
+What does that look like on a single day? Here is organisation B.
+
+About fifty people submitted ideas during a three-hour workshop. The ideas went into a queue. One orchestrator fed it to twenty-one agents running in parallel.
+
+The git log tells the rest. Eighteen of the twenty probes were committed inside a single thirty-one-minute window, from nine forty-one to ten thirteen.
+
+By the end of the day, all twenty probes, about twenty-one thousand lines, were complete, with a bilingual interface and a portfolio page to navigate them.
+
+## 9:41 · When probes are cheap
+
+Which brings us to the headline finding. When probes are cheap, the bottleneck moves.
+
+In the first four events, small office groups asked for two to four probes at a time. Every probe was built and shown back live, in the room. The agent kept up. There was no bottleneck.
+
+In the fifth event, seven requests arrived in parallel, and the human orchestrator became the limit. Everything fell back onto one person.
+
+We did not plan this progression. It appeared as the sessions grew. So for the two largest engagements, around a hundred people invited, in the room and online, we built a small tool that batched the briefs and dispatched agents in parallel. Every idea became a probe, several were iterated. And the limit moved again: to the supply of ideas, and to how fast people could judge the probes.
+
+Every layer you automate exposes the next one. Once probes are nearly free, the rate limit is the queue of questions at the inlet, not the throughput.
+
+## 10:38 · A probe can be a simulation
+
+Now the other kinds of probe. In healthcare, we made probes that simulate today's process, and then play out possible futures.
+
+Renewing a chronic prescription: a visit, a lab test, an e-prescription and a pharmacy. A child falling ill the evening before a family trip, and a day-long public path that ends in: no travel.
+
+The third case is a skin symptom on a Friday evening. Today, that means a public emergency queue, at about two hundred and sixty euros in the simulation. Relax one constraint, and a video doctor costs about a hundred and seventy. Relax another, and three independent AI assessments, confirmed by a certified telemedicine doctor, come to about ninety.
+
+Each relaxed constraint is a possible future. The probe is the relaxation itself. Stakeholders can stop the simulation, correct it, or fork it, and the same shift appears: once a what-if is cheap to render, the limit is how fast people can author the next one.
+
+To be honest about scope: these are three researcher-authored cases in one domain. An illustration, not a field study.
+
+## 11:45 · Possible futures
+
+And here is the honest part of the picture. Prototypes are only the start. Most probes are still to be imagined.
+
+The prototype renders a candidate solution and discovers whether it fits. That is what we measured in the field.
+
+A simulation renders today's process and discovers its constraints and hand-offs. Picture a regulated administrative workflow, re-enacted step by step, or a supply-chain hand-off with its real delays. These are sketches, not results.
+
+A possible future renders a what-if beside today, and discovers which assumptions are reasonable. What if AI took over part of this service? What does on-call routing look like with one constraint relaxed?
+
+And there are probes we cannot imagine yet. Any question a stakeholder can step through and judge can become one. That is why the umbrella term is agentic discovery. The expedition is the point, and the probe is whatever instrument the question needs.
+
+## 12:41 · A factory of probes
+
+Step back, and this fits a long tradition.
+
+Hitachi's software works in nineteen sixty-nine. The capability maturity model. Product lines and model-driven factories. Defence DevSecOps factories. And now, fleets of AI agents.
+
+Every generation automated the same line: spec, code, test, release. Agentic Engineering is the newest, probabilistic factory on that line, and, in Addy Osmani's phrase, the developer becomes a factory manager.
+
+But none of these traditions addressed the question that comes before the spec. What should we build, and for whom? That is where discovery happens, with probes.
+
+So the configuration we ended up with, a queue of stakeholder briefs feeding parallel agent sessions, is a small software factory of its own. Its output is probes, and it is limited by its intake, not its throughput.
+
+## 13:33 · What we do not claim
+
+Now, the limits. There are six, and each one is a replication target.
+
+The sample is small and self-selected: eight engagements, two voluntary organisations. And probes are throwaway-grade by design. The speed multiplier must not be projected onto production delivery.
+
+All probes came from a single agent vendor, so the next studies should use others. And the fifty-lines-a-day baseline varies by domain. It moves the number, not the finding.
+
+In several sessions, we, the authors, were the orchestrators, and an independent one might get different results. And simulations and possible futures have so far been shown only at illustrative scale, three cases. Field-scale process discovery is open work.
+
+## 14:17 · Design for discovery
+
+So what follows? Design for discovery, with probes. Production is cheap, so the inlet decides.
+
+First, name an orchestrator: the role that turns sentences into probes, and the first one to automate as you scale.
+
+Second, open an outer layer. Give probes a safe place to run, away from the legacy core, and a reviewed path for the ones that hold up to move inward.
+
+Third, measure the inlet. Count the questions asked and the probes judged, not lines of code. That is where the next constraint lives.
+
+There is a lot left to do. Replication with other agents and orchestrators. Field studies of simulations and possible futures. And a hard open question: how a probe that held up crosses the seam into production, and which of its guarantees survive the crossing.
+
+The paper contributes a discovery runtime, a design theory built on the two modes, an evaluation of sixty-nine probes, a public reproducibility kit, and the finding that the bottleneck shifts.
+
+So, to close. Agentic discovery is the expedition. The probe is its instrument. Production is no longer the bottleneck. Ideas are. Thank you.

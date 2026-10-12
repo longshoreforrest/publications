@@ -1,0 +1,1125 @@
+WEBVTT
+
+1
+00:00:00.800 --> 00:00:03.676
+Before a ship commits to a course through unknown water,
+
+2
+00:00:03.676 --> 00:00:06.903
+someone drops a probe over the side to measure the depth.
+
+3
+00:00:06.903 --> 00:00:09.977
+This talk is about that kind of probe, for software.
+
+4
+00:00:10.127 --> 00:00:14.075
+Think of agentic discovery as an expedition into the problem.
+
+5
+00:00:14.075 --> 00:00:16.316
+The agentic probe is its instrument.
+
+6
+00:00:16.316 --> 00:00:20.413
+An AI agent builds it from a stakeholder's own words, in minutes.
+
+7
+00:00:20.413 --> 00:00:24.614
+Sometimes it is a prototype, sometimes a simulation of today's work,
+
+8
+00:00:24.614 --> 00:00:26.794
+sometimes a possible future.
+
+9
+00:00:26.944 --> 00:00:30.911
+Our field study built sixty-nine of them, all of the prototype kind,
+
+10
+00:00:30.911 --> 00:00:34.711
+in eight in-room engagements with two partner organisations.
+
+11
+00:00:34.711 --> 00:00:37.337
+And every generation attempt succeeded.
+
+12
+00:00:37.487 --> 00:00:40.432
+The ship is the production investment, slow to steer.
+
+13
+00:00:40.432 --> 00:00:42.780
+The probe is cheap and goes down first.
+
+14
+00:00:42.780 --> 00:00:46.814
+What echoes back is operational feedback from the problem itself.
+
+15
+00:00:47.764 --> 00:00:49.749
+So what is an agentic probe?
+
+16
+00:00:49.749 --> 00:00:52.802
+It is an instrument for discovery, not a draft.
+
+17
+00:00:52.952 --> 00:00:59.396
+The paper defines a probe as a stakeholder-runnable instance of a candidate solution to a stated pain.
+
+18
+00:00:59.396 --> 00:01:01.531
+It is throwaway-grade by design.
+
+19
+00:01:01.531 --> 00:01:06.225
+Its job is to validate or falsify the pain, not to be production-ready.
+
+20
+00:01:06.225 --> 00:01:09.085
+That definition is written from the solution side.
+
+21
+00:01:09.085 --> 00:01:13.703
+Pointed at the problem instead, the same kind of probe renders today's process,
+
+22
+00:01:13.703 --> 00:01:15.381
+or a possible future.
+
+23
+00:01:15.531 --> 00:01:20.929
+It is agentic: an AI agent builds it from the stakeholder's own words, in minutes.
+
+24
+00:01:20.929 --> 00:01:22.787
+The paper simply says probe.
+
+25
+00:01:22.787 --> 00:01:26.757
+We say agentic probe, because only agents made it this cheap.
+
+26
+00:01:26.907 --> 00:01:31.857
+It is usable: the stakeholder uses it as if it were real, instead of reading about it.
+
+27
+00:01:31.857 --> 00:01:33.544
+And it is disposable.
+
+28
+00:01:33.544 --> 00:01:36.469
+It answers a question, and then it is thrown away.
+
+29
+00:01:36.619 --> 00:01:40.609
+That is why the paper coins a new word instead of saying prototype.
+
+30
+00:01:40.609 --> 00:01:44.920
+A prototype is a partial draft that gets refined towards production.
+
+31
+00:01:44.920 --> 00:01:47.906
+A probe is an instrument for searching the problem domain,
+
+32
+00:01:47.906 --> 00:01:50.106
+and it may not be software at all.
+
+33
+00:01:50.256 --> 00:01:53.521
+Show people a slide deck and they say: I like the colour.
+
+34
+00:01:53.521 --> 00:01:57.747
+Hand them a probe and they say: when I press save twice, nothing happens.
+
+35
+00:01:57.747 --> 00:02:01.077
+That operational feedback is what the probe is for.
+
+36
+00:02:02.027 --> 00:02:03.991
+Why didn't we work this way before?
+
+37
+00:02:03.991 --> 00:02:08.942
+Because until now, a working answer cost far too much to be used as a question.
+
+38
+00:02:09.092 --> 00:02:12.955
+The lifecycle we inherited protects that expensive artefact.
+
+39
+00:02:12.955 --> 00:02:17.116
+Discovery, design, specification, development, testing, release.
+
+40
+00:02:17.116 --> 00:02:20.019
+Every arrow is a handoff with its own sign-off.
+
+41
+00:02:20.169 --> 00:02:21.899
+The numbers explain why.
+
+42
+00:02:21.899 --> 00:02:26.017
+Requirements and design take about thirty percent of project effort.
+
+43
+00:02:26.017 --> 00:02:31.523
+A defect found after delivery costs roughly a hundred times more than one caught in requirements.
+
+44
+00:02:31.523 --> 00:02:34.810
+And forty to fifty percent of effort goes into rework.
+
+45
+00:02:34.960 --> 00:02:37.944
+So the whole apparatus rests on a hidden premise:
+
+46
+00:02:37.944 --> 00:02:41.475
+drawings instead of code, documents instead of prototypes,
+
+47
+00:02:41.475 --> 00:02:44.455
+slide decks instead of running applications.
+
+48
+00:02:44.455 --> 00:02:47.166
+In that world, there was no room for a probe.
+
+49
+00:02:48.116 --> 00:02:50.187
+Now look at what a probe costs.
+
+50
+00:02:50.337 --> 00:02:54.477
+Our engagements produced about a hundred and forty thousand lines of code.
+
+51
+00:02:54.477 --> 00:02:57.235
+Written by hand, at fifty deployable lines a day,
+
+52
+00:02:57.235 --> 00:03:01.305
+that is roughly two thousand three hundred and seventy person-days.
+
+53
+00:03:01.305 --> 00:03:03.249
+Close to ten working years.
+
+54
+00:03:03.399 --> 00:03:07.902
+Writing the prompts for all sixty-nine probes took about thirty-three hours.
+
+55
+00:03:08.052 --> 00:03:12.513
+And generating one probe took, on average, about a minute and three-quarters.
+
+56
+00:03:12.663 --> 00:03:16.888
+On work time, that is roughly a five hundred and seventy-fold difference.
+
+57
+00:03:16.888 --> 00:03:19.831
+Probes are throwaway-grade, so discount it tenfold,
+
+58
+00:03:19.831 --> 00:03:23.247
+and you are still at thirty-seven to sixty-five times.
+
+59
+00:03:23.247 --> 00:03:25.573
+The point is not that we ship faster.
+
+60
+00:03:25.573 --> 00:03:29.586
+It is that asking a question with a probe has become almost free.
+
+61
+00:03:30.536 --> 00:03:34.847
+There are at least four kinds of probe, and each one searches for something different.
+
+62
+00:03:34.997 --> 00:03:37.196
+The prototype is working software.
+
+63
+00:03:37.196 --> 00:03:39.203
+It asks whether a solution fits.
+
+64
+00:03:39.203 --> 00:03:41.507
+This is the kind our field study measured:
+
+65
+00:03:41.507 --> 00:03:45.797
+sixty-nine of them, from meeting-room booking to a cash-flow forecast.
+
+66
+00:03:45.947 --> 00:03:50.641
+The process simulation re-enacts how the work runs today, with real timings.
+
+67
+00:03:50.641 --> 00:03:55.379
+It searches for the process itself: its constraints, its hand-offs, its waiting.
+
+68
+00:03:55.379 --> 00:03:58.282
+We have illustrated it in three healthcare cases.
+
+69
+00:03:58.432 --> 00:04:02.039
+The possible future puts today and a what-if side by side.
+
+70
+00:04:02.039 --> 00:04:06.307
+It searches for assumptions that are reasonable before anything is built.
+
+71
+00:04:06.457 --> 00:04:08.720
+And often the probe is a combination.
+
+72
+00:04:08.720 --> 00:04:13.052
+What makes all of them probes is not the medium, but the feedback they draw out.
+
+73
+00:04:13.052 --> 00:04:15.357
+Our field study measured the first kind.
+
+74
+00:04:15.357 --> 00:04:17.770
+The others are where discovery widens.
+
+75
+00:04:18.720 --> 00:04:20.983
+A probe can ask one of two questions.
+
+76
+00:04:20.983 --> 00:04:22.371
+Is this the pain?
+
+77
+00:04:22.371 --> 00:04:24.058
+Or, would this solve it?
+
+78
+00:04:24.208 --> 00:04:28.213
+In the problem-validating mode, the agent renders how the work runs today,
+
+79
+00:04:28.213 --> 00:04:30.353
+and the constraints that shape it.
+
+80
+00:04:30.353 --> 00:04:35.667
+The stakeholder confirms it, corrects it, or relaxes a constraint to see what changes.
+
+81
+00:04:35.667 --> 00:04:37.972
+Yes, this is exactly where it breaks.
+
+82
+00:04:37.972 --> 00:04:41.558
+What we update is our belief about which problems are real.
+
+83
+00:04:41.708 --> 00:04:43.456
+In the solution-proposing mode,
+
+84
+00:04:43.456 --> 00:04:47.533
+the probe is candidate software and the stakeholder simply uses it.
+
+85
+00:04:47.533 --> 00:04:50.671
+Picture someone who asked for a wind-optimised route.
+
+86
+00:04:50.671 --> 00:04:54.939
+They try it and say: and rerouting around the headwind saves me eight minutes.
+
+87
+00:04:54.939 --> 00:04:57.586
+Now we know how well that candidate fits.
+
+88
+00:04:57.736 --> 00:05:02.111
+Either way, the probe is less than thirty minutes away from the dreamer's words.
+
+89
+00:05:03.061 --> 00:05:05.537
+So far we have talked about the probe itself.
+
+90
+00:05:05.537 --> 00:05:07.181
+Now the umbrella term.
+
+91
+00:05:07.181 --> 00:05:09.305
+Agentic Discovery is the expedition:
+
+92
+00:05:09.305 --> 00:05:14.031
+the phase of the lifecycle, and the practice, that finds out what to build.
+
+93
+00:05:14.031 --> 00:05:15.974
+The probe is its instrument.
+
+94
+00:05:16.124 --> 00:05:19.624
+When probes are this cheap, the old phases collapse into two.
+
+95
+00:05:19.624 --> 00:05:24.575
+Agentic Discovery absorbs discovery, design and the first draft of the spec.
+
+96
+00:05:24.575 --> 00:05:29.718
+Its question is what to build, and for whom, and it explores that question with probes.
+
+97
+00:05:29.868 --> 00:05:32.045
+It optimises for learning speed.
+
+98
+00:05:32.045 --> 00:05:34.841
+Specifications are not written ahead of time.
+
+99
+00:05:34.841 --> 00:05:37.061
+They are derived from what the probes found.
+
+100
+00:05:37.061 --> 00:05:39.175
+Sessions take minutes to hours.
+
+101
+00:05:39.325 --> 00:05:42.057
+Agentic Engineering is the second phase.
+
+102
+00:05:42.057 --> 00:05:47.205
+The same kind of agent carries the validated result through development, verification,
+
+103
+00:05:47.205 --> 00:05:50.827
+release and operations, in cycles of days to sprints.
+
+104
+00:05:50.977 --> 00:05:53.527
+Between the two there is exactly one handover:
+
+105
+00:05:53.527 --> 00:05:56.376
+what the probes found, written down as a spec.
+
+106
+00:05:56.376 --> 00:05:58.084
+Discovery produces it.
+
+107
+00:05:58.084 --> 00:05:59.813
+Engineering consumes it.
+
+108
+00:05:59.813 --> 00:06:02.993
+There is no requirements document waiting for sign-off.
+
+109
+00:06:02.993 --> 00:06:05.001
+A probe has taken its place.
+
+110
+00:06:05.951 --> 00:06:07.317
+Who makes a probe?
+
+111
+00:06:07.317 --> 00:06:08.535
+Three roles.
+
+112
+00:06:08.535 --> 00:06:12.665
+The dreamer is a domain expert who can describe a need in plain language,
+
+113
+00:06:12.665 --> 00:06:14.190
+and writes no code.
+
+114
+00:06:14.340 --> 00:06:19.264
+The AI agent, in our case Claude Code, reads the queue, builds the probe, deploys it,
+
+115
+00:06:19.264 --> 00:06:20.699
+and reports back.
+
+116
+00:06:20.849 --> 00:06:25.827
+And between them sits the orchestrator, who turns a sentence into a tractable prompt,
+
+117
+00:06:25.827 --> 00:06:30.259
+checks safety, and protects the agent queue from unbounded requests.
+
+118
+00:06:30.409 --> 00:06:34.997
+Every idea passes two independent safety gates before any probe is built.
+
+119
+00:06:34.997 --> 00:06:37.303
+First the orchestrator's human check.
+
+120
+00:06:37.303 --> 00:06:39.224
+Then the agent's own assessment.
+
+121
+00:06:39.224 --> 00:06:41.039
+Anything harmful is blocked.
+
+122
+00:06:41.039 --> 00:06:44.390
+Then the build, the report, and the question: more ideas?
+
+123
+00:06:44.540 --> 00:06:48.232
+Across all generations, zero safety incidents were logged.
+
+124
+00:06:48.232 --> 00:06:50.367
+And one lesson was unambiguous.
+
+125
+00:06:50.367 --> 00:06:56.981
+Sessions without a named orchestrator either stalled on safety questions or drifted into free exploration.
+
+126
+00:06:56.981 --> 00:07:01.101
+If you want probes, the orchestrator is the role you have to create.
+
+127
+00:07:02.051 --> 00:07:07.109
+Probes also need a place to live, and that place decides whether you are let in at all.
+
+128
+00:07:07.259 --> 00:07:10.332
+Think of an organisation's IT as three layers.
+
+129
+00:07:10.332 --> 00:07:12.808
+The legacy core, the stable foundation.
+
+130
+00:07:12.808 --> 00:07:17.908
+A middle layer of integration: interfaces, connectors, modernisation bridges.
+
+131
+00:07:17.908 --> 00:07:20.939
+And an outer layer, where new processes are tried.
+
+132
+00:07:21.089 --> 00:07:22.904
+Probes live in that outer layer.
+
+133
+00:07:22.904 --> 00:07:26.170
+That is where they can be created at industrial speed.
+
+134
+00:07:26.320 --> 00:07:30.121
+A probe that proves its value moves inward only through deliberate,
+
+135
+00:07:30.121 --> 00:07:32.103
+reviewed integration steps.
+
+136
+00:07:32.253 --> 00:07:34.303
+This was not a design preference.
+
+137
+00:07:34.303 --> 00:07:38.144
+No field site let a discovery session reach the legacy core.
+
+138
+00:07:38.144 --> 00:07:41.687
+The layered model was the precondition for being let in at all.
+
+139
+00:07:41.687 --> 00:07:47.193
+Probes could move fast precisely because they were kept away from the systems that must not break.
+
+140
+00:07:48.143 --> 00:07:50.363
+So what did the field study produce?
+
+141
+00:07:50.363 --> 00:07:53.522
+Sixty-nine probes, all of the prototype kind.
+
+142
+00:07:53.672 --> 00:07:57.961
+Eight in-room engagements, with two voluntary partner organisations.
+
+143
+00:07:57.961 --> 00:08:00.544
+Sixty-nine deployable software probes.
+
+144
+00:08:00.544 --> 00:08:04.257
+About a hundred and forty thousand lines of generated code.
+
+145
+00:08:04.257 --> 00:08:08.249
+A hundred percent generation success, and no safety incidents.
+
+146
+00:08:08.399 --> 00:08:10.512
+And look at what people chose to probe.
+
+147
+00:08:10.512 --> 00:08:12.476
+Nobody pre-selected these.
+
+148
+00:08:12.476 --> 00:08:17.968
+Weather and environmental data, wellness, office services, time tracking, developer tooling,
+
+149
+00:08:17.968 --> 00:08:19.880
+sales tools, finance, food.
+
+150
+00:08:19.880 --> 00:08:21.737
+Twelve functional categories.
+
+151
+00:08:21.737 --> 00:08:26.347
+That breadth is itself a finding: one runtime made probes for all of it.
+
+152
+00:08:27.297 --> 00:08:29.966
+How much probe does one line of intent buy?
+
+153
+00:08:30.116 --> 00:08:32.187
+We audited nine probes in detail.
+
+154
+00:08:32.187 --> 00:08:40.593
+Four hundred and twenty-three lines of natural-language specification produced twenty-three thousand eight hundred and forty-five lines of source code.
+
+155
+00:08:40.593 --> 00:08:42.515
+The squares are drawn to scale.
+
+156
+00:08:42.665 --> 00:08:46.579
+Per probe, the ratio ranged from one to fourteen for a food app,
+
+157
+00:08:46.579 --> 00:08:52.565
+up to one to four hundred and sixty-seven for a reminder app written from a six-line request.
+
+158
+00:08:52.565 --> 00:08:56.429
+The mean was one to fifty-six, the median one to thirty-nine.
+
+159
+00:08:56.579 --> 00:08:58.286
+Across all sixty-nine probes,
+
+160
+00:08:58.286 --> 00:09:03.822
+about two thousand lines of intent became about a hundred and eighteen thousand lines of code,
+
+161
+00:09:03.822 --> 00:09:07.098
+from about thirty-three hours of prompt writing.
+
+162
+00:09:08.048 --> 00:09:10.161
+What does that look like on a single day?
+
+163
+00:09:10.161 --> 00:09:12.169
+Here is organisation B.
+
+164
+00:09:12.319 --> 00:09:16.309
+About fifty people submitted ideas during a three-hour workshop.
+
+165
+00:09:16.309 --> 00:09:18.167
+The ideas went into a queue.
+
+166
+00:09:18.167 --> 00:09:22.286
+One orchestrator fed it to twenty-one agents running in parallel.
+
+167
+00:09:22.436 --> 00:09:24.272
+The git log tells the rest.
+
+168
+00:09:24.272 --> 00:09:28.979
+Eighteen of the twenty probes were committed inside a single thirty-one-minute window,
+
+169
+00:09:28.979 --> 00:09:31.399
+from nine forty-one to ten thirteen.
+
+170
+00:09:31.549 --> 00:09:36.555
+By the end of the day, all twenty probes, about twenty-one thousand lines, were complete,
+
+171
+00:09:36.555 --> 00:09:40.661
+with a bilingual interface and a portfolio page to navigate them.
+
+172
+00:09:41.611 --> 00:09:43.873
+Which brings us to the headline finding.
+
+173
+00:09:43.873 --> 00:09:46.563
+When probes are cheap, the bottleneck moves.
+
+174
+00:09:46.713 --> 00:09:51.301
+In the first four events, small office groups asked for two to four probes at a time.
+
+175
+00:09:51.301 --> 00:09:54.439
+Every probe was built and shown back live, in the room.
+
+176
+00:09:54.439 --> 00:09:55.955
+The agent kept up.
+
+177
+00:09:55.955 --> 00:09:57.685
+There was no bottleneck.
+
+178
+00:09:57.835 --> 00:10:00.904
+In the fifth event, seven requests arrived in parallel,
+
+179
+00:10:00.904 --> 00:10:03.660
+and the human orchestrator became the limit.
+
+180
+00:10:03.660 --> 00:10:06.158
+Everything fell back onto one person.
+
+181
+00:10:06.308 --> 00:10:08.165
+We did not plan this progression.
+
+182
+00:10:08.165 --> 00:10:10.236
+It appeared as the sessions grew.
+
+183
+00:10:10.236 --> 00:10:15.428
+So for the two largest engagements, around a hundred people invited, in the room and online,
+
+184
+00:10:15.428 --> 00:10:20.243
+we built a small tool that batched the briefs and dispatched agents in parallel.
+
+185
+00:10:20.243 --> 00:10:23.273
+Every idea became a probe, several were iterated.
+
+186
+00:10:23.273 --> 00:10:24.689
+And the limit moved again:
+
+187
+00:10:24.689 --> 00:10:28.950
+to the supply of ideas, and to how fast people could judge the probes.
+
+188
+00:10:29.100 --> 00:10:31.960
+Every layer you automate exposes the next one.
+
+189
+00:10:31.960 --> 00:10:36.283
+Once probes are nearly free, the rate limit is the queue of questions at the inlet,
+
+190
+00:10:36.283 --> 00:10:37.722
+not the throughput.
+
+191
+00:10:38.672 --> 00:10:40.423
+Now the other kinds of probe.
+
+192
+00:10:40.423 --> 00:10:43.845
+In healthcare, we made probes that simulate today's process,
+
+193
+00:10:43.845 --> 00:10:46.291
+and then play out possible futures.
+
+194
+00:10:46.441 --> 00:10:51.947
+Renewing a chronic prescription: a visit, a lab test, an e-prescription and a pharmacy.
+
+195
+00:10:51.947 --> 00:10:55.141
+A child falling ill the evening before a family trip,
+
+196
+00:10:55.141 --> 00:10:57.552
+and a day-long public path that ends in:
+
+197
+00:10:57.552 --> 00:10:58.605
+no travel.
+
+198
+00:10:58.755 --> 00:11:02.148
+The third case is a skin symptom on a Friday evening.
+
+199
+00:11:02.148 --> 00:11:04.647
+Today, that means a public emergency queue,
+
+200
+00:11:04.647 --> 00:11:08.144
+at about two hundred and sixty euros in the simulation.
+
+201
+00:11:08.144 --> 00:11:12.689
+Relax one constraint, and a video doctor costs about a hundred and seventy.
+
+202
+00:11:12.689 --> 00:11:16.036
+Relax another, and three independent AI assessments,
+
+203
+00:11:16.036 --> 00:11:20.798
+confirmed by a certified telemedicine doctor, come to about ninety.
+
+204
+00:11:20.948 --> 00:11:23.979
+Each relaxed constraint is a possible future.
+
+205
+00:11:23.979 --> 00:11:26.412
+The probe is the relaxation itself.
+
+206
+00:11:26.412 --> 00:11:31.529
+Stakeholders can stop the simulation, correct it, or fork it, and the same shift appears:
+
+207
+00:11:31.529 --> 00:11:37.038
+once a what-if is cheap to render, the limit is how fast people can author the next one.
+
+208
+00:11:37.188 --> 00:11:41.883
+To be honest about scope: these are three researcher-authored cases in one domain.
+
+209
+00:11:41.883 --> 00:11:44.402
+An illustration, not a field study.
+
+210
+00:11:45.352 --> 00:11:47.764
+And here is the honest part of the picture.
+
+211
+00:11:47.764 --> 00:11:49.771
+Prototypes are only the start.
+
+212
+00:11:49.771 --> 00:11:52.141
+Most probes are still to be imagined.
+
+213
+00:11:52.291 --> 00:11:56.729
+The prototype renders a candidate solution and discovers whether it fits.
+
+214
+00:11:56.729 --> 00:11:58.907
+That is what we measured in the field.
+
+215
+00:11:59.057 --> 00:12:04.008
+A simulation renders today's process and discovers its constraints and hand-offs.
+
+216
+00:12:04.008 --> 00:12:08.361
+Picture a regulated administrative workflow, re-enacted step by step,
+
+217
+00:12:08.361 --> 00:12:11.689
+or a supply-chain hand-off with its real delays.
+
+218
+00:12:11.689 --> 00:12:13.867
+These are sketches, not results.
+
+219
+00:12:14.017 --> 00:12:16.772
+A possible future renders a what-if beside today,
+
+220
+00:12:16.772 --> 00:12:19.715
+and discovers which assumptions are reasonable.
+
+221
+00:12:19.715 --> 00:12:22.148
+What if AI took over part of this service?
+
+222
+00:12:22.148 --> 00:12:25.819
+What does on-call routing look like with one constraint relaxed?
+
+223
+00:12:25.969 --> 00:12:28.488
+And there are probes we cannot imagine yet.
+
+224
+00:12:28.488 --> 00:12:32.351
+Any question a stakeholder can step through and judge can become one.
+
+225
+00:12:32.351 --> 00:12:35.701
+That is why the umbrella term is agentic discovery.
+
+226
+00:12:35.701 --> 00:12:40.674
+The expedition is the point, and the probe is whatever instrument the question needs.
+
+227
+00:12:41.624 --> 00:12:44.207
+Step back, and this fits a long tradition.
+
+228
+00:12:44.357 --> 00:12:47.281
+Hitachi's software works in nineteen sixty-nine.
+
+229
+00:12:47.281 --> 00:12:49.331
+The capability maturity model.
+
+230
+00:12:49.331 --> 00:12:52.020
+Product lines and model-driven factories.
+
+231
+00:12:52.020 --> 00:12:54.155
+Defence DevSecOps factories.
+
+232
+00:12:54.155 --> 00:12:56.525
+And now, fleets of AI agents.
+
+233
+00:12:56.675 --> 00:13:01.369
+Every generation automated the same line: spec, code, test, release.
+
+234
+00:13:01.369 --> 00:13:06.009
+Agentic Engineering is the newest, probabilistic factory on that line, and,
+
+235
+00:13:06.009 --> 00:13:10.481
+in Addy Osmani's phrase, the developer becomes a factory manager.
+
+236
+00:13:10.631 --> 00:13:14.728
+But none of these traditions addressed the question that comes before the spec.
+
+237
+00:13:14.728 --> 00:13:16.628
+What should we build, and for whom?
+
+238
+00:13:16.628 --> 00:13:19.254
+That is where discovery happens, with probes.
+
+239
+00:13:19.404 --> 00:13:21.614
+So the configuration we ended up with,
+
+240
+00:13:21.614 --> 00:13:25.221
+a queue of stakeholder briefs feeding parallel agent sessions,
+
+241
+00:13:25.221 --> 00:13:27.789
+is a small software factory of its own.
+
+242
+00:13:27.789 --> 00:13:32.335
+Its output is probes, and it is limited by its intake, not its throughput.
+
+243
+00:13:33.285 --> 00:13:34.588
+Now, the limits.
+
+244
+00:13:34.588 --> 00:13:37.726
+There are six, and each one is a replication target.
+
+245
+00:13:37.876 --> 00:13:43.637
+The sample is small and self-selected: eight engagements, two voluntary organisations.
+
+246
+00:13:43.637 --> 00:13:46.241
+And probes are throwaway-grade by design.
+
+247
+00:13:46.241 --> 00:13:50.382
+The speed multiplier must not be projected onto production delivery.
+
+248
+00:13:50.532 --> 00:13:55.099
+All probes came from a single agent vendor, so the next studies should use others.
+
+249
+00:13:55.099 --> 00:13:58.300
+And the fifty-lines-a-day baseline varies by domain.
+
+250
+00:13:58.300 --> 00:14:00.649
+It moves the number, not the finding.
+
+251
+00:14:00.799 --> 00:14:04.098
+In several sessions, we, the authors, were the orchestrators,
+
+252
+00:14:04.098 --> 00:14:07.157
+and an independent one might get different results.
+
+253
+00:14:07.157 --> 00:14:12.519
+And simulations and possible futures have so far been shown only at illustrative scale,
+
+254
+00:14:12.519 --> 00:14:13.559
+three cases.
+
+255
+00:14:13.559 --> 00:14:16.739
+Field-scale process discovery is open work.
+
+256
+00:14:17.689 --> 00:14:19.077
+So what follows?
+
+257
+00:14:19.077 --> 00:14:21.361
+Design for discovery, with probes.
+
+258
+00:14:21.361 --> 00:14:24.179
+Production is cheap, so the inlet decides.
+
+259
+00:14:24.329 --> 00:14:25.907
+First, name an orchestrator:
+
+260
+00:14:25.907 --> 00:14:31.201
+the role that turns sentences into probes, and the first one to automate as you scale.
+
+261
+00:14:31.351 --> 00:14:33.272
+Second, open an outer layer.
+
+262
+00:14:33.272 --> 00:14:36.555
+Give probes a safe place to run, away from the legacy core,
+
+263
+00:14:36.555 --> 00:14:40.399
+and a reviewed path for the ones that hold up to move inward.
+
+264
+00:14:40.549 --> 00:14:42.193
+Third, measure the inlet.
+
+265
+00:14:42.193 --> 00:14:46.205
+Count the questions asked and the probes judged, not lines of code.
+
+266
+00:14:46.205 --> 00:14:48.490
+That is where the next constraint lives.
+
+267
+00:14:48.640 --> 00:14:50.369
+There is a lot left to do.
+
+268
+00:14:50.369 --> 00:14:53.400
+Replication with other agents and orchestrators.
+
+269
+00:14:53.400 --> 00:14:56.708
+Field studies of simulations and possible futures.
+
+270
+00:14:56.708 --> 00:14:58.146
+And a hard open question:
+
+271
+00:14:58.146 --> 00:15:01.483
+how a probe that held up crosses the seam into production,
+
+272
+00:15:01.483 --> 00:15:04.753
+and which of its guarantees survive the crossing.
+
+273
+00:15:04.903 --> 00:15:09.893
+The paper contributes a discovery runtime, a design theory built on the two modes,
+
+274
+00:15:09.893 --> 00:15:13.849
+an evaluation of sixty-nine probes, a public reproducibility kit,
+
+275
+00:15:13.849 --> 00:15:16.915
+and the finding that the bottleneck shifts.
+
+276
+00:15:17.065 --> 00:15:18.432
+So, to close.
+
+277
+00:15:18.432 --> 00:15:21.036
+Agentic discovery is the expedition.
+
+278
+00:15:21.036 --> 00:15:22.829
+The probe is its instrument.
+
+279
+00:15:22.829 --> 00:15:25.305
+Production is no longer the bottleneck.
+
+280
+00:15:25.305 --> 00:15:26.544
+Ideas are.
+
+281
+00:15:26.544 --> 00:15:27.762
+Thank you.
