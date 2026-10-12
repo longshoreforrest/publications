@@ -2083,8 +2083,8 @@ const EXPL=Object.assign({"fit": {"f": "$$\\varphi:\\mathcal P\\times\\mathcal S
   const toc=document.getElementById('toc'), stage=document.getElementById('stage'), vp=document.getElementById('vp');
   const T={fi:{sub:'Agentinen haku ja tuotekehityksen yläpää',rev:'Upstream-kalvot',help:'← → / välilyönti · S sisällys · F koko näyttö',tg:'Sisällys (S)',pv:'Edellinen (←)',nx:'Seuraava (→)',fs:'Koko näyttö (F)',title:'Agentic Search & Discovery -kalvot'},
            en:{sub:'Agentic search and the upstream of product development',rev:'Upstream deck',help:'← → / space · S contents · F fullscreen',tg:'Contents (S)',pv:'Previous (←)',nx:'Next (→)',fs:'Fullscreen (F)',title:'Agentic Search & Discovery slides'}};
-  let lang='fi', slides=[], links=[], cur=0;
-  try{const v=localStorage.getItem('as-slides-lang'); if(v==='en'||v==='fi') lang=v;}catch(e){}
+  let lang='en', slides=[], links=[], cur=0;
+  try{const v=localStorage.getItem('ad-deck-lang'); if(v==='en'||v==='fi') lang=v;}catch(e){}
   const m=location.hash.match(/^#(fi|en)?\/?(\d+)?$/); if(m&&m[1]) lang=m[1];
   let start=m&&m[2]?parseInt(m[2])-1:0;
   function build(){
@@ -2118,7 +2118,7 @@ const EXPL=Object.assign({"fit": {"f": "$$\\varphi:\\mathcal P\\times\\mathcal S
   const FK='deck-fold:'+location.pathname;let FOLD=new Set();try{FOLD=new Set(JSON.parse(localStorage.getItem(FK)||'[]'));}catch(e){}
   function foldSec(name,all){if(all){const names=[...new Set(slides.map(z=>z.dataset.s))];const on=!FOLD.has(name);FOLD=new Set(on?names:[]);}else{FOLD.has(name)?FOLD.delete(name):FOLD.add(name);}
     try{localStorage.setItem(FK,JSON.stringify([...FOLD]));}catch(e){}build();show(cur);}
-  function setLang(l){if(l===lang)return;lang=l;try{localStorage.setItem('as-slides-lang',l);}catch(e){}build();show(cur);}
+  function setLang(l){if(l===lang)return;lang=l;try{localStorage.setItem('ad-deck-lang',l);}catch(e){}build();show(cur);}
   document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>setLang(b.dataset.l));
   function fit(){const r=vp.getBoundingClientRect();const m=document.body.classList.contains('pres')?0:40;const s=Math.min((r.width-m)/1280,(r.height-m)/720);stage.style.transform='translate(-50%,-50%) scale('+s+')';}
   addEventListener('resize',fit);

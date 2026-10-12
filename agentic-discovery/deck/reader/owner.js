@@ -13,7 +13,7 @@
  *     made in the other edition,
  *   - keeps the "N" counter on the toolbar button.
  */
-import { parseExtra, paintRects, paintBadge, paintXlang } from './comments.js?v=20261012-1901';
+import { parseExtra, paintRects, paintBadge, paintXlang } from './comments.js?v=20261012-1906';
 
 const STR = {
   en: { title: 'All comments', filter: 'Filter: name, text, p. 19, FI, EN…', reload: 'Reload', close: 'Close', loading: 'Loading…',
