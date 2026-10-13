@@ -1,15 +1,15 @@
 /* The Agentic Probe — paper reader, runtime config (classic script, loaded first in <head>).
  *
- * Copied from agentic-articles/phd-tapio/public-viewer (the thesis reader) on 2026-10-01 and adapted:
- * English UI, own site tag, the 1 October 2026 edition of the paper. talk/tools/build.mjs copies this
+ * Copied from agentic-articles/phd-tapio/public-viewer (the thesis reader) on 2026-10-13 and adapted:
+ * English UI, own site tag, the 13 October 2026 edition of the paper. talk/tools/build.mjs copies this
  * folder to dist/paper/ and the PDF next to it. No secrets here: the Google client id and the MyPA
  * endpoint are public by design.
  */
 window.PHD_VIEWER_CONFIG = {
-  // The paper edition, next to index.html in dist/paper/ (built from paper/editions/2026-10-01/).
-  pdfUrl: './agentic-probe-2026-10-01.pdf',
-  title: 'The Agentic Probe — paper, 1 October 2026',
-  edition: '2026-10-01',
+  // The paper edition, next to index.html in dist/paper/ (built from paper/editions/2026-10-13/).
+  pdfUrl: './agentic-probe-2026-10-13.pdf',
+  title: 'The Agentic Probe — paper, 13 October 2026',
+  edition: '2026-10-13',
 
   // ---- Feedback + analytics (the existing MyPublicAnalytics Cloudflare Worker) ----
   // Comments POST as event:'feedback' with this site; readers' actions (page_view, page_dwell, zoom,
@@ -33,5 +33,5 @@ window.PHD_VIEWER_CONFIG = {
   dictationLang: 'en-US',
   audioEndpoint: '',
 
-  buildVersion: '2026-10-01.mupuy34w',
+  buildVersion: '2026-10-13.mv62bmat',
 };
