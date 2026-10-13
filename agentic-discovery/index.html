@@ -461,16 +461,19 @@ header.top .eyebrow{padding-right:150px}
 /* Single version: no version picker, language switch, swap or compare */
 .vseg,#lang,#swap,#cmp,.vtag,#modeBrief{display:none!important}
 header.top .eyebrow{padding-right:0}
+#modeWatch,#player,#styles,#chapters,#compare,#meta,.readlink,.lower>.panel:not(.side),.side .hide-s,
+#dl li:has(a[data-dl="mp4"]),#dl li:has(a[data-dl="vtt"]),#dl li:has(a[data-dl="transcript"]){display:none!important}
+.lower{display:block!important;margin-top:22px}#dl li:has(a[data-dl="deck"]){justify-content:flex-start;gap:6px}.lower .side{max-width:760px}
 </style></head>
 <body class="app">
 <div class="wrap">
   <header class="top">
-    <div><div class="eyebrow">A talk on Agentic Discovery &amp; Engineering · Aalto University · 2026</div><h1>The Agentic Probe, told as a talk</h1>
-      <div class="mode" role="group" aria-label="Watch or read">
+    <div><div class="eyebrow">Agentic Discovery &amp; Engineering · Aalto University · 2026</div><h1>The Agentic Probe</h1>
+      <div class="mode" role="group" aria-label="Read">
         <a class="on" href="#player" id="modeWatch"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><span><b><span class="lg">Watch &amp; listen</span><span class="sh">Watch</span></b><small id="modeWatchSub">narrated, about 15 min</small></span></a>
         <a href="slides.html" target="_blank" rel="noopener" id="modeRead"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zm2 2v12h12V6zm2 2h8v2H8zm0 4h8v2H8zm0 4h5v2H8z"/></svg><span><b><span class="lg">Read the slides</span><span class="sh">Slides</span></b><small id="modeReadSub">cover, 7 slides, speaker notes · no audio</small></span></a>
         <a href="paper/" id="modePaper"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6zm8 1.5V8h4.5zM8 11h8v2H8zm0 4h8v2H8z"/></svg><span><b><span class="lg">Read the paper</span><span class="sh">Paper</span></b><small>PDF, edition of 13 Oct 2026 · comment with Google</small></span></a>
-        <a href="deck/" id="modeDeck"><svg viewBox="0 0 24 24"><path d="M3 5h18v12H3zm2 2v8h14V7zm4 12h6v2H9z"/></svg><span><b><span class="lg">Long slide deck</span><span class="sh">Deck</span></b><small>46 slides, FI/EN · PDF with comments</small></span></a>
+        <a href="deck/" id="modeDeck"><svg viewBox="0 0 24 24"><path d="M3 5h18v12H3zm2 2v8h14V7zm4 12h6v2H9z"/></svg><span><b><span class="lg">Long slide deck</span><span class="sh">Deck</span></b><small>45 slides, FI/EN · PDF with comments</small></span></a>
       </div></div>
     <div class="hright">
       
@@ -538,9 +541,7 @@ header.top .eyebrow{padding-right:0}
       </ul>
       <h4 id="dlhead">Take it with you</h4>
       <ul id="dl"></ul>
-      <p>A fifteen-minute talk on the <b>Agentic Probe</b>: a working answer, built by an AI agent from a stakeholder&#8217;s own words, in minutes. It follows the paper <b>Agentic Discovery &amp; Engineering</b> (Tapio Pitkäranta, Leena Pitkäranta, Aalto University): what a probe is, why it is cheap now, the practice that makes probes, the 69 probes from eight field engagements, and how the bottleneck moved from production to orchestration to ideas.</p>
-      <p>Five slide styles: pick one under the chapters, or press <b>S</b>. The video download uses the Paper style.</p>
-      <p>The narrator is a synthetic voice (Kokoro, an open text-to-speech model) reading a script written from the slides and the paper. Every number comes from the paper.</p>
+      <p>The <b>Agentic Probe</b>: a working answer, built by an AI agent from a stakeholder&#8217;s own words, in minutes. It follows the paper <b>Agentic Discovery &amp; Engineering</b> (Tapio Pitkäranta, Leena Pitkäranta, Aalto University): what a probe is, why it is cheap now, the practice that makes probes, the 69 probes from eight field engagements, and how the bottleneck moved from production to orchestration to ideas.</p>
     </aside>
   </div>
 </div>
@@ -1368,7 +1369,7 @@ function activate(v) {
   $('dlhead').textContent = 'Take it with you';
   $('dl').innerHTML = `<li><a href="${m.slides}" target="_blank" rel="noopener" data-dl="slides"><b>Read the slides instead</b> (HTML, ${m.brief ? 'as received' : notes ? 'with speaker notes' : `${n} slides`})</a></li>
     <li><a href="paper/" data-dl="paper"><b>Read the paper</b> (PDF reader, 13 Oct 2026, comments)</a></li>
-    <li><a href="deck/" data-dl="deck"><b>Long slide deck</b> (46 slides, FI/EN; <a href="deck/viewer.html">PDF with comments</a>)</a></li>
+    <li><a href="deck/" data-dl="deck"><b>Long slide deck</b> (45 slides, FI/EN)</a> · <a href="deck/viewer.html" data-dl="deck-pdf">PDF with comments</a></li>
     <li><a href="paper/agentic-probe-2026-10-13.pdf" download data-dl="pdf">Paper (PDF, 13 Oct 2026)</a></li>
     <li><a href="${m.mp4}" download data-dl="mp4">Video (MP4, 720p)</a></li>
     <li><a href="${m.vtt}" download="agentic-discovery-talk.vtt" data-dl="vtt">Subtitles (WebVTT)</a></li>
