@@ -12,7 +12,7 @@ window.CF_VIEWER_CONFIG = {
   // MyPublicAnalytics site tag — comments POST as event:'feedback' with this
   // site; the Worker lists it under FEEDBACK_PRIVATE_SITES, so only the owner
   // accounts below can read them back.
-  site: 'agentic-discovery',
+  site: 'agentic-discovery-deck',
   collectEndpoint: 'https://mypa.longshoreforrest.workers.dev/collect',
   feedbackEndpoint: 'https://mypa.longshoreforrest.workers.dev/feedback',
 
@@ -38,5 +38,5 @@ window.CF_VIEWER_CONFIG = {
   dictationLang: { fi: 'fi-FI', en: 'en-US' },
 
   // Stamped by publish.mjs (cache-buster for the modules and the JSON tables).
-  buildVersion: '20261013-0441',
+  buildVersion: '20261013-0501',
 };
