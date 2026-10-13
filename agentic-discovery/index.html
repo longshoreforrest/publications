@@ -461,7 +461,17 @@ header.top .eyebrow{padding-right:150px}
 /* Single version: no version picker, language switch, swap or compare */
 .vseg,#lang,#swap,#cmp,.vtag,#modeBrief{display:none!important}
 header.top .eyebrow{padding-right:0}
-#modeWatch,#modeRead,#player,#styles,#chapters,#compare,#meta,.readlink,.lower>.panel:not(.side),.side .hide-s,
+.on#modeDeck{border-color:var(--acc);background:var(--acc);color:var(--acc-ink)}
+#modePaper.on{background:var(--panel);color:var(--ink)}
+#poster,.player .controls{display:none!important}
+.stage{cursor:default!important;pointer-events:none}
+.hero-cta{position:absolute;right:3.2%;top:5.5%;z-index:4;display:flex;gap:10px;pointer-events:auto}
+.hero-cta a{font:700 clamp(12px,1.5cqw,17px)/1 Inter,system-ui,sans-serif;text-decoration:none;padding:.85em 1.2em;border-radius:999px;background:var(--acc);color:var(--acc-ink);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.hero-cta a.alt{background:rgba(255,255,255,.12);color:#fbfaf7;border:1px solid rgba(255,255,255,.35)}
+.hero-cta a:hover{transform:translateY(-1px)}
+@media (max-width:560px){.hero-cta{display:none}}
+.lower{margin-top:26px!important}
+#modeWatch,#modeRead,#styles,#chapters,#compare,#meta,.readlink,.lower>.panel:not(.side),.side .hide-s,
 #dl li:has(a[data-dl="slides"]),#dl li:has(a[data-dl="mp4"]),#dl li:has(a[data-dl="vtt"]),#dl li:has(a[data-dl="transcript"]){display:none!important}
 .lower{display:block!important;margin-top:22px}#dl li:has(a[data-dl="deck"]){justify-content:flex-start;gap:6px}.lower .side{max-width:760px}
 </style></head>
@@ -472,7 +482,7 @@ header.top .eyebrow{padding-right:0}
       <div class="mode" role="group" aria-label="Read">
         <a class="on" href="#player" id="modeWatch"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><span><b><span class="lg">Watch &amp; listen</span><span class="sh">Watch</span></b><small id="modeWatchSub">narrated, about 15 min</small></span></a>
         <a href="slides.html" target="_blank" rel="noopener" id="modeRead"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zm2 2v12h12V6zm2 2h8v2H8zm0 4h8v2H8zm0 4h5v2H8z"/></svg><span><b><span class="lg">Read the slides</span><span class="sh">Slides</span></b><small id="modeReadSub">cover, 7 slides, speaker notes · no audio</small></span></a>
-        <a href="deck/" id="modeDeck"><svg viewBox="0 0 24 24"><path d="M3 5h18v12H3zm2 2v8h14V7zm4 12h6v2H9z"/></svg><span><b><span class="lg">Read the slides</span><span class="sh">Slides</span></b><small>44 slides, FI/EN · PDF with comments</small></span></a>
+        <a class="on" href="deck/" id="modeDeck"><svg viewBox="0 0 24 24"><path d="M3 5h18v12H3zm2 2v8h14V7zm4 12h6v2H9z"/></svg><span><b><span class="lg">Read the slides</span><span class="sh">Slides</span></b><small>44 slides, FI/EN · PDF with comments</small></span></a>
         <a href="paper/" id="modePaper"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6zm8 1.5V8h4.5zM8 11h8v2H8zm0 4h8v2H8z"/></svg><span><b><span class="lg">Read the paper</span><span class="sh">Paper</span></b><small>PDF, edition of 13 Oct 2026 · comment with Google</small></span></a>
       </div></div>
     <div class="hright">
@@ -483,7 +493,8 @@ header.top .eyebrow{padding-right:0}
   </header>
 
   <div class="player" id="player">
-    <div class="stage deck" id="stage" aria-label="Narrated slide story">
+    <div class="stage deck" id="stage" aria-label="The Agentic Probe">
+      <div class="hero-cta"><a href="deck/">Read the slides →</a><a href="paper/" class="alt">Read the paper →</a></div>
       <div class="frame" id="frame"></div>
       <div class="chip" id="chip"></div>
       <div class="vtag" id="vtag"></div>
@@ -2013,4 +2024,5 @@ const FONTS = ['400 12px Inter', '500 12px Inter', '600 12px Inter', '700 12px I
   }
 })();
 </script>
+<script>addEventListener('load',function(){var a=document.getElementById('audio');if(a){a.pause();a.removeAttribute('src');a.load();}});</script>
 </body></html>
