@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://accounts.google.com">
-<link rel="stylesheet" href="reader/reader.css?v=20261013-1447">
-<script src="reader/config.js?v=20261013-1447"></script>
+<link rel="stylesheet" href="reader/reader.css?v=20261014-0644">
+<script src="reader/config.js?v=20261014-0644"></script>
 <style>
 :root{--bg:#eceef1;--chrome:#fff;--chrome-2:#f5f5f7;--ink:#1a1f36;--soft:#4a5568;--muted:#718096;--border:#e5e7eb;--accent:#4f46e5;--accent-soft:#eef2ff;--warn:#d97706;--sh:0 1px 3px rgba(15,23,42,.08)}
 [data-theme=slate]{--bg:#0b1020;--chrome:#161b22;--chrome-2:#1e242c;--ink:#e7ecf2;--soft:#cbd5e1;--muted:#94a3b8;--border:#2a323c;--accent:#818cf8;--accent-soft:rgba(129,140,248,.16);--sh:0 1px 3px rgba(0,0,0,.4)}
@@ -139,6 +139,8 @@ const clampP = (p) => Math.max(1, Math.min(st.numPages, p));
 // Same surface as the PhD reader's window.Reader (onPainted / cmtLayer / pageOfNode / …) so those
 // modules port almost verbatim. Ready when the first edition has loaded; 'doc' fires on each switch.
 const painted = [], bus = {};
+// bus-only notification (no analytics event of its own): page / nav / zoom for reader/activity.js
+function notify(name, data) { for (const cb of bus[name] || []) { try { cb(data || {}); } catch (e) {} } }
 let UI_LANG = 'en';
 try { const l = localStorage.getItem('cf_lang'); UI_LANG = l ? (l === 'fi' ? 'fi' : 'en') : (String(navigator.language || '').toLowerCase().startsWith('fi') ? 'fi' : 'en'); } catch (e) {}
 const Reader = {
@@ -156,7 +158,7 @@ const Reader = {
   isRendered(n) { const el = Reader.pageEl(n); return !!(el && el.dataset.rendered); },
   onPainted(cb) { painted.push(cb); },
   on(name, cb) { (bus[name] = bus[name] || []).push(cb); },
-  emit(name, data) { for (const cb of bus[name] || []) { try { cb(data || {}); } catch (e) {} } track(name, data); },
+  emit(name, data) { notify(name, data); track(name, data); },
   goToPage: (n) => goToPage(n, true),
   async scrollToFraction(n, fy) {
     n = clampP(n); st.target = { page: printed(n) };
@@ -300,7 +302,7 @@ async function addLinkLayer(el, page, vp, rid) {
         link.addEventListener('click', async (ev) => {
           ev.preventDefault();
           const p = await destToPhysical(a.dest);
-          if (p) { st.target = { page: printed(p) }; await goToPage(p, true); writeHash(); }
+          if (p) { notify('nav', { method: 'link', from: st.curPage }); st.target = { page: printed(p) }; await goToPage(p, true); writeHash(); }
         });
       }
       layer.appendChild(link);
@@ -359,13 +361,13 @@ function updateCurFromScroll() {
   const first = pagesEl.querySelector('.page'); if (!first) return;
   const stride = Math.round(st.baseH * scaleFor(st.baseW)) + 14;
   let p = clampP(Math.floor((stage.scrollTop + 60 - first.offsetTop) / stride) + 1);
-  if (p !== st.curPage) { st.curPage = p; $('pageinput').value = printed(p); if (!st.target || st.target.page) { updateLoc(); writeHashPage(); } }
+  if (p !== st.curPage) { st.curPage = p; notify('page', { page: p }); $('pageinput').value = printed(p); if (!st.target || st.target.page) { updateLoc(); writeHashPage(); } }
 }
 function writeHashPage() { if (st.target && (st.target.label || st.target.dest)) return; st.target = { page: printed(st.curPage) }; writeHash(); }
 
 // ---------- navigation ----------
 async function goToPage(phys, flash) {
-  phys = clampP(phys); st.curPage = phys; $('pageinput').value = printed(phys); updateLoc();
+  phys = clampP(phys); if (phys !== st.curPage) { st.curPage = phys; notify('page', { page: phys }); } $('pageinput').value = printed(phys); updateLoc();
   if (st.mode === 'single') {
     const el = $('single-page'); await renderInto(el, phys);
     stage.scrollTop = 0;
@@ -387,7 +389,7 @@ async function goTarget(target) {
   else if (target.page) { page = physical(target.page); }
   if (!page) { track('viewer_deeplink', { target: target.label || target.dest || target.page, found: false }); toast('Target not found'); return; }
   if (target.label || target.dest) track('viewer_deeplink', { target: target.label || target.dest, ref: meta && meta.ref, kind: meta && meta.kind, dpage: printed(page), found: true });
-  await goToPage(page, true); if (meta) updateLoc(meta); writeHash();
+  notify('nav', { method: 'deeplink', from: st.curPage }); await goToPage(page, true); if (meta) updateLoc(meta); writeHash();
 }
 
 // ---------- search ----------
@@ -435,6 +437,7 @@ async function stepMatch(dir) {
   st.search.cur = p; await showMatch(p);
 }
 async function showMatch(p) {
+  notify('nav', { method: 'search', from: st.curPage });
   $('s-count').textContent = 'p ' + printed(p);
   await goToPage(p, false);
   refreshVisibleHighlights();
@@ -451,9 +454,9 @@ function refreshVisibleHighlights() {
 window.app = {
   async setDoc(doc) { if (doc === st.doc) return; const t = st.target; if (!(await loadDoc(doc))) return; track('viewer_lang', { to: doc }); if (t && (t.label || t.dest)) await goTarget(t); else await goToPage(Math.min(st.curPage, st.numPages), false); setLoading(false); },
   async setMode(m) { if (m === st.mode) return; st.mode = m; try { localStorage.setItem('cf_mode', m); } catch (e) {} track('viewer_mode', { mode: m }); const cur = st.curPage; buildStage(); await goToPage(cur, false); if (st.search.q && st.mode === 'continuous') refreshVisibleHighlights(); },
-  rel(d) { st.target = null; goToPage(st.curPage + d, false).then(() => { st.target = { page: printed(st.curPage) }; writeHash(); }); },
-  goto(v) { const n = parseInt(v, 10); if (n) { st.target = { page: n }; goToPage(physical(n), st.mode === 'single'); writeHash(); } },
-  zoom(d) { st.zoom = Math.max(-3, Math.min(6, st.zoom + d)); const cur = st.curPage; buildStage(); goToPage(cur, false); if (st.search.q) setTimeout(refreshVisibleHighlights, 300); },
+  rel(d, method) { notify('nav', { method: method || (d > 0 ? 'next' : 'prev'), from: st.curPage }); st.target = null; goToPage(st.curPage + d, false).then(() => { st.target = { page: printed(st.curPage) }; writeHash(); }); },
+  goto(v) { const n = parseInt(v, 10); if (n) { notify('nav', { method: 'input', from: st.curPage }); st.target = { page: n }; goToPage(physical(n), st.mode === 'single'); writeHash(); } },
+  zoom(d) { st.zoom = Math.max(-3, Math.min(6, st.zoom + d)); notify('zoom', { zoom: st.zoom }); const cur = st.curPage; buildStage(); goToPage(cur, false); if (st.search.q) setTimeout(refreshVisibleHighlights, 300); },
   searchStep(d) { stepMatch(d); },
   trackDownload() { track('viewer_download', { file: st.pdfUrl }); },
   fullscreen() {
@@ -472,8 +475,8 @@ let sdeb; $('searchinput').addEventListener('input', (e) => { clearTimeout(sdeb)
 $('searchinput').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); if (st.search.q && st.search.cur != null) stepMatch(e.shiftKey ? -1 : 1); else doSearch(e.target.value); } });
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT') return;
-  if (e.key === 'ArrowRight' || e.key === 'PageDown') { if (st.mode === 'single') app.rel(1); }
-  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { if (st.mode === 'single') app.rel(-1); }
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') { if (st.mode === 'single') app.rel(1, 'key'); }
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { if (st.mode === 'single') app.rel(-1, 'key'); }
   else if (e.key === '/') { e.preventDefault(); $('searchinput').focus(); }
   else if (e.key === 'f' && !e.metaKey && !e.ctrlKey && !e.altKey && e.target.tagName !== 'TEXTAREA') { app.fullscreen(); }
 });
@@ -495,6 +498,14 @@ let readyResolve; Reader.ready = new Promise((r) => { readyResolve = r; });
   setLoading(false);
   readyResolve(Reader);
   track('viewer_open', { deeplink: target ? (target.label || target.dest || ('page ' + target.page)) : null, fs: !!(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen) });
+})();
+
+// ---------- reading analytics (per-slide page_view / page_dwell, heartbeat, engagement summary) — reader/activity.js ----------
+(function bootActivity() {
+  const CFG = window.CF_VIEWER_CONFIG || {};
+  const V = CFG.buildVersion && CFG.buildVersion !== 'dev' ? '?v=' + encodeURIComponent(CFG.buildVersion) : '';
+  Reader.ready.then(() => import('./reader/activity.js' + V)).then((m) => { Reader.activity = m.initActivity(Reader, CFG, track); })
+    .catch((e) => console.warn('activity tracking not loaded', e));
 })();
 
 // ---------- comment layer (Google sign-in, composer, owner view) — reader/*.js ----------
