@@ -47,14 +47,27 @@ footer{margin-top:34px;color:var(--mute);font-size:13px;border-top:1px solid var
 <div class="eyebrow">Paper · Talk · Slides</div>
 <h1>The Agentic Probe</h1>
 <p class="lede">The Instrument of Agentic Discovery &amp; Engineering. AI agents collapse the software lifecycle into two phases; agentic probes (prototypes, simulations and possible futures) do the discovering.</p>
-<p class="by"><b>Tapio Pitkäranta</b> and <b>Leena Pitkäranta</b> · <span class="aalto">Aalto University</span> · third edition, 13 October 2026 · 49 pages</p>
+<p class="by"><b>Tapio Pitkäranta</b> and <b>Leena Pitkäranta</b> · <span class="aalto">Aalto University</span> · third edition, 13 October 2026 (corrected 24 November 2026) · 48 pages</p>
 <div class="cta">
   <a href="paper/">Read the paper</a>
   <a class="alt" href="deck/">Slides (FI/EN)</a>
   <a class="alt" href="https://www.youtube.com/watch?v=dGI7WlgL-JM">Watch the talk</a>
+  <a class="alt" href="#chat">💬 Chat with the paper</a>
   <a class="alt" href="#comment">Comment</a>
   <a class="alt" href="#cite">Cite this</a>
 </div>
+
+<section class="panel" id="chat" style="margin-top:22px">
+  <h2>💬 Chat with the paper</h2>
+  <p style="margin:0 0 10px">Ask your own AI agent about the paper: no account, no key. Paste this line once into a terminal (Claude Code), then just ask, for example <i>"Which SDLC models does the paper go through?"</i></p>
+  <div class="cbox"><button class="copy" id="cpchat">Copy</button><pre id="chatcmd">claude mcp add --transport http agentic-discovery https://research.longshore.fi/agentic-discovery/mcp</pre></div>
+  <p class="cap" style="margin-top:10px"><b>What is recorded:</b> the authors want to know what readers ask, so that the paper can be improved. Only the <b>question text</b> is sent to them; nothing else is stored (no IP address, identity, answer or log). Your agent tells you this before the first search.</p>
+  <details style="margin-top:10px"><summary><b>Other agents and options</b></summary>
+    <p class="cap" style="margin-top:10px">Claude Desktop, Cursor, VS Code and other MCP clients: add this server URL (type HTTP / "custom connector"; some clients need a paid plan for connectors).</p>
+    <div class="cbox"><button class="copy" id="cpurl">Copy</button><pre id="chaturl" style="padding-right:110px">https://research.longshore.fi/agentic-discovery/mcp</pre></div>
+    <p class="cap">No MCP support: have your agent call <code>https://research.longshore.fi/agentic-discovery/search?q=&lt;your question&gt;&amp;terms=&lt;English keywords&gt;</code>, which returns the best passages as JSON (the question is forwarded the same way).</p>
+  </details>
+</section>
 
 <div class="grid">
   <section class="panel">
@@ -103,9 +116,9 @@ footer{margin-top:34px;color:var(--mute);font-size:13px;border-top:1px solid var
   address      = {Espoo, Finland},
   howpublished = {Preprint and slides published on GitHub Pages: \url{https://longshoreforrest.github.io/publications/agentic-discovery/}},
   url          = {https://longshoreforrest.github.io/publications/agentic-discovery/paper/agentic-probe-2026-10-13.pdf},
-  note         = {Third edition, 13 October 2026. Presented by T. Pitk{\"a}ranta at SDLCAI 2026, Aalto University, Espoo, 13 October 2026 (recording: \url{https://www.youtube.com/watch?v=dGI7WlgL-JM}). Source and publication repository: \url{https://github.com/longshoreforrest/publications}}
+  note         = {Third edition, 13 October 2026 (corrected 24 November 2026). Presented by T. Pitk{\"a}ranta at SDLCAI 2026, Aalto University, Espoo, 13 October 2026 (recording: \url{https://www.youtube.com/watch?v=dGI7WlgL-JM}). Source and publication repository: \url{https://github.com/longshoreforrest/publications}}
 }</pre></div>
-  <div class="cbox" id="apabox" hidden><button class="copy" id="cpa">Copy APA</button><pre id="apa">Pitkäranta, T., &amp; Pitkäranta, L. (2026). The Agentic Probe: The Instrument of Agentic Discovery &amp; Engineering (Edition of 13 October 2026) [Preprint; presented at SDLCAI 2026, Aalto University, Espoo]. Aalto University. Published on GitHub Pages. https://longshoreforrest.github.io/publications/agentic-discovery/ · Talk recording: https://www.youtube.com/watch?v=dGI7WlgL-JM</pre></div>
+  <div class="cbox" id="apabox" hidden><button class="copy" id="cpa">Copy APA</button><pre id="apa">Pitkäranta, T., &amp; Pitkäranta, L. (2026). The Agentic Probe: The Instrument of Agentic Discovery &amp; Engineering (Edition of 13 October 2026, corrected 24 November 2026) [Preprint; presented at SDLCAI 2026, Aalto University, Espoo]. Aalto University. Published on GitHub Pages. https://longshoreforrest.github.io/publications/agentic-discovery/ · Talk recording: https://www.youtube.com/watch?v=dGI7WlgL-JM</pre></div>
   <div class="gh"><svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.22 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
   <span>Published openly on GitHub Pages: <a href="https://github.com/longshoreforrest/publications">github.com/longshoreforrest</a>. The paper has no DOI or arXiv id yet; this entry will be updated if that changes.</span></div>
 </section>
@@ -118,7 +131,11 @@ if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t)
 var bib=document.getElementById('bib'),apa=document.getElementById('apa');
 document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.toggle('on',x===b)});bib.parentNode.hidden=b.dataset.t!=='bib';document.getElementById('apabox').hidden=b.dataset.t!=='apa'}});
 document.getElementById('cpb').onclick=function(){cpy(bib.textContent,this)};document.getElementById('cpa').onclick=function(){cpy(apa.textContent,this)};
-bib.onclick=function(){cpy(bib.textContent,document.getElementById('cpb'))};</script><script>window.__MYPA_SITE__="Agentic-Probe";window.__MYPA_ENDPOINT__="https://mypa.longshoreforrest.workers.dev/collect";window.__MYPA_PAGE__="landing";</script>
+bib.onclick=function(){cpy(bib.textContent,document.getElementById('cpb'))};</script><script>(function(){var a=document.getElementById('cpchat'),b=document.getElementById('cpurl');
+a.onclick=function(){cpy(document.getElementById('chatcmd').textContent,a)};document.getElementById('chatcmd').onclick=a.onclick;
+b.onclick=function(){cpy(document.getElementById('chaturl').textContent,b)};document.getElementById('chaturl').onclick=b.onclick;
+if(location.hash==='#chat'){var d=document.querySelector('#chat details');if(d)d.open=false}})();</script>
+<script>window.__MYPA_SITE__="Agentic-Probe";window.__MYPA_ENDPOINT__="https://mypa.longshoreforrest.workers.dev/collect";window.__MYPA_PAGE__="landing";</script>
 <script>
 /*!
  * MyPublicAnalytics beacon — selainpuolen snippet.
