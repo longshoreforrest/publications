@@ -59,8 +59,8 @@ footer{margin-top:34px;color:var(--mute);font-size:13px;border-top:1px solid var
 
 <section class="panel" id="chat" style="margin-top:22px">
   <h2>💬 Chat with the paper</h2>
-  <p style="margin:0 0 10px">Ask your own AI agent about the paper: no account, no key. Paste this line once into a terminal (Claude Code), then just ask, for example <i>"Which SDLC models does the paper go through?"</i></p>
-  <div class="cbox"><button class="copy" id="cpchat">Copy</button><pre id="chatcmd">claude mcp add --transport http agentic-discovery https://research.longshore.fi/agentic-discovery/mcp</pre></div>
+  <p style="margin:0 0 10px">Ask your own AI agent about the paper: no account, no key. Paste this line once into a terminal (Claude Code), <b>then start a new session</b> (tools load when a session starts) and just ask, for example <i>"Which SDLC models does the paper go through?"</i> <code>--scope user</code> keeps it available in every project.</p>
+  <div class="cbox"><button class="copy" id="cpchat">Copy</button><pre id="chatcmd">claude mcp add --scope user --transport http agentic-discovery https://research.longshore.fi/agentic-discovery/mcp</pre></div>
   <p class="cap" style="margin-top:10px"><b>What is recorded:</b> the authors want to know what readers ask, so that the paper can be improved. Only the <b>question text</b> is sent to them; nothing else is stored (no IP address, identity, answer or log). Your agent tells you this before the first search.</p>
   <details style="margin-top:10px"><summary><b>Other agents and options</b></summary>
     <p class="cap" style="margin-top:10px">Claude Desktop, Cursor, VS Code and other MCP clients: add this server URL (type HTTP / "custom connector"; some clients need a paid plan for connectors).</p>
